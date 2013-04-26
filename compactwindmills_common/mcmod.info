@@ -1,0 +1,15 @@
+[
+{
+  "modid": "CompactWindmills",
+  "name": "CompactWindmills",
+  "description": "This mod adds Compact windmills to the game. Based of IC2.",
+  "mcversion": "@MCVERSION@",
+  "version": "@VERSION@",
+  "logoFile": "",
+  "url": "https://github.com/Aroma1997/CompactWindmills",
+  "updateUrl": "https://github.com/Aroma1997/CompactWindmills",
+  "authors": ["Aroma1997", "Schillaa"],
+  "credits": "Code by Aroma1997 (I inspired myself at the CompactSolars code, but I did everything myself), Textures by Schillaa",
+  "dependencies": ["ic2"]
+}
+]
