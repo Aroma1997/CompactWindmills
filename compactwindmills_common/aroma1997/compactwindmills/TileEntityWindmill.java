@@ -71,7 +71,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			initialized = true;
 		}
 		if (tick-- == 0) {
-			output = setOutput(worldObj, xCoord, yCoord, zCoord, type.getOutput());
+			output = setOutput(worldObj, xCoord, yCoord, zCoord, type);
 			tick = CompactWindmills.updateTick;
 		}
 		if (output > 0) {
@@ -98,7 +98,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public int getMaxEnergyOutput() {
-		return type.getOutput();
+		return type.output;
 	}
 
 	public WindType getType() {
@@ -111,14 +111,14 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		MinecraftForge.EVENT_BUS.post(unloadEvent);
 	}
 	
-	private static float getSpace(World world, int x, int y, int z) {
+	private static float getSpace(World world, int x, int y, int z, WindType type) {
 		
 		int airBlocks = 0;
 		int totalBlocks = 0;
 		
-		
+		int radius = type.checkRadius;
 		//This is the radius of the Windmill, where it detects, if there is air or not
-		int radius = 3;
+		
 		
 		for(int xTest = - radius; xTest <= radius; xTest++) {
 			for(int yTest = - radius; yTest <= radius; yTest++) {
@@ -131,14 +131,15 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 				}
 			}
 		}
+		System.err.println(totalBlocks);
 		float efficiency = (float)airBlocks / (float)(totalBlocks - 1);
 		return efficiency;
 	}
 	
-	private static int setOutput(World world, int x, int y, int z, int voltage) {
+	private static int setOutput(World world, int x, int y, int z, WindType type) {
 		
-		float efficiency = getSpace(world, x, y, z);
-		float energy = (float)voltage * efficiency + 0.5F;
+		float efficiency = getSpace(world, x, y, z, type);
+		float energy = (float)type.output * efficiency + 0.5F;
 		return (int)energy;
 	}
 

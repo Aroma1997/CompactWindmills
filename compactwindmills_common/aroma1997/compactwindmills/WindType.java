@@ -19,20 +19,22 @@ import cpw.mods.fml.common.registry.GameRegistry;
  *
  */
 public enum WindType {
-	ELV(8, "Extreme Low Voltage Windmill", TileEntityWindmill.class),
-	LV(32, "Low Voltage Windmill", TileEntityWindmillLV.class),
-	MV(128, "Medium Voltage Windmill", TileEntityWindmillMV.class),
-	HV(512, "High Voltage Windmill", TileEntityWindmillHV.class),
-	EV(2048, "Extreme Voltage Windmill", TileEntityWindmillEV.class);
+	ELV(8, "Extreme Low Voltage Windmill", TileEntityWindmill.class, 3),
+	LV(32, "Low Voltage Windmill", TileEntityWindmillLV.class, 6),
+	MV(128, "Medium Voltage Windmill", TileEntityWindmillMV.class, 8),
+	HV(512, "High Voltage Windmill", TileEntityWindmillHV.class, 10),
+	EV(2048, "Extreme Voltage Windmill", TileEntityWindmillEV.class, 12);
 
-	private int output;
+	public int output;
 	public Class<? extends TileEntityWindmill> claSS;
 	public String showedName;
+	public int checkRadius;
 
-	private WindType(int output, String showedName, Class<? extends TileEntityWindmill> claSS) {
-		this.output=output;
-		this.showedName=showedName;
-		this.claSS=claSS;
+	private WindType(int output, String showedName, Class<? extends TileEntityWindmill> claSS, int checkRadius) {
+		this.output = output;
+		this.showedName = showedName;
+		this.claSS = claSS;
+		this.checkRadius = checkRadius;
 	}
 
 	public static void generateRecipes(BlockCompactWindmill block) {
@@ -41,9 +43,6 @@ public enum WindType {
 		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 2), " W ", "WTW", " W ", 'W', new ItemStack(block, 1, 1), 'T', Items.getItem("transformerUpgrade"));
 		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 3), " W ", "WTW", " W ", 'W', new ItemStack(block, 1, 2), 'T', Items.getItem("transformerUpgrade"));
 		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 4), " W ", "WTW", " W ", 'W', new ItemStack(block, 1, 3), 'T', Items.getItem("transformerUpgrade"));
-	}
-	public int getOutput() {
-		return output;
 	}
 
 	public static TileEntityWindmill makeTileEntity(int metadata) {
