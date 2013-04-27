@@ -131,7 +131,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 				}
 			}
 		}
-		System.err.println(totalBlocks);
 		float efficiency = (float)airBlocks / (float)(totalBlocks - 1);
 		return efficiency;
 	}
