@@ -56,7 +56,7 @@ public enum WindType {
 	}
 
 	public String tileEntityName() {
-		return "WindType."+name();
+		return "WindType." + name();
 	}
 
 }

@@ -13,6 +13,7 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileSourceEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySource;
+import ic2.api.item.Items;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.network.NetworkHelper;
@@ -127,7 +128,9 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 					if (world.isAirBlock(x + xTest, y + yTest, z + zTest)) {
 						airBlocks++;
 					}
-					totalBlocks++;
+					if (world.getBlockId(x + xTest, y + yTest, z + zTest) != Items.getItem("copperCableBlock").itemID) {
+						totalBlocks++;
+					}
 				}
 			}
 		}
