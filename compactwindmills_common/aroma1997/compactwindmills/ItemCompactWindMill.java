@@ -13,7 +13,6 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.StringTranslate;
 /**
  * 
  * @author Aroma1997
@@ -27,7 +26,7 @@ public class ItemCompactWindMill extends ItemBlock {
 	}
 
 	public int getMetadata(int i) {
-		if (i  <WindType.values().length) {
+		if (i  < WindType.values().length) {
 			return i;
 		} else {
 			return 0;
@@ -40,7 +39,7 @@ public class ItemCompactWindMill extends ItemBlock {
 	
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add("Max. Output: " + (2 * Math.pow(4, par1ItemStack.getItemDamage() + 1)) + "EU/t");
+		par3List.add("Max. Output: " + WindType.values()[par1ItemStack.getItemDamage()].output + "EU/t");
 	}
 
 }
