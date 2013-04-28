@@ -13,7 +13,6 @@ import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileSourceEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySource;
-import ic2.api.item.Items;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.api.network.NetworkHelper;
@@ -115,7 +114,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	private static float getSpace(World world, int x, int y, int z, WindType type) {
 		
 		int airBlocks = 0;
-		int totalBlocks = 0;
 		
 		int radius = type.checkRadius;
 		//This is the radius of the Windmill, where it detects, if there is air or not
@@ -128,20 +126,23 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 					if (world.isAirBlock(x + xTest, y + yTest, z + zTest)) {
 						airBlocks++;
 					}
-					if (world.getBlockId(x + xTest, y + yTest, z + zTest) != Items.getItem("copperCableBlock").itemID) {
-						totalBlocks++;
-					}
 				}
 			}
 		}
-		float efficiency = (float)airBlocks / (float)(totalBlocks - 1);
+		float efficiency = (float)airBlocks / (float)(Math.pow(radius * 2 + 1, 3) - 1 - radius);
 		return efficiency;
 	}
 	
 	private static int setOutput(World world, int x, int y, int z, WindType type) {
 		
-		float efficiency = getSpace(world, x, y, z, type);
-		float energy = (float)type.output * efficiency + 0.5F;
+		float space = getSpace(world, x, y, z, type) * 0.6F;
+		float height = getHeight(world, x, y, z) * 0.4F;
+		float weather = getWeather(world) * 0.2F;
+		float totalEfficiency = space + height + weather;
+		float energy = (float)type.output * totalEfficiency + 0.5F;
+		if ((int) energy > type.output) {
+			return type.output;
+		}
 		return (int)energy;
 	}
 
@@ -173,5 +174,23 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
 		return new ItemStack(this.blockType, 1, type.ordinal());
+	}
+
+	private static float getHeight(World world, int x, int y, int z) {
+		float heightEfficiency = (y - 63) / (63);
+		if (heightEfficiency > 1.0F) {
+			return 1.0F;
+		}
+		return heightEfficiency;
+	}
+
+	private static float getWeather(World world) {
+		if (world.isThundering()) {
+			return 1.0F;
+		}
+		if (world.isRaining()) {
+			return 0.5F;
+		}
+		return 0.0F;
 	}
 }
