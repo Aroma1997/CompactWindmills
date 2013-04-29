@@ -19,7 +19,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  *
  */
 public enum WindType {
-	ELV(8, "Extreme Low Voltage Windmill", TileEntityWindmill.class, 3),
+	ELV(8, "Ultra Low Voltage Windmill", TileEntityWindmill.class, 3),
 	LV(32, "Low Voltage Windmill", TileEntityWindmillLV.class, 6),
 	MV(128, "Medium Voltage Windmill", TileEntityWindmillMV.class, 8),
 	HV(512, "High Voltage Windmill", TileEntityWindmillHV.class, 10),
