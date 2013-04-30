@@ -53,13 +53,13 @@ public class CompactWindmills {
         	Property ticks = config.get(Configuration.CATEGORY_GENERAL, "WaitTicks", 64);
         		ticks.comment = "This is the amount of ticks, the windmills will wait, until they update their efficiency count." +
         					"Note: The lower the number is, the more lag it will cause." +
-        					"Also note, that they always produce their EU-Count per tick, not only, when they update their block count.";
+        					"Also note, that they always produce their EU-Count per tick, not only, when they update their efficiency count.";
         		updateTick = ticks.getInt(64);
         	config.save();
         	
             windMill = new BlockCompactWindmill(blockID);
             
-        	GameRegistry.registerBlock(windMill, ItemCompactWindMill.class);
+        	GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "compactWindmillBlock");
         	for (WindType typ : WindType.values()) {
         		LanguageRegistry.instance().addStringLocalization(typ.name() + ".name", typ.showedName);
         		GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
