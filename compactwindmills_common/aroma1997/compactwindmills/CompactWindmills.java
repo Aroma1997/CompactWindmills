@@ -59,7 +59,7 @@ public class CompactWindmills {
         	
             windMill = new BlockCompactWindmill(blockID);
             
-        	GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "compactWindmillBlock");
+        	GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "blockCompactWindmill");
         	for (WindType typ : WindType.values()) {
         		LanguageRegistry.instance().addStringLocalization(typ.name() + ".name", typ.showedName);
         		GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
