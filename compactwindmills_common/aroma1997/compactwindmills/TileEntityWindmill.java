@@ -139,7 +139,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		float height = getHeight(world, x, y, z) * 0.4F;
 		float weather = getWeather(world) * 0.2F;
 		float totalEfficiency = space + height + weather;
-		float energy = (float)type.output * totalEfficiency + 0.5F;
+		float energy = (float)type.output * totalEfficiency;
 		if ((int) energy > type.output) {
 			return type.output;
 		}
