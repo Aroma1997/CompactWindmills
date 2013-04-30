@@ -38,6 +38,12 @@ public class ItemCompactWindMill extends ItemBlock {
 	}
 	
 	@Override
+    public String getItemDisplayName(ItemStack par1ItemStack)
+    {
+        return WindType.values()[par1ItemStack.getItemDamage()].showedName;
+    }
+	
+	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
 		par3List.add("Max. Output: " + WindType.values()[par1ItemStack.getItemDamage()].output + "EU/t");
 	}
