@@ -8,10 +8,11 @@
 
 package aroma1997.compactwindmills;
 
-import java.util.List;
+import ic2.api.item.Items;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -20,6 +21,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 /**
  * 
  * @author Aroma1997
@@ -50,8 +53,25 @@ public class BlockCompactWindmill extends BlockContainer {
 	
 	@Override
 	public int damageDropped(int meta) {
-		return meta;
+		if (meta != 0) {
+			return meta - 1;
+		}
+		return Items.getItem("windMill").getItemDamage();
 	}
+	
+	@Override
+	public int idDropped(int meta, Random random, int id) {
+		if (meta != 0) {
+			return CompactWindmills.windMill.blockID;
+		}
+		return Items.getItem("windMill").itemID;
+	}
+	
+	@Override
+    public int quantityDropped(Random random)
+    {
+        return 4;
+    }
 	
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -79,6 +99,6 @@ public class BlockCompactWindmill extends BlockContainer {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int metadata) {
-		return textures[metadata][side == 3 ? 2 : side > 3 ? 3 : side];
+		return textures[metadata][side == 2 ? 3 : side > 3 ? 2 : side];
 	}
 }
