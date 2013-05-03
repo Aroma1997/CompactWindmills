@@ -7,12 +7,7 @@
 ******************************************************************************/
 package aroma1997.compactwindmills;
 
-import ic2.api.item.Items;
-import net.minecraft.item.ItemStack;
-
 import com.google.common.base.Throwables;
-
-import cpw.mods.fml.common.registry.GameRegistry;
 /**
  * 
  * @author Aroma1997
@@ -37,19 +32,11 @@ public enum WindType {
 		this.checkRadius = checkRadius;
 	}
 
-	public static void generateRecipes(BlockCompactWindmill block) {
-		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 0), " W ", "WTW", " W ", 'W', Items.getItem("windMill"), 'T', Items.getItem("lvTransformer"));
-		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 1), " W ", "WTW", " W ", 'W', new ItemStack(block, 1, 0), 'T', Items.getItem("transformerUpgrade"));
-		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 2), " W ", "WTW", " W ", 'W', new ItemStack(block, 1, 1), 'T', Items.getItem("transformerUpgrade"));
-		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 3), " W ", "WTW", " W ", 'W', new ItemStack(block, 1, 2), 'T', Items.getItem("transformerUpgrade"));
-		GameRegistry.addShapedRecipe(new ItemStack(block, 1, 4), " W ", "WTW", " W ", 'W', new ItemStack(block, 1, 3), 'T', Items.getItem("transformerUpgrade"));
-	}
-
 	public static TileEntityWindmill makeTileEntity(int metadata) {
 		int windtype = metadata;
 		try {
-			TileEntityWindmill te = values()[windtype].claSS.newInstance();
-			return te;
+			TileEntityWindmill tileEntity = values()[windtype].claSS.newInstance();
+			return tileEntity;
 		} catch (Exception e) {
 			throw Throwables.propagate(e);
 		}

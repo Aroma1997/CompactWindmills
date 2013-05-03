@@ -16,5 +16,7 @@ public class Reference {
 	public static final String ModName = "CompactWindmills";
 	public static final String Version = "@VERSION@";
 	public static final String MCVersion = "@MCVERSION@";
+	
+	public static final int ItemIDDifference = -256;
 
 }

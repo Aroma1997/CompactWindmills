@@ -8,8 +8,11 @@
 
 package aroma1997.compactwindmills;
 
+import ic2.api.item.Items;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import cpw.mods.fml.common.Mod;
@@ -22,6 +25,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -39,9 +43,14 @@ public class CompactWindmills {
         @SidedProxy(clientSide="aroma1997.compactwindmills.ClientProxy", serverSide="aroma1997.compactwindmills.CommonProxy")
         public static CommonProxy proxy;
        
-        public static int blockID;
+        private static int blockID;
+        private static int rotorID;
+        private static int rotorWoodID;
         public static Block windMill;
+        public static Item rotor;
+        public static Item rotorWood;
         public static int updateTick;
+        public static int rotorDamage;
         public static CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
         @PreInit
         public void preInit(FMLPreInitializationEvent event) {
@@ -55,20 +64,46 @@ public class CompactWindmills {
         					"Note: The lower the number is, the more lag it will cause." +
         					"Also note, that they always produce their EU-Count per tick, not only, when they update their efficiency count.";
         		updateTick = ticks.getInt(64);
+        	Property rotoR = config.getItem("Rotor", 27900);
+        		rotoR.comment = "This is the id of the Rotor item.";
+        		rotorID = rotoR.getInt(27900);
+        	Property woodenRotor = config.getItem("woodenRotor", 27901);
+        		woodenRotor.comment = "This is the id of the Wooden rotor Item";
+        		rotorWoodID = woodenRotor.getInt(27901);
+        	Property damageRotor = config.get(Configuration.CATEGORY_GENERAL, "DamageRotor", 1);
+        		damageRotor.comment = "This defines by how much a rotor is damaged every tick." + 
+        					"Note: Setting this to 0 will disable the damage on rotors." + 
+        					"Also note, setting this to a higher number will make the rotors to last a lot less.";
+        		rotorDamage = damageRotor.getInt(1);
         	config.save();
         	
             windMill = new BlockCompactWindmill(blockID);
-            
+            rotor = new ItemRotor(rotorID).setMaxTier(WindType.EV).setUnlocalizedName("compactWindmillsRotor").setMaxDamage(3456000);
+            rotorWood = new ItemRotor(rotorWoodID).setMaxTier(WindType.LV).setUnlocalizedName("compactWindmillsRotorWood").setMaxDamage(72000);
+        }
+       
+        @Init
+        public void load(FMLInitializationEvent event) {
+        	
         	GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "blockCompactWindmill");
         	for (WindType typ : WindType.values()) {
         		LanguageRegistry.instance().addStringLocalization(typ.name() + ".name", typ.showedName);
         		GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
         	}
-        }
-       
-        @Init
-        public void load(FMLInitializationEvent event) {
-        	WindType.generateRecipes((BlockCompactWindmill)windMill);
+    		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ", "WTW", " W ", 'W', Items.getItem("windMill"), 'T', Items.getItem("lvTransformer"));
+    		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 1), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 0), 'T', Items.getItem("transformerUpgrade"));
+    		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 2), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 1), 'T', Items.getItem("transformerUpgrade"));
+    		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 3), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 2), 'T', Items.getItem("transformerUpgrade"));
+    		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 4), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 3), 'T', Items.getItem("transformerUpgrade"));
+    		
+    		
+        	LanguageRegistry.addName(rotor, "Carbon Rotor");
+        	LanguageRegistry.addName(rotorWood, "Wooden Rotor");
+        	GameRegistry.addRecipe(new ItemStack(rotor), "CCC", "CMC", "CCC", 'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
+        	GameRegistry.addRecipe(new ItemStack(rotorWood), " S ", "SIS", " S ", 'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
+        	
+        	
+        	NetworkRegistry.instance().registerGuiHandler(this, proxy);
         	LanguageRegistry.instance().addStringLocalization("itemGroup.creativeTabCW", "en_US", "CompactWindmills");
         	
         }

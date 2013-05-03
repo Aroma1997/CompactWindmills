@@ -23,7 +23,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,13 +35,14 @@ import net.minecraftforge.common.MinecraftForge;
  * @author Aroma1997
  *
  */
-public class TileEntityWindmill extends TileEntity implements IEnergySource, INetworkDataProvider, IWrenchable, INetworkUpdateListener{
+public class TileEntityWindmill extends TileEntity implements IEnergySource, INetworkDataProvider, IWrenchable, INetworkUpdateListener, IInventory {
 	private static Random random = new Random();
 	private WindType type;
 	private boolean initialized;
 	private int tick;
 	private boolean compatibilityMode;
 	private int output;
+	private ItemStack[] inventoryContent;
 
 	public TileEntityWindmill() {
 		this(WindType.ELV);
@@ -48,6 +52,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		super();
 		this.type = type;
 		this.tick = random.nextInt(CompactWindmills.updateTick);
+		this.inventoryContent = new ItemStack[1];
 	}
 
 	@Override
@@ -88,6 +93,10 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	@Override
 	public void onNetworkUpdate(String field) {
 
+	}
+	
+	public ItemStack[] getContents() {
+		return inventoryContent;
 	}
 
 	private static List<String> fields=Arrays.asList(new String[0]);
@@ -133,13 +142,13 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		return efficiency;
 	}
 	
-	private static int setOutput(World world, int x, int y, int z, WindType type) {
+	private int setOutput(World world, int x, int y, int z, WindType type) {
 		
 		float space = getSpace(world, x, y, z, type) * 0.6F;
 		float height = getHeight(world, x, y, z) * 0.4F;
 		float weather = getWeather(world) * 0.2F;
 		float totalEfficiency = space + height + weather;
-		float energy = (float)type.output * totalEfficiency;
+		float energy = (float)type.output * totalEfficiency * (this.tickRotor() == true ? 1.0F : 0.125F);
 		if ((int) energy > type.output) {
 			return type.output;
 		}
@@ -192,5 +201,164 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			return 0.5F;
 		}
 		return 0.0F;
+	}
+
+	@Override
+	public int getSizeInventory() {
+		return 1;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		return inventoryContent[slot];
+	}
+
+	@Override
+    public ItemStack decrStackSize(int par1, int par2)
+    {
+        if (inventoryContent[par1] != null)
+        {
+            ItemStack itemstack;
+
+            if (inventoryContent[par1].stackSize <= par2)
+            {
+                itemstack = inventoryContent[par1];
+                inventoryContent[par1] = null;
+                onInventoryChanged();
+                return itemstack;
+            }
+            else
+            {
+                itemstack = inventoryContent[par1].splitStack(par2);
+
+                if (inventoryContent[par1].stackSize == 0)
+                {
+                    inventoryContent[par1] = null;
+                }
+
+                this.onInventoryChanged();
+                return itemstack;
+            }
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		inventoryContent[i] = itemstack;
+		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
+			itemstack.stackSize = getInventoryStackLimit();
+		}
+		onInventoryChanged();
+	}
+
+	@Override
+	public String getInvName() {
+		return this.type.showedName;
+	}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		return false;
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
+	}
+	
+	@Override
+	public ItemStack getStackInSlotOnClosing(int var1) {
+		if (this.inventoryContent[var1] != null)
+		{
+			ItemStack var2 = this.inventoryContent[var1];
+    	    this.inventoryContent[var1] = null;
+    	    return var2;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		return true;
+	}
+
+	@Override
+	public void openChest() {
+		return;
+	}
+
+	@Override
+	public void closeChest() {
+		return;
+	}
+
+	@Override
+	public boolean isStackValidForSlot(int slot, ItemStack itemStack) {
+		return (itemStack.itemID == CompactWindmills.rotor.itemID);
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nBTTagCompound) {
+		super.writeToNBT(nBTTagCompound);
+		NBTTagList nBTTagList = new NBTTagList();
+		for (int i = 0; i < inventoryContent.length; i++) {
+			if (inventoryContent[i] != null) {
+				NBTTagCompound nBTTagCompoundTemp = new NBTTagCompound();
+				nBTTagCompoundTemp.setByte("Slot", (byte) i);
+				inventoryContent[i].writeToNBT(nBTTagCompoundTemp);
+				nBTTagList.appendTag(nBTTagCompoundTemp);
+			}
+		}
+
+		nBTTagCompound.setTag("Items", nBTTagList);
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nBTTagCompound) {
+		super.readFromNBT(nBTTagCompound);
+		NBTTagList nBTTagList = nBTTagCompound.getTagList("Items");
+		inventoryContent = new ItemStack[getSizeInventory()];
+		for (int i = 0; i < nBTTagList.tagCount(); i++) {
+			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList.tagAt(i);
+			int slotNumb = nBTTagCompoundTemp.getByte("Slot") & 0xff;
+			if (slotNumb >= 0 && slotNumb < inventoryContent.length) {
+				inventoryContent[slotNumb] = ItemStack.loadItemStackFromNBT(nBTTagCompoundTemp);
+			}
+		}
+	}
+	
+	private boolean tickRotor() {
+		ItemStack itemStack = inventoryContent[0];
+		if (itemStack != null && itemStack.getItem() instanceof ItemRotor) {
+			ItemRotor rotor = (ItemRotor) itemStack.getItem();
+			if (rotor.getTier() >= this.type.ordinal()) {
+				if(itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
+					itemStack = null;
+				}
+				else
+				{
+					itemStack.setItemDamage(itemStack.getItemDamage() + (CompactWindmills.updateTick * CompactWindmills.rotorDamage));
+				}
+			}
+			else
+			{
+				itemStack = null;
+			}
+			inventoryContent[0] = itemStack;
+			onInventoryChanged();
+			return true;
+		}
+		return false;
+	}
+	
+	public int getOutputUntilNexttTick() {
+		return this.output;
 	}
 }
