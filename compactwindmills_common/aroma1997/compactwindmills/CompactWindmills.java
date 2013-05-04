@@ -46,9 +46,11 @@ public class CompactWindmills {
         private static int blockID;
         private static int rotorID;
         private static int rotorWoodID;
+        private static int rotorIridiumID;
         public static Block windMill;
         public static Item rotor;
         public static Item rotorWood;
+        public static Item rotorIridium;
         public static int updateTick;
         public static int rotorDamage;
         public static CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
@@ -70,16 +72,15 @@ public class CompactWindmills {
         	Property woodenRotor = config.getItem("woodenRotor", 27901);
         		woodenRotor.comment = "This is the id of the Wooden rotor Item";
         		rotorWoodID = woodenRotor.getInt(27901);
-        	Property damageRotor = config.get(Configuration.CATEGORY_GENERAL, "DamageRotor", 1);
-        		damageRotor.comment = "This defines by how much a rotor is damaged every tick." + 
-        					"Note: Setting this to 0 will disable the damage on rotors." + 
-        					"Also note, setting this to a higher number will make the rotors to last a lot less.";
-        		rotorDamage = damageRotor.getInt(1);
+        	Property iridiumRotor = config.getItem("iridiumRotor", 27902);
+        		iridiumRotor.comment = "This is the id of the Iridium rotor Item";
+        		rotorIridiumID = iridiumRotor.getInt(27902);
         	config.save();
         	
             windMill = new BlockCompactWindmill(blockID);
-            rotor = new ItemRotor(rotorID).setMaxTier(WindType.EV).setUnlocalizedName("compactWindmillsRotor").setMaxDamage(3456000);
-            rotorWood = new ItemRotor(rotorWoodID).setMaxTier(WindType.LV).setUnlocalizedName("compactWindmillsRotorWood").setMaxDamage(72000);
+            rotor = new ItemRotor(rotorID).setMinMaxTier(WindType.MV, WindType.EV).setEfficiency(0.8F).setUnlocalizedName("compactWindmillsRotor").setMaxDamage(3456000);
+            rotorWood = new ItemRotor(rotorWoodID).setMinMaxTier(WindType.ELV, WindType.LV).setEfficiency(0.5F).setUnlocalizedName("compactWindmillsRotorWood").setMaxDamage(72000);
+            rotorIridium = new ItemRotor(rotorIridiumID).setMinMaxTier(WindType.ELV, WindType.EV).setEfficiency(1.0F).setNotGetDamage().setUnlocalizedName("compactWindmillsRotorIridium");
         }
        
         @Init
@@ -99,9 +100,10 @@ public class CompactWindmills {
     		
         	LanguageRegistry.addName(rotor, "Carbon Rotor");
         	LanguageRegistry.addName(rotorWood, "Wooden Rotor");
+        	LanguageRegistry.addName(rotorIridium, "Iridium Rotor");
         	GameRegistry.addRecipe(new ItemStack(rotor), "CCC", "CMC", "CCC", 'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
         	GameRegistry.addRecipe(new ItemStack(rotorWood), " S ", "SIS", " S ", 'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
-        	
+        	GameRegistry.addRecipe(new ItemStack(rotorIridium), " I ", "IRI", " I ", 'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(rotor));
         	
         	NetworkRegistry.instance().registerGuiHandler(this, proxy);
         	LanguageRegistry.instance().addStringLocalization("itemGroup.creativeTabCW", "en_US", "CompactWindmills");

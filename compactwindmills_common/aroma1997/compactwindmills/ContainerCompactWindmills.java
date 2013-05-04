@@ -69,7 +69,7 @@ public class ContainerCompactWindmills extends Container {
             }
             else if (par2 != 1 && par2 != 0)
             {
-                if (((Slot) this.inventorySlots.get(0)).isItemValid(itemstack1)/*itemstack1.getItem() instanceof ItemRotor*/)
+                if (((Slot) this.inventorySlots.get(0)).isItemValid(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {

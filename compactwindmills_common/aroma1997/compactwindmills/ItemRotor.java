@@ -22,7 +22,10 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class ItemRotor extends Item {
 	
-	private int tier;
+	private int tierMin;
+	private int tierMax;
+	private float efficiency;
+	public boolean takeDamage = true;
 	
 	public ItemRotor(int id) {
 		super (id + Reference.ItemIDDifference);
@@ -32,8 +35,14 @@ public class ItemRotor extends Item {
 	
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		int leftOverTicks = par1ItemStack.getMaxDamage() - par1ItemStack.getItemDamage();
-		par3List.add(leftOverTicks + " ticks left over on this Rotor.");
+		if (this.takeDamage) {
+			int leftOverTicks = par1ItemStack.getMaxDamage() - par1ItemStack.getItemDamage();
+			par3List.add(leftOverTicks + " ticks left over on this Rotor.");
+		}
+		else
+		{
+			par3List.add("Infinite");
+		}
 	}
 	
     @Override
@@ -43,12 +52,42 @@ public class ItemRotor extends Item {
         itemIcon = iconRegister.registerIcon(Reference.ModID + ":" + this.getUnlocalizedName());
     }
     
-    public int getTier() {
-    	return this.tier;
+    public int getMinTier() {
+    	return this.tierMin;
     }
     
-    public ItemRotor setMaxTier(WindType type) {
-    	this.tier = type.ordinal();
+    public int getMaxTier() {
+    	return this.tierMax;
+    }
+    
+    public ItemRotor setMinMaxTier(WindType typeMin, WindType typeMax) {
+    	this.tierMin = typeMin.ordinal();
+    	this.tierMax = typeMax.ordinal();
+    	return this;
+    }
+    
+    public ItemRotor setMinMaxTier(WindType type) {
+    	this.tierMin = type.ordinal();
+    	this.tierMax = type.ordinal();
+    	return this;
+    }
+    
+    public boolean doesRotorFitInWindmill(WindType type) {
+    	if(type.ordinal() <= this.tierMax && type.ordinal() >= this.tierMin) return true;
+    	return false;
+    }
+    
+    public ItemRotor setEfficiency(float efficiency) {
+    	this.efficiency = efficiency;
+    	return this;
+    }
+    
+    public float getEfficiency() {
+    	return this.efficiency;
+    }
+    
+    public ItemRotor setNotGetDamage() {
+    	this.takeDamage = false;
     	return this;
     }
 

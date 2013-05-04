@@ -148,7 +148,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		float height = getHeight(world, x, y, z) * 0.4F;
 		float weather = getWeather(world) * 0.2F;
 		float totalEfficiency = space + height + weather;
-		float energy = (float)type.output * totalEfficiency * (this.tickRotor() == true ? 1.0F : 0.125F);
+		float energy = (float) (type.output * totalEfficiency * tickRotor());
 		if ((int) energy > type.output) {
 			return type.output;
 		}
@@ -334,11 +334,28 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		}
 	}
 	
-	private boolean tickRotor() {
+	private float tickRotor() {
 		ItemStack itemStack = inventoryContent[0];
 		if (itemStack != null && itemStack.getItem() instanceof ItemRotor) {
 			ItemRotor rotor = (ItemRotor) itemStack.getItem();
-			if (rotor.getTier() >= this.type.ordinal()) {
+			if (rotor.takeDamage) {
+				if(itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
+					itemStack = null;
+				}
+				else
+				{
+					itemStack.setItemDamage(itemStack.getItemDamage() + (CompactWindmills.updateTick * CompactWindmills.rotorDamage));
+				}
+			}
+			inventoryContent[0] = itemStack;
+			onInventoryChanged();
+			return rotor.getEfficiency();
+		}
+		return 0.0F;
+		/*ItemStack itemStack = inventoryContent[0];
+		if (itemStack != null && itemStack.getItem() instanceof ItemRotor) {
+			ItemRotor rotor = (ItemRotor) itemStack.getItem();
+			if (rotor.doesRotorFitInWindmill(type)) {
 				if(itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
 					itemStack = null;
 				}
@@ -355,7 +372,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			onInventoryChanged();
 			return true;
 		}
-		return false;
+		return false;*/
 	}
 	
 	public int getOutputUntilNexttTick() {
