@@ -182,7 +182,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(this.blockType, 1, getType.ordinal());
+		return new ItemStack(this.BlockCompactWindmill, 1, getType.ordinal());
 	}
 
 	private static float getHeight(World world, int x, int y, int z) {
