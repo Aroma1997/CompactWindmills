@@ -90,7 +90,7 @@ public class BlockCompactWindmill extends BlockContainer {
 	@Override
     public int quantityDropped(Random random)
     {
-        return 4;
+        return 1;
     }
 	
 	@Override
