@@ -52,7 +52,6 @@ public class CompactWindmills {
         public static Item rotorWood;
         public static Item rotorIridium;
         public static int updateTick;
-        public static int rotorDamage;
         public static CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
         @PreInit
         public void preInit(FMLPreInitializationEvent event) {

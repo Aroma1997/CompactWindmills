@@ -344,11 +344,11 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 				}
 				else
 				{
-					itemStack.setItemDamage(itemStack.getItemDamage() + (CompactWindmills.updateTick * CompactWindmills.rotorDamage));
+					itemStack.setItemDamage(itemStack.getItemDamage() + (CompactWindmills.updateTick));
 				}
+				inventoryContent[0] = itemStack;
+				onInventoryChanged();
 			}
-			inventoryContent[0] = itemStack;
-			onInventoryChanged();
 			return rotor.getEfficiency();
 		}
 		return 0.0F;

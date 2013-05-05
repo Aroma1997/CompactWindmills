@@ -90,5 +90,4 @@ public class ItemRotor extends Item {
     	this.takeDamage = false;
     	return this;
     }
-
 }
