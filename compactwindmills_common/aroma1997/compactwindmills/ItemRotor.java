@@ -90,4 +90,9 @@ public class ItemRotor extends Item {
     	this.takeDamage = false;
     	return this;
     }
+    
+    public ItemRotor setGetDamage(boolean damage) {
+    	this.takeDamage = damage;
+    	return this;
+    }
 }
