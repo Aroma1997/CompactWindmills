@@ -45,9 +45,6 @@ public class CompactWindmills {
        
         private static int blockID;
         public static Block windMill;
-        public static Item rotor;
-        public static Item rotorWood;
-        public static Item rotorIridium;
         public static int updateTick;
         public static CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
         @PreInit
@@ -88,9 +85,9 @@ public class CompactWindmills {
     			LanguageRegistry.addName(rotor.getItem(), rotor.showedName);
     		}
     		
-        	GameRegistry.addRecipe(new ItemStack(rotor), "CCC", "CMC", "CCC", 'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
-        	GameRegistry.addRecipe(new ItemStack(rotorWood), " S ", "SIS", " S ", 'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
-        	GameRegistry.addRecipe(new ItemStack(rotorIridium), " I ", "IRI", " I ", 'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(rotor));
+        	GameRegistry.addRecipe(new ItemStack(RotorType.CARBON.getItem()), "CCC", "CMC", "CCC", 'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
+        	GameRegistry.addRecipe(new ItemStack(RotorType.WOOD.getItem()), " S ", "SIS", " S ", 'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
+        	GameRegistry.addRecipe(new ItemStack(RotorType.IRIDIUM.getItem()), " I ", "IRI", " I ", 'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(RotorType.CARBON.getItem()));
         	
         	NetworkRegistry.instance().registerGuiHandler(this, proxy);
         	LanguageRegistry.instance().addStringLocalization("itemGroup.creativeTabCW", "en_US", "CompactWindmills");
