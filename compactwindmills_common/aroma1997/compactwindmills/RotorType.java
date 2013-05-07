@@ -16,9 +16,9 @@ import net.minecraftforge.common.Property;
  *
  */
 public enum RotorType {
-	
-	CARBON(27900, 3456000, WindType.MV, WindType.EV, 0.8F, "Carbon Rotor", "rotorCarbon", true, ItemRotor.class),
-	WOOD(27901, 72000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", true, ItemRotor.class),
+
+	WOOD(27900, 72000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", true, ItemRotor.class),
+	CARBON(27901, 3456000, WindType.MV, WindType.EV, 0.8F, "Carbon Rotor", "rotorCarbon", true, ItemRotor.class),
 	IRIDIUM(27902, 0, WindType.ELV, WindType.EV, 1.0F, "Iridium Rotor", "rotorIridium", false, ItemRotor.class);
 	
 	private int defaultId;
@@ -54,17 +54,29 @@ public enum RotorType {
 		return this.rotor;
 	}
 	
-	public void getConfig(Configuration config) {
+	private void getConfig(Configuration config) {
 		Property rotorId = config.getItem(this.unlocalizedName, this.defaultId);
 		rotorId.comment = "This is the id, of the " + this.showedName + " Item.";
 		this.id = rotorId.getInt(this.defaultId);
 	}
 	
-	public void initRotor() {
+	private void initRotor() {
 		try {
 			this.rotor = (ItemRotor) claSS.getConstructor(int.class).newInstance(this.id).setGetDamage(this.takeDamage).setMinMaxTier(this.typeMin, this.typeMax).setEfficiency(this.efficiency).setMaxDamage(this.maxDamage).setUnlocalizedName(this.unlocalizedName);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public static void initRotors() {
+		for(RotorType type : RotorType.values()) {
+			type.initRotor();
+		}
+	}
+	
+	public static void getConfigs(Configuration config) {
+		for(RotorType type : RotorType.values()) {
+			type.getConfig(config);
 		}
 	}
 

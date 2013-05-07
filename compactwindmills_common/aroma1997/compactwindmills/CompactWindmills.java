@@ -62,28 +62,12 @@ public class CompactWindmills {
         					"Note: The lower the number is, the more lag it will cause." +
         					"Also note, that they always produce their EU-Count per tick, not only, when they update their efficiency count.";
         		updateTick = ticks.getInt(64);
-        	/*Property rotoR = config.getItem("Rotor", 27900);
-        		rotoR.comment = "This is the id of the Rotor item.";
-        		rotorID = rotoR.getInt(27900);
-        	Property woodenRotor = config.getItem("woodenRotor", 27901);
-        		woodenRotor.comment = "This is the id of the Wooden rotor Item";
-        		rotorWoodID = woodenRotor.getInt(27901);
-        	Property iridiumRotor = config.getItem("iridiumRotor", 27902);
-        		iridiumRotor.comment = "This is the id of the Iridium rotor Item";
-        		rotorIridiumID = iridiumRotor.getInt(27902);*/
-        	for(RotorType type : RotorType.values()) {
-        		type.getConfig(config);
-        	}
+        	RotorType.getConfigs(config);
         	config.save();
         	
-        	for(RotorType type : RotorType.values()) {
-        		type.initRotor();
-        	}
+        	RotorType.initRotors();
         	
             windMill = new BlockCompactWindmill(blockID);
-            /*rotor = new ItemRotor(rotorID).setMinMaxTier(WindType.MV, WindType.EV).setEfficiency(0.8F).setUnlocalizedName("compactWindmillsRotor").setMaxDamage(3456000);
-            rotorWood = new ItemRotor(rotorWoodID).setMinMaxTier(WindType.ELV, WindType.LV).setEfficiency(0.5F).setUnlocalizedName("compactWindmillsRotorWood").setMaxDamage(72000);
-            rotorIridium = new ItemRotor(rotorIridiumID).setMinMaxTier(WindType.ELV, WindType.EV).setEfficiency(1.0F).setNotGetDamage().setUnlocalizedName("compactWindmillsRotorIridium");*/
         }
        
         @Init
@@ -104,13 +88,10 @@ public class CompactWindmills {
     			LanguageRegistry.addName(rotor.getItem(), rotor.showedName);
     		}
     		
-        	/*LanguageRegistry.addName(rotor, "Carbon Rotor");
-        	LanguageRegistry.addName(rotorWood, "Wooden Rotor");
-        	LanguageRegistry.addName(rotorIridium, "Iridium Rotor");
         	GameRegistry.addRecipe(new ItemStack(rotor), "CCC", "CMC", "CCC", 'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
         	GameRegistry.addRecipe(new ItemStack(rotorWood), " S ", "SIS", " S ", 'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
         	GameRegistry.addRecipe(new ItemStack(rotorIridium), " I ", "IRI", " I ", 'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(rotor));
-        	*/
+        	
         	NetworkRegistry.instance().registerGuiHandler(this, proxy);
         	LanguageRegistry.instance().addStringLocalization("itemGroup.creativeTabCW", "en_US", "CompactWindmills");
         	
