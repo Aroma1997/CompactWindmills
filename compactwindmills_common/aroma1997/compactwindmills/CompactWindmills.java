@@ -44,9 +44,6 @@ public class CompactWindmills {
         public static CommonProxy proxy;
        
         private static int blockID;
-        private static int rotorID;
-        private static int rotorWoodID;
-        private static int rotorIridiumID;
         public static Block windMill;
         public static Item rotor;
         public static Item rotorWood;
