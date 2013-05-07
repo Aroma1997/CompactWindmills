@@ -301,7 +301,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public boolean isStackValidForSlot(int slot, ItemStack itemStack) {
-		return (itemStack.itemID == CompactWindmills.rotor.itemID);
+		return (itemStack.getItem() instanceof ItemRotor);
 	}
 	
 	@Override
