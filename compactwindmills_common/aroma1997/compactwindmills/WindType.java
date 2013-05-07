@@ -15,10 +15,10 @@ import com.google.common.base.Throwables;
  */
 public enum WindType {
 	ELV(8, "Ultra Low Voltage Windmill", TileEntityWindmill.class, 3),
-	LV(32, "Low Voltage Windmill", TileEntityWindmillLV.class, 6),
-	MV(128, "Medium Voltage Windmill", TileEntityWindmillMV.class, 8),
-	HV(512, "High Voltage Windmill", TileEntityWindmillHV.class, 10),
-	EV(2048, "Extreme Voltage Windmill", TileEntityWindmillEV.class, 12);
+	LV(32, "Low Voltage Windmill", TileEntityWindmill.class, 6),
+	MV(128, "Medium Voltage Windmill", TileEntityWindmill.class, 8),
+	HV(512, "High Voltage Windmill", TileEntityWindmill.class, 10),
+	EV(2048, "Extreme Voltage Windmill", TileEntityWindmill.class, 12);
 
 	public int output;
 	public Class<? extends TileEntityWindmill> claSS;
@@ -35,7 +35,8 @@ public enum WindType {
 	public static TileEntityWindmill makeTileEntity(int metadata) {
 		int windtype = metadata;
 		try {
-			TileEntityWindmill tileEntity = values()[windtype].claSS.newInstance();
+			TileEntityWindmill tileEntity = values()[windtype].claSS.getConstructor(WindType.class).newInstance(values()[windtype]);
+			//TileEntityWindmill tileEntity = values()[windtype].claSS.newInstance();
 			return tileEntity;
 		} catch (Exception e) {
 			throw Throwables.propagate(e);
