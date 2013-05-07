@@ -1,10 +1,11 @@
 /*******************************************************************************
 * Copyright (c) 2013 Aroma1997.
 * All rights reserved. This program and other files related to this program are
-* licensed with the GNU Lesser General Public License v. 3
+* licensed with a extended GNU General Public License v. 3
 * License informations are at:
-* http://www.gnu.org/licenses/lgpl.html
+* https://www.github.com/Aroma1997/CompactWindmills/license.txt
 ******************************************************************************/
+
 
 package aroma1997.compactwindmills;
 
