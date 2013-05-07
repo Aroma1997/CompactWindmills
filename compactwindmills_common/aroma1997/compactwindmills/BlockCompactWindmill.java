@@ -73,24 +73,18 @@ public class BlockCompactWindmill extends BlockContainer {
 	
 	@Override
 	public int damageDropped(int meta) {
-		if (meta != 0) {
-			return meta - 1;
-		}
-		return Items.getItem("windMill").getItemDamage();
+		return meta;
 	}
 	
 	@Override
 	public int idDropped(int meta, Random random, int id) {
-		if (meta != 0) {
-			return CompactWindmills.windMill.blockID;
-		}
-		return Items.getItem("windMill").itemID;
+		return id;
 	}
 	
 	@Override
     public int quantityDropped(Random random)
     {
-        return 4;
+        return 1;
     }
 	
 	@Override

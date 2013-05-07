@@ -177,7 +177,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public float getWrenchDropRate() {
-		return 0.99F;
+		return 1.0F;
 	}
 
 	@Override
