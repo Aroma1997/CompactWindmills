@@ -120,7 +120,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		MinecraftForge.EVENT_BUS.post(unloadEvent);
 	}
 	
-	private static float getSpace(World world, int x, int y, int z, WindType type) {
+	private static int getAirBlocks(World world, int x, int y, int z, WindType type) {
 		
 		int airBlocks = 0;
 		
@@ -138,16 +138,15 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 				}
 			}
 		}
-		float efficiency = (float)airBlocks / (float)(Math.pow(radius * 2 + 1, 3) - 1 - radius);
-		return efficiency;
+		return airBlocks;
 	}
 	
 	private int setOutput(World world, int x, int y, int z, WindType type) {
 		
-		float space = getSpace(world, x, y, z, type) * 0.6F;
-		float height = getHeight(world, x, y, z) * 0.4F;
-		float weather = getWeather(world) * 0.2F;
-		float totalEfficiency = space + height + weather;
+		int airBlocks = getAirBlocks(world, x, y, z, type);
+		int totalBlocks = (int) Math.pow(type.checkRadius * 2 + 1, 3) - type.checkRadius - 1;
+		float weather = getWeather(world);
+		float totalEfficiency = (y - 64 - (totalBlocks - airBlocks)) / totalBlocks * weather;
 		float energy = (float) (type.output * totalEfficiency * tickRotor());
 		if ((int) energy > type.output) {
 			return type.output;
@@ -185,22 +184,14 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		return new ItemStack(this.blockType, 1, type.ordinal());
 	}
 
-	private static float getHeight(World world, int x, int y, int z) {
-		float heightEfficiency = (y - 63) / (63);
-		if (heightEfficiency > 1.0F) {
-			return 1.0F;
-		}
-		return heightEfficiency;
-	}
-
 	private static float getWeather(World world) {
 		if (world.isThundering()) {
-			return 1.0F;
+			return 1.5F;
 		}
 		if (world.isRaining()) {
-			return 0.5F;
+			return 1.2F;
 		}
-		return 0.0F;
+		return 1.0F;
 	}
 
 	@Override
