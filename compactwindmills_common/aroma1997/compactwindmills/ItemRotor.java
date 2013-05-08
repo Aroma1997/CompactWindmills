@@ -73,8 +73,7 @@ public class ItemRotor extends Item {
     }
     
     public boolean doesRotorFitInWindmill(WindType type) {
-    	if(type.ordinal() <= this.tierMax && type.ordinal() >= this.tierMin) return true;
-    	return false;
+    	return (type.ordinal() <= this.tierMax && type.ordinal() >= this.tierMin);
     }
     
     public ItemRotor setEfficiency(float efficiency) {
@@ -88,11 +87,6 @@ public class ItemRotor extends Item {
     
     public ItemRotor setNotGetDamage() {
     	this.takeDamage = false;
-    	return this;
-    }
-    
-    public ItemRotor setGetDamage(boolean damage) {
-    	this.takeDamage = damage;
     	return this;
     }
 }

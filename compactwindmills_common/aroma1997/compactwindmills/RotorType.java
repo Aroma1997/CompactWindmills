@@ -62,7 +62,8 @@ public enum RotorType {
 	
 	private void initRotor() {
 		try {
-			this.rotor = (ItemRotor) claSS.getConstructor(int.class).newInstance(this.id).setGetDamage(this.takeDamage).setMinMaxTier(this.typeMin, this.typeMax).setEfficiency(this.efficiency).setMaxDamage(this.maxDamage).setUnlocalizedName(this.unlocalizedName);
+			this.rotor = (ItemRotor) claSS.getConstructor(int.class).newInstance(this.id).setMinMaxTier(this.typeMin, this.typeMax).setEfficiency(this.efficiency).setMaxDamage(this.maxDamage).setUnlocalizedName(this.unlocalizedName);
+			if (!this.takeDamage) this.rotor.setNotGetDamage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

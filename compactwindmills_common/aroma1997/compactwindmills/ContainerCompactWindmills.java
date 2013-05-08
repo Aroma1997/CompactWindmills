@@ -43,7 +43,8 @@ public class ContainerCompactWindmills extends Container {
 	}
 	
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
+	public boolean canInteractWith(EntityPlayer entityplayer)
+	{
 		return true;
 	}
 	
@@ -58,7 +59,7 @@ public class ContainerCompactWindmills extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (par2 == 2)
+            if (par2 == 0)
             {
                 if (!this.mergeItemStack(itemstack1, 1, 37, true))
                 {
@@ -67,16 +68,16 @@ public class ContainerCompactWindmills extends Container {
 
                 slot.onSlotChange(itemstack1, itemstack);
             }
-            else if (par2 != 1 && par2 != 0)
+            else if (par2 != 0)
             {
-                if (((Slot) this.inventorySlots.get(0)).isItemValid(itemstack1))
+                if (((SlotWindmill)this.inventorySlots.get(0)).isItemValid(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 1, false))
                     {
                         return null;
                     }
                 }
-                else if (par2 >= 2 && par2 < 28)
+                else if (par2 >= 1 && par2 < 28)
                 {
                     if (!this.mergeItemStack(itemstack1, 28, 37, false))
                     {

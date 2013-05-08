@@ -7,6 +7,7 @@
 ******************************************************************************/
 package aroma1997.compactwindmills;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -23,6 +24,7 @@ public class SlotWindmill extends Slot {
 		this.type = type;
 	}
 
+	@Override
 	public boolean isItemValid(ItemStack itemStack)
 	{
 		if (itemStack == null) return false;
@@ -32,5 +34,11 @@ public class SlotWindmill extends Slot {
 		}
 		return false;
 	}
+	
+	@Override
+    public int getSlotStackLimit()
+    {
+        return 1;
+    }
 
 }

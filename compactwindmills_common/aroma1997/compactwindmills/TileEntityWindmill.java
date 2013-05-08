@@ -236,7 +236,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
                     inventoryContent[par1] = null;
                 }
 
-                this.onInventoryChanged();
+                onInventoryChanged();
                 return itemstack;
             }
         }
@@ -301,7 +301,11 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public boolean isStackValidForSlot(int slot, ItemStack itemStack) {
-		return (itemStack.getItem() instanceof ItemRotor);
+		if (itemStack.getItem() instanceof ItemRotor) {
+			ItemRotor rotor = (ItemRotor) itemStack.getItem();
+			return rotor.doesRotorFitInWindmill(type);
+		}
+		return false;
 	}
 	
 	@Override
@@ -352,27 +356,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			return rotor.getEfficiency();
 		}
 		return 0.0F;
-		/*ItemStack itemStack = inventoryContent[0];
-		if (itemStack != null && itemStack.getItem() instanceof ItemRotor) {
-			ItemRotor rotor = (ItemRotor) itemStack.getItem();
-			if (rotor.doesRotorFitInWindmill(type)) {
-				if(itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
-					itemStack = null;
-				}
-				else
-				{
-					itemStack.setItemDamage(itemStack.getItemDamage() + (CompactWindmills.updateTick * CompactWindmills.rotorDamage));
-				}
-			}
-			else
-			{
-				itemStack = null;
-			}
-			inventoryContent[0] = itemStack;
-			onInventoryChanged();
-			return true;
-		}
-		return false;*/
 	}
 	
 	public int getOutputUntilNexttTick() {
