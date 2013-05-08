@@ -7,7 +7,6 @@
 ******************************************************************************/
 package aroma1997.compactwindmills;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

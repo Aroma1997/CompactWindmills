@@ -36,7 +36,6 @@ public enum WindType {
 		int windtype = metadata;
 		try {
 			TileEntityWindmill tileEntity = values()[windtype].claSS.getConstructor(WindType.class).newInstance(values()[windtype]);
-			//TileEntityWindmill tileEntity = values()[windtype].claSS.newInstance();
 			return tileEntity;
 		} catch (Exception e) {
 			throw Throwables.propagate(e);
