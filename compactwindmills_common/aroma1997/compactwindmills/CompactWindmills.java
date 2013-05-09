@@ -46,7 +46,8 @@ public class CompactWindmills {
         private static int blockID;
         public static Block windMill;
         public static int updateTick;
-        public static CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
+        public static final CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
+        public static boolean vanillaIC2Stuff;
         @PreInit
         public void preInit(FMLPreInitializationEvent event) {
         	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
@@ -60,6 +61,12 @@ public class CompactWindmills {
         					"Also note, that they always produce their EU-Count per tick, not only, when they update their efficiency count.";
         		updateTick = ticks.getInt(64);
         	RotorType.getConfigs(config);
+        	Property vanillaIC2 = config.get(Configuration.CATEGORY_GENERAL, "useIC2Stuff", false);
+        		vanillaIC2.comment = "This defines if this mod just acts as a compact version of the vanilla IC2 Windmill or not." +
+        					"'true' means IC2 version, 'false' means, the mod will change some stuff in its own windmills (recommended)" + 
+        					"This changes for example if the windmills require a rotor or if the wind strength is variable. This will also change the recipe.";
+        		vanillaIC2Stuff = vanillaIC2.getBoolean(false);
+        		
         	config.save();
         	
         	RotorType.initRotors();
@@ -75,8 +82,9 @@ public class CompactWindmills {
         		LanguageRegistry.instance().addStringLocalization(typ.name() + ".name", typ.showedName);
         		GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
         	}
-    		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ", "WTW", " W ", 'W', Items.getItem("windMill"), 'T', Items.getItem("lvTransformer"));
+    		if (!vanillaIC2Stuff) GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ", "WTW", " W ", 'W', Items.getItem("windMill"), 'T', Items.getItem("lvTransformer"));
     		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 1), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 0), 'T', Items.getItem("transformerUpgrade"));
+    		if (vanillaIC2Stuff) GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 1), " W ", "WTW", " W ", 'W', Items.getItem("windMill"), 'T', Items.getItem("transformerUpgrade"));
     		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 2), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 1), 'T', Items.getItem("transformerUpgrade"));
     		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 3), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 2), 'T', Items.getItem("transformerUpgrade"));
     		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 4), " W ", "WTW", " W ", 'W', new ItemStack(windMill, 1, 3), 'T', Items.getItem("transformerUpgrade"));
@@ -84,11 +92,12 @@ public class CompactWindmills {
     		for(RotorType rotor : RotorType.values()) {
     			LanguageRegistry.addName(rotor.getItem(), rotor.showedName);
     		}
+    		if (!vanillaIC2Stuff) {
+    			GameRegistry.addRecipe(new ItemStack(RotorType.CARBON.getItem()), "CCC", "CMC", "CCC", 'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
+    			GameRegistry.addRecipe(new ItemStack(RotorType.WOOD.getItem()), " S ", "SIS", " S ", 'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
+    			GameRegistry.addRecipe(new ItemStack(RotorType.IRIDIUM.getItem()), " I ", "IRI", " I ", 'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(RotorType.CARBON.getItem()));
+    		}
     		
-        	GameRegistry.addRecipe(new ItemStack(RotorType.CARBON.getItem()), "CCC", "CMC", "CCC", 'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
-        	GameRegistry.addRecipe(new ItemStack(RotorType.WOOD.getItem()), " S ", "SIS", " S ", 'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
-        	GameRegistry.addRecipe(new ItemStack(RotorType.IRIDIUM.getItem()), " I ", "IRI", " I ", 'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(RotorType.CARBON.getItem()));
-        	
         	NetworkRegistry.instance().registerGuiHandler(this, proxy);
         	LanguageRegistry.instance().addStringLocalization("itemGroup.creativeTabCW", "en_US", "CompactWindmills");
         	

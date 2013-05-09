@@ -36,7 +36,7 @@ import net.minecraftforge.common.MinecraftForge;
  *
  */
 public class TileEntityWindmill extends TileEntity implements IEnergySource, INetworkDataProvider, IWrenchable, INetworkUpdateListener, IInventory {
-	private static Random random = new Random();
+	private Random random = new Random();
 	private WindType type;
 	private boolean initialized;
 	private int tick;
@@ -120,9 +120,9 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		MinecraftForge.EVENT_BUS.post(unloadEvent);
 	}
 	
-	private static int getAirBlocks(World world, int x, int y, int z, WindType type) {
+	private static int getNonAirBlocks(World world, int x, int y, int z, WindType type) {
 		
-		int airBlocks = 0;
+		int nonAirBlocks = 0;
 		
 		int radius = type.checkRadius;
 		//This is the radius of the Windmill, where it detects, if there is air or not
@@ -132,25 +132,29 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			for(int yTest = - radius; yTest <= radius; yTest++) {
 				for(int zTest = - radius; zTest <= radius; zTest++) {
 					//This will check if the block is air
-					if (world.isAirBlock(x + xTest, y + yTest, z + zTest)) {
-						airBlocks++;
+					if (!world.isAirBlock(x + xTest, y + yTest, z + zTest)) {
+						nonAirBlocks++;
 					}
 				}
 			}
 		}
-		return airBlocks;
+		return nonAirBlocks - type.checkRadius - 1;
 	}
 	
 	private int setOutput(World world, int x, int y, int z, WindType type) {
 		
-		int airBlocks = getAirBlocks(world, x, y, z, type);
-		int totalBlocks = (int) Math.pow(type.checkRadius * 2 + 1, 3) - type.checkRadius - 1;
+		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
 		float weather = getWeather(world);
-		float totalEfficiency = (y - 64 - (totalBlocks - airBlocks)) / totalBlocks * weather;
-		float energy = (float) (type.output * totalEfficiency * tickRotor());
+		float totalEfficiency = ((y - 64 - nonAirBlocks) / 37.5F * weather);
+		float energy = (float) (type.output * totalEfficiency);
+		if (CompactWindmills.vanillaIC2Stuff) {
+			energy *= (tickRotor());
+			energy *= (0.5F + (this.random.nextFloat() / 2));
+		}
 		if ((int) energy > type.output) {
 			return type.output;
 		}
+		if ((int) energy <= 0) return 0;
 		return (int)energy;
 	}
 
