@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Dimensional World" default="build">
+<project name="CompactWindmills" default="build">
 	<property file="build.properties" />
 	<property file="version.properties" />
 	
