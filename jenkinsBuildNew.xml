@@ -11,7 +11,7 @@
     <target name="setup-forge" depends="download-forge" unless="forge.installed">
         <echo>Installing Minecraft Forge...</echo>
         <unzip src="${mod.base}/minecraftforge-src-${minecraft.version}-${forge.version}.zip" dest="${mod.base}" />
-        <exec executable="${python.exe}" dir="${forge.base}" failonerror="true">
+        <exec executable="${python.exe}" dir="${forge.base}" failonerror="false">
             <arg value="${forge.base}/install.py" />
         </exec>
     </target>
