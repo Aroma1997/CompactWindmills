@@ -19,7 +19,7 @@ public enum RotorType {
 
 	WOOD(27900, 72000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", ItemRotor.class),
 	CARBON(27901, 3456000, WindType.MV, WindType.EV, 0.8F, "Carbon Rotor", "rotorCarbon", ItemRotor.class),
-	IRIDIUM(27902, 0, WindType.ELV, WindType.EV, 1.0F, "Iridium Rotor", "rotorIridium", ItemRotor.class);
+	IRIDIUM(27902, 0, WindType.HV, WindType.EV, 1.0F, "Iridium Rotor", "rotorIridium", ItemRotor.class);
 	
 	private int defaultId;
 	private int maxDamage;
