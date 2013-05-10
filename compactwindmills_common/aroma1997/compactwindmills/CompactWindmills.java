@@ -99,7 +99,7 @@ public class CompactWindmills {
     		}
     		
         	NetworkRegistry.instance().registerGuiHandler(this, proxy);
-        	LanguageRegistry.instance().addStringLocalization("itemGroup.creativeTabCW", "en_US", "CompactWindmills");
+        	LanguageRegistry.instance().addStringLocalization("itemGroup.creativeTabCW", "en_US", "Compact Windmills");
         	
         }
        
