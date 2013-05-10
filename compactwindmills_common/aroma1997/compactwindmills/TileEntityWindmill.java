@@ -147,7 +147,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		float weather = getWeather(world);
 		float totalEfficiency = ((y - 64 - nonAirBlocks) / 37.5F * weather);
 		float energy = (float) (type.output * totalEfficiency);
-		if (CompactWindmills.vanillaIC2Stuff) {
+		if (!CompactWindmills.vanillaIC2Stuff) {
 			energy *= (tickRotor());
 			energy *= (0.5F + (this.random.nextFloat() / 2));
 		}
