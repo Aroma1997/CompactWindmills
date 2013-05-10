@@ -17,9 +17,9 @@ import net.minecraftforge.common.Property;
  */
 public enum RotorType {
 
-	WOOD(27900, 72000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", true, ItemRotor.class),
-	CARBON(27901, 3456000, WindType.MV, WindType.EV, 0.8F, "Carbon Rotor", "rotorCarbon", true, ItemRotor.class),
-	IRIDIUM(27902, 0, WindType.ELV, WindType.EV, 1.0F, "Iridium Rotor", "rotorIridium", false, ItemRotor.class);
+	WOOD(27900, 72000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", ItemRotor.class),
+	CARBON(27901, 3456000, WindType.MV, WindType.EV, 0.8F, "Carbon Rotor", "rotorCarbon", ItemRotor.class),
+	IRIDIUM(27902, 0, WindType.ELV, WindType.EV, 1.0F, "Iridium Rotor", "rotorIridium", ItemRotor.class);
 	
 	private int defaultId;
 	private int maxDamage;
@@ -28,13 +28,12 @@ public enum RotorType {
 	private float efficiency;
 	public String showedName;
 	private String unlocalizedName;
-	private boolean takeDamage;
 	private Class<? extends ItemRotor> claSS;
 
 	private int id;
 	private ItemRotor rotor;
 	
-	private RotorType(int defaultId, int maxDamage, WindType typeMin, WindType typeMax, float efficiency, String showedName, String unlocalizedName, boolean takeDamage, Class<? extends ItemRotor> claSS) {
+	private RotorType(int defaultId, int maxDamage, WindType typeMin, WindType typeMax, float efficiency, String showedName, String unlocalizedName, Class<? extends ItemRotor> claSS) {
 		this.defaultId = defaultId;
 		this.maxDamage = maxDamage;
 		this.typeMin = typeMin;
@@ -42,7 +41,6 @@ public enum RotorType {
 		this.efficiency = efficiency;
 		this.showedName = showedName;
 		this.unlocalizedName = unlocalizedName;
-		this.takeDamage = takeDamage;
 		this.claSS = claSS;
 	}
 	
@@ -63,7 +61,7 @@ public enum RotorType {
 	private void initRotor() {
 		try {
 			this.rotor = (ItemRotor) claSS.getConstructor(int.class).newInstance(this.id).setMinMaxTier(this.typeMin, this.typeMax).setEfficiency(this.efficiency).setMaxDamage(this.maxDamage).setUnlocalizedName(this.unlocalizedName);
-			if (!this.takeDamage) this.rotor.setNotGetDamage();
+			if (this.maxDamage == 0) this.rotor.setNotGetDamage();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
