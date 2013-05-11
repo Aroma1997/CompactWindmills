@@ -25,6 +25,7 @@ public class ContainerCompactWindmills extends Container {
 		this.tileEntity = tileEntityCW;
 		layoutContainer(inventory, tileEntityCW, windType);
 	}
+	
 	private void layoutContainer(IInventory playerInventory, IInventory inventory, WindType type) {
 		addSlotToContainer(new SlotWindmill(inventory, 0, 80, 26, type));
 		for (int inventoryRow = 0; inventoryRow < 3; inventoryRow++)

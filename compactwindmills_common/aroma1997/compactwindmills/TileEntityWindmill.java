@@ -211,18 +211,16 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
     {
         if (inventoryContent[par1] != null)
         {
-            ItemStack itemstack;
-
             if (inventoryContent[par1].stackSize <= par2)
             {
-                itemstack = inventoryContent[par1];
+                ItemStack itemstack = inventoryContent[par1];
                 inventoryContent[par1] = null;
                 onInventoryChanged();
                 return itemstack;
             }
             else
             {
-                itemstack = inventoryContent[par1].splitStack(par2);
+                ItemStack itemstack1 = inventoryContent[par1].splitStack(par2);
 
                 if (inventoryContent[par1].stackSize == 0)
                 {
@@ -230,7 +228,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
                 }
 
                 onInventoryChanged();
-                return itemstack;
+                return itemstack1;
             }
         }
         else
