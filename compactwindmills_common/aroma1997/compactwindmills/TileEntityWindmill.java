@@ -149,6 +149,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		float energy = (float) (type.output * totalEfficiency);
 		if (!CompactWindmills.vanillaIC2Stuff) {
 			energy *= (tickRotor());
+		}
+		else {
 			energy *= (0.5F + (this.random.nextFloat() / 2));
 		}
 		if ((int) energy > type.output) {
