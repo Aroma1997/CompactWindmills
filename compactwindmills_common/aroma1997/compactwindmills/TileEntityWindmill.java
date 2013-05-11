@@ -44,10 +44,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	private int output;
 	private ItemStack[] inventoryContent;
 
-	public TileEntityWindmill() {
-		this(WindType.ELV);
-	}
-
 	public TileEntityWindmill(WindType type) {
 		super();
 		this.type = type;
@@ -76,7 +72,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			initialized = true;
 		}
 		if (tick-- == 0) {
-			output = setOutput(worldObj, xCoord, yCoord, zCoord, type);
+			output = setOutput(worldObj, xCoord, yCoord, zCoord);
 			tick = CompactWindmills.updateTick;
 		}
 		if (output > 0) {
@@ -141,7 +137,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		return nonAirBlocks - type.checkRadius - 1;
 	}
 	
-	private int setOutput(World world, int x, int y, int z, WindType type) {
+	private int setOutput(World world, int x, int y, int z) {
 		
 		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
 		float weather = getWeather(world);
