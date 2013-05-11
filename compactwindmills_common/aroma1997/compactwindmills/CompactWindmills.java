@@ -8,6 +8,9 @@
 
 package aroma1997.compactwindmills;
 
+import java.util.logging.Level;
+
+import aroma1997.compactwindmills.helpers.LogHelper;
 import ic2.api.item.Items;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -48,8 +51,14 @@ public class CompactWindmills {
         public static int updateTick;
         public static final CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
         public static boolean vanillaIC2Stuff;
+        public static boolean debugMode;
         @PreInit
         public void preInit(FMLPreInitializationEvent event) {
+        	LogHelper.init();
+        	if (Reference.Version == "@VERSION" + "@") {
+        		debugMode = true;
+        		LogHelper.log(Level.INFO, "Turning on debug mode.");
+        	}
         	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
         	config.load();
         	Property block = config.getBlock("CompactWindmill", 2790);

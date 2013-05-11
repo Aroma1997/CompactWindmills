@@ -7,6 +7,10 @@
 ******************************************************************************/
 package aroma1997.compactwindmills;
 
+import java.util.logging.Level;
+
+import aroma1997.compactwindmills.helpers.LogHelper;
+
 import com.google.common.base.Throwables;
 /**
  * 
@@ -38,6 +42,7 @@ public enum WindType {
 			TileEntityWindmill tileEntity = values()[windtype].claSS.getConstructor(WindType.class).newInstance(values()[windtype]);
 			return tileEntity;
 		} catch (Exception e) {
+			LogHelper.log(Level.WARNING, "Failed to Register Windmill: " + WindType.values()[metadata].showedName);
 			throw Throwables.propagate(e);
 		}
 	}

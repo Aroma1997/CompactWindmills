@@ -67,6 +67,7 @@ public enum RotorType {
 			if (this.maxDamage == 0) this.rotor.setNotGetDamage();
 		} catch (Exception e) {
 			e.printStackTrace();
+			LogHelper.log(Level.WARNING, "Failed to Register Rotor: " + this.showedName);
 		}
 	}
 	
