@@ -183,7 +183,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(this.blockType, 1, type.ordinal());
+		return new ItemStack(CompactWindmills.windMill, 1, type.ordinal());
 	}
 
 	private static float getWeather(World world) {
@@ -240,10 +240,10 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
     }
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventoryContent[i] = itemstack;
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
+	public void setInventorySlotContents(int slot, ItemStack itemStack) {
+		inventoryContent[slot] = itemStack;
+		if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
+			itemStack.stackSize = getInventoryStackLimit();
 		}
 		onInventoryChanged();
 	}
@@ -268,8 +268,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		if (this.inventoryContent[var1] != null)
 		{
 			ItemStack var2 = this.inventoryContent[var1];
-    	    this.inventoryContent[var1] = null;
-    	    return var2;
+			this.inventoryContent[var1] = null;
+			return var2;
 		}
 		else
 		{
@@ -308,26 +308,25 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		NBTTagList nBTTagList = new NBTTagList();
 		for (int i = 0; i < inventoryContent.length; i++) {
 			if (inventoryContent[i] != null) {
-				NBTTagCompound nBTTagCompoundTemp = new NBTTagCompound();
-				nBTTagCompoundTemp.setByte("Slot", (byte) i);
-				inventoryContent[i].writeToNBT(nBTTagCompoundTemp);
-				nBTTagList.appendTag(nBTTagCompoundTemp);
+				NBTTagCompound nBTTagCompound1 = new NBTTagCompound();
+				nBTTagCompound1.setByte("Slot", (byte) i);
+				inventoryContent[i].writeToNBT(nBTTagCompound1);
+				nBTTagList.appendTag(nBTTagCompound1);
 			}
 		}
-
 		nBTTagCompound.setTag("Items", nBTTagList);
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nBTTagCompound) {
 		super.readFromNBT(nBTTagCompound);
 		NBTTagList nBTTagList = nBTTagCompound.getTagList("Items");
 		inventoryContent = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nBTTagList.tagCount(); i++) {
-			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList.tagAt(i);
-			int slotNumb = nBTTagCompoundTemp.getByte("Slot") & 0xff;
-			if (slotNumb >= 0 && slotNumb < inventoryContent.length) {
-				inventoryContent[slotNumb] = ItemStack.loadItemStackFromNBT(nBTTagCompoundTemp);
+			NBTTagCompound nBTTagCompound1 = (NBTTagCompound) nBTTagList.tagAt(i);
+			int j = nBTTagCompound1.getByte("Slot") & 0xff;
+			if (j >= 0 && j < inventoryContent.length) {
+				inventoryContent[j] = ItemStack.loadItemStackFromNBT(nBTTagCompound1);
 			}
 		}
 	}

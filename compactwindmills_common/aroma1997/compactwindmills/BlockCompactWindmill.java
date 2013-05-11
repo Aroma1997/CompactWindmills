@@ -76,7 +76,7 @@ public class BlockCompactWindmill extends BlockContainer {
 	
 	@Override
 	public int idDropped(int meta, Random random, int id) {
-		return id;
+		return this.blockID;
 	}
 	
 	@Override
