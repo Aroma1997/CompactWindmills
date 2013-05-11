@@ -7,6 +7,9 @@
 ******************************************************************************/
 package aroma1997.compactwindmills;
 
+import java.util.logging.Level;
+
+import aroma1997.compactwindmills.helpers.LogHelper;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -17,7 +20,7 @@ import net.minecraftforge.common.Property;
  */
 public enum RotorType {
 
-	WOOD(27900, 72000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", ItemRotor.class),
+	WOOD(27900, 36000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", ItemRotor.class),
 	CARBON(27901, 3456000, WindType.MV, WindType.EV, 0.8F, "Carbon Rotor", "rotorCarbon", ItemRotor.class),
 	IRIDIUM(27902, 0, WindType.HV, WindType.EV, 1.0F, "Iridium Rotor", "rotorIridium", ItemRotor.class);
 	
