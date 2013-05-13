@@ -44,6 +44,10 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	private int output;
 	private ItemStack[] inventoryContent;
 
+	public TileEntityWindmill() {
+		this(WindType.ELV);
+	}
+
 	public TileEntityWindmill(WindType type) {
 		super();
 		this.type = type;
@@ -72,7 +76,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			initialized = true;
 		}
 		if (tick-- == 0) {
-			output = setOutput(worldObj, xCoord, yCoord, zCoord);
+			output = setOutput(worldObj, xCoord, yCoord, zCoord, type);
 			tick = CompactWindmills.updateTick;
 		}
 		if (output > 0) {
@@ -137,7 +141,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		return nonAirBlocks - type.checkRadius - 1;
 	}
 	
-	private int setOutput(World world, int x, int y, int z) {
+	private int setOutput(World world, int x, int y, int z, WindType type) {
 		
 		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
 		float weather = getWeather(world);
@@ -145,8 +149,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		float energy = (float) (type.output * totalEfficiency);
 		if (!CompactWindmills.vanillaIC2Stuff) {
 			energy *= (tickRotor());
-		}
-		else {
 			energy *= (0.5F + (this.random.nextFloat() / 2));
 		}
 		if ((int) energy > type.output) {
@@ -183,7 +185,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(CompactWindmills.windMill, 1, type.ordinal());
+		return new ItemStack(this.blockType, 1, type.ordinal());
 	}
 
 	private static float getWeather(World world) {
@@ -211,16 +213,18 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
     {
         if (inventoryContent[par1] != null)
         {
+            ItemStack itemstack;
+
             if (inventoryContent[par1].stackSize <= par2)
             {
-                ItemStack itemstack = inventoryContent[par1];
+                itemstack = inventoryContent[par1];
                 inventoryContent[par1] = null;
                 onInventoryChanged();
                 return itemstack;
             }
             else
             {
-                ItemStack itemstack1 = inventoryContent[par1].splitStack(par2);
+                itemstack = inventoryContent[par1].splitStack(par2);
 
                 if (inventoryContent[par1].stackSize == 0)
                 {
@@ -228,7 +232,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
                 }
 
                 onInventoryChanged();
-                return itemstack1;
+                return itemstack;
             }
         }
         else
@@ -238,10 +242,10 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
     }
 
 	@Override
-	public void setInventorySlotContents(int slot, ItemStack itemStack) {
-		inventoryContent[slot] = itemStack;
-		if (itemStack != null && itemStack.stackSize > getInventoryStackLimit()) {
-			itemStack.stackSize = getInventoryStackLimit();
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		inventoryContent[i] = itemstack;
+		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
+			itemstack.stackSize = getInventoryStackLimit();
 		}
 		onInventoryChanged();
 	}
@@ -266,8 +270,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		if (this.inventoryContent[var1] != null)
 		{
 			ItemStack var2 = this.inventoryContent[var1];
-			this.inventoryContent[var1] = null;
-			return var2;
+    	    this.inventoryContent[var1] = null;
+    	    return var2;
 		}
 		else
 		{
@@ -306,25 +310,26 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		NBTTagList nBTTagList = new NBTTagList();
 		for (int i = 0; i < inventoryContent.length; i++) {
 			if (inventoryContent[i] != null) {
-				NBTTagCompound nBTTagCompound1 = new NBTTagCompound();
-				nBTTagCompound1.setByte("Slot", (byte) i);
-				inventoryContent[i].writeToNBT(nBTTagCompound1);
-				nBTTagList.appendTag(nBTTagCompound1);
+				NBTTagCompound nBTTagCompoundTemp = new NBTTagCompound();
+				nBTTagCompoundTemp.setByte("Slot", (byte) i);
+				inventoryContent[i].writeToNBT(nBTTagCompoundTemp);
+				nBTTagList.appendTag(nBTTagCompoundTemp);
 			}
 		}
+
 		nBTTagCompound.setTag("Items", nBTTagList);
 	}
-
+	
 	@Override
 	public void readFromNBT(NBTTagCompound nBTTagCompound) {
 		super.readFromNBT(nBTTagCompound);
 		NBTTagList nBTTagList = nBTTagCompound.getTagList("Items");
 		inventoryContent = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nBTTagList.tagCount(); i++) {
-			NBTTagCompound nBTTagCompound1 = (NBTTagCompound) nBTTagList.tagAt(i);
-			int j = nBTTagCompound1.getByte("Slot") & 0xff;
-			if (j >= 0 && j < inventoryContent.length) {
-				inventoryContent[j] = ItemStack.loadItemStackFromNBT(nBTTagCompound1);
+			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList.tagAt(i);
+			int slotNumb = nBTTagCompoundTemp.getByte("Slot") & 0xff;
+			if (slotNumb >= 0 && slotNumb < inventoryContent.length) {
+				inventoryContent[slotNumb] = ItemStack.loadItemStackFromNBT(nBTTagCompoundTemp);
 			}
 		}
 	}

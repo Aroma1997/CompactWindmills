@@ -52,7 +52,6 @@ public class CompactWindmills {
         public static final CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills("creativeTabCW");
         public static boolean vanillaIC2Stuff;
         public static boolean debugMode;
-        
         @PreInit
         public void preInit(FMLPreInitializationEvent event) {
         	LogHelper.init();
