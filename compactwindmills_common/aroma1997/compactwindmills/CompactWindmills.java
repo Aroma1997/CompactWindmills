@@ -88,7 +88,6 @@ public class CompactWindmills {
         	
         	GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "blockCompactWindmill");
         	for (WindType typ : WindType.values()) {
-        		LanguageRegistry.instance().addStringLocalization(typ.name() + ".name", typ.showedName);
         		GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
         	}
     		if (!vanillaIC2Stuff) GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ", "WTW", " W ", 'W', Items.getItem("windMill"), 'T', Items.getItem("lvTransformer"));
