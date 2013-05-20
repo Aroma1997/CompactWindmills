@@ -88,7 +88,7 @@
             </fileset>
             <mappedresources>
                 <concat>
-                    <fileset dir="${mod.base}/resources" includes="mcmod.info" />
+                    <fileset dir="${mod.src}" includes="mcmod.info" />
                     <filterchain>
                         <replacetokens>
                             <token key="NAME" value="${modname}" />
