@@ -12,42 +12,46 @@ public interface IEnergyStorage {
 	 * @return Energy stored in the block
 	 */
 	public int getStored();
-	
+
 	/**
 	 * Set the amount of energy currently stored in the block.
-	 *  
-	 * @param energy stored energy
+	 * 
+	 * @param energy
+	 *            stored energy
 	 */
 	public void setStored(int energy);
-	
+
 	/**
 	 * Add the specified amount of energy.
 	 * 
 	 * Use negative values to decrease.
 	 * 
-	 * @param amount of energy to add
+	 * @param amount
+	 *            of energy to add
 	 * @return Energy stored in the block after adding the specified amount
 	 */
 	public int addEnergy(int amount);
-	
+
 	/**
 	 * Get the maximum amount of energy the block can store.
 	 * 
 	 * @return Maximum energy stored
 	 */
 	public int getCapacity();
-	
+
 	/**
 	 * Get the block's energy output.
 	 * 
 	 * @return Energy output in EU/t
 	 */
 	public int getOutput();
-	
+
 	/**
-	 * Get whether this block can have its energy used by an adjacent teleporter.
+	 * Get whether this block can have its energy used by an adjacent
+	 * teleporter.
 	 * 
-	 * @param side side the teleporter is draining energy from
+	 * @param side
+	 *            side the teleporter is draining energy from
 	 * @return Whether the block is teleporter compatible
 	 */
 	public boolean isTeleporterCompatible(Direction side);

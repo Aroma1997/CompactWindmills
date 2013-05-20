@@ -7,7 +7,11 @@ public class IC2Reactor {
 
 	public static int getEUOutput() {
 		try {
-			if (energyGeneratorNuclear == null) energyGeneratorNuclear = Class.forName(getPackage() + ".core.IC2").getDeclaredField("energyGeneratorNuclear");
+			if (energyGeneratorNuclear == null) {
+				energyGeneratorNuclear = Class.forName(
+						getPackage() + ".core.IC2").getDeclaredField(
+						"energyGeneratorNuclear");
+			}
 
 			return energyGeneratorNuclear.getInt(null);
 		} catch (Throwable e) {
@@ -26,7 +30,8 @@ public class IC2Reactor {
 		if (pkg != null) {
 			String packageName = pkg.getName();
 
-			return packageName.substring(0, packageName.length() - ".api.reactor".length());
+			return packageName.substring(0, packageName.length()
+					- ".api.reactor".length());
 		}
 
 		return "ic2";

@@ -3,9 +3,11 @@ package ic2.api.network;
 import java.util.List;
 
 /**
- * Tile entities which want to synchronized specific fields between client and server have to implement this.
+ * Tile entities which want to synchronized specific fields between client and
+ * server have to implement this.
  * 
- * The fields don't update themselves, a field update must be sent every time a synchronized field changes.
+ * The fields don't update themselves, a field update must be sent every time a
+ * synchronized field changes.
  */
 public interface INetworkDataProvider {
 	/**
@@ -15,4 +17,3 @@ public interface INetworkDataProvider {
 	 */
 	List<String> getNetworkedFields();
 }
-

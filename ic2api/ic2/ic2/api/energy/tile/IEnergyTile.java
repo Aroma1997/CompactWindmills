@@ -2,7 +2,7 @@ package ic2.api.energy.tile;
 
 /**
  * For internal usage only.
- *
+ * 
  * @see IEnergySink
  * @see IEnergySource
  * @see IEnergyConductor
@@ -15,4 +15,3 @@ public interface IEnergyTile {
 	 */
 	boolean isAddedToEnergyNet();
 }
-

@@ -14,7 +14,7 @@ public class PaintEvent extends WorldEvent {
 
 	// color to paint the block
 	public final int color;
-	
+
 	// set to true to confirm the operation
 	public boolean painted = false;
 

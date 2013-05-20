@@ -13,19 +13,22 @@ public interface IMachineRecipeManager<V> {
 	/**
 	 * Adds a recipe to the machine.
 	 * 
-	 * @param input Recipe input
-	 * @param output Recipe output
+	 * @param input
+	 *            Recipe input
+	 * @param output
+	 *            Recipe output
 	 */
 	public void addRecipe(ItemStack input, V output);
-	
+
 	/**
 	 * Gets the recipe output for the given input.
 	 * 
-	 * @param input Recipe input
+	 * @param input
+	 *            Recipe input
 	 * @return Recipe output, or null if none
 	 */
 	public V getOutputFor(ItemStack input, boolean adjustInput);
-	
+
 	/**
 	 * Gets a list of recipes.
 	 * 

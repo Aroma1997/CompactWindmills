@@ -1,10 +1,10 @@
 /*******************************************************************************
-* Copyright (c) 2013 Aroma1997.
-* All rights reserved. This program and other files related to this program are
-* licensed with a extended GNU General Public License v. 3
-* License informations are at:
-* https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
-******************************************************************************/
+ * Copyright (c) 2013 Aroma1997.
+ * All rights reserved. This program and other files related to this program are
+ * licensed with a extended GNU General Public License v. 3
+ * License informations are at:
+ * https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
+ ******************************************************************************/
 
 package aroma1997.compactwindmills;
 
@@ -30,12 +30,14 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+
 /**
  * 
  * @author Aroma1997
- *
+ * 
  */
-public class TileEntityWindmill extends TileEntity implements IEnergySource, INetworkDataProvider, IWrenchable, INetworkUpdateListener, IInventory {
+public class TileEntityWindmill extends TileEntity implements IEnergySource,
+		INetworkDataProvider, IWrenchable, INetworkUpdateListener, IInventory {
 	private Random random = new Random();
 	private WindType type;
 	private boolean initialized;
@@ -51,20 +53,21 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	public TileEntityWindmill(WindType type) {
 		super();
 		this.type = type;
-		this.tick = random.nextInt(CompactWindmills.updateTick);
-		this.inventoryContent = new ItemStack[1];
+		tick = random.nextInt(CompactWindmills.updateTick);
+		inventoryContent = new ItemStack[1];
 	}
 
 	@Override
 	public boolean emitsEnergyTo(TileEntity receiver, Direction direction) {
 		return true;
 	}
-	
+
 	@Override
 	public void updateEntity() {
 		if (compatibilityMode) {
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, type.ordinal(), 0);
-			compatibilityMode=false;
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+					type.ordinal(), 0);
+			compatibilityMode = false;
 		}
 		if (!initialized && worldObj != null) {
 			if (worldObj.isRemote) {
@@ -80,7 +83,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			tick = CompactWindmills.updateTick;
 		}
 		if (output > 0) {
-			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this, output);
+			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this,
+					output);
 			MinecraftForge.EVENT_BUS.post(sourceEvent);
 		}
 	}
@@ -94,12 +98,13 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	public void onNetworkUpdate(String field) {
 
 	}
-	
+
 	public ItemStack[] getContents() {
 		return inventoryContent;
 	}
 
-	private static List<String> fields=Arrays.asList(new String[0]);
+	private static List<String> fields = Arrays.asList(new String[0]);
+
 	@Override
 	public List<String> getNetworkedFields() {
 		return fields;
@@ -119,19 +124,20 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
 		MinecraftForge.EVENT_BUS.post(unloadEvent);
 	}
-	
-	private static int getNonAirBlocks(World world, int x, int y, int z, WindType type) {
-		
+
+	private static int getNonAirBlocks(World world, int x, int y, int z,
+			WindType type) {
+
 		int nonAirBlocks = 0;
-		
+
 		int radius = type.checkRadius;
-		//This is the radius of the Windmill, where it detects, if there is air or not
-		
-		
-		for(int xTest = - radius; xTest <= radius; xTest++) {
-			for(int yTest = - radius; yTest <= radius; yTest++) {
-				for(int zTest = - radius; zTest <= radius; zTest++) {
-					//This will check if the block is air
+		// This is the radius of the Windmill, where it detects, if there is air
+		// or not
+
+		for (int xTest = -radius; xTest <= radius; xTest++) {
+			for (int yTest = -radius; yTest <= radius; yTest++) {
+				for (int zTest = -radius; zTest <= radius; zTest++) {
+					// This will check if the block is air
 					if (!world.isAirBlock(x + xTest, y + yTest, z + zTest)) {
 						nonAirBlocks++;
 					}
@@ -140,22 +146,25 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		}
 		return nonAirBlocks - type.checkRadius - 1;
 	}
-	
+
 	private int setOutput(World world, int x, int y, int z, WindType type) {
-		
+
 		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
 		float weather = getWeather(world);
-		float totalEfficiency = ((y - 64 - (nonAirBlocks / type.checkRadius)) / 37.5F * weather);
-		float energy = (float) (type.output * totalEfficiency);
+		float totalEfficiency = (y - 64 - nonAirBlocks / type.checkRadius)
+				/ 37.5F * weather;
+		float energy = type.output * totalEfficiency;
 		if (!CompactWindmills.vanillaIC2Stuff) {
-			energy *= (tickRotor());
-			energy *= (0.5F + (this.random.nextFloat() / 2));
+			energy *= tickRotor();
+			energy *= 0.5F + random.nextFloat() / 2;
 		}
 		if ((int) energy > type.output) {
 			return type.output;
 		}
-		if ((int) energy <= 0) return 0;
-		return (int)energy;
+		if ((int) energy <= 0) {
+			return 0;
+		}
+		return (int) energy;
 	}
 
 	@Override
@@ -170,7 +179,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public void setFacing(short facing) {
-		
+
 	}
 
 	@Override
@@ -185,7 +194,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(this.blockType, 1, type.ordinal());
+		return new ItemStack(blockType, 1, type.ordinal());
 	}
 
 	private static float getWeather(World world) {
@@ -209,37 +218,29 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	}
 
 	@Override
-    public ItemStack decrStackSize(int par1, int par2)
-    {
-        if (inventoryContent[par1] != null)
-        {
-            ItemStack itemstack;
+	public ItemStack decrStackSize(int par1, int par2) {
+		if (inventoryContent[par1] != null) {
+			ItemStack itemstack;
 
-            if (inventoryContent[par1].stackSize <= par2)
-            {
-                itemstack = inventoryContent[par1];
-                inventoryContent[par1] = null;
-                onInventoryChanged();
-                return itemstack;
-            }
-            else
-            {
-                itemstack = inventoryContent[par1].splitStack(par2);
+			if (inventoryContent[par1].stackSize <= par2) {
+				itemstack = inventoryContent[par1];
+				inventoryContent[par1] = null;
+				onInventoryChanged();
+				return itemstack;
+			} else {
+				itemstack = inventoryContent[par1].splitStack(par2);
 
-                if (inventoryContent[par1].stackSize == 0)
-                {
-                    inventoryContent[par1] = null;
-                }
+				if (inventoryContent[par1].stackSize == 0) {
+					inventoryContent[par1] = null;
+				}
 
-                onInventoryChanged();
-                return itemstack;
-            }
-        }
-        else
-        {
-            return null;
-        }
-    }
+				onInventoryChanged();
+				return itemstack;
+			}
+		} else {
+			return null;
+		}
+	}
 
 	@Override
 	public void setInventorySlotContents(int i, ItemStack itemstack) {
@@ -252,7 +253,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public String getInvName() {
-		return this.type.showedName;
+		return type.showedName;
 	}
 
 	@Override
@@ -264,17 +265,14 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	public int getInventoryStackLimit() {
 		return 1;
 	}
-	
+
 	@Override
 	public ItemStack getStackInSlotOnClosing(int var1) {
-		if (this.inventoryContent[var1] != null)
-		{
-			ItemStack var2 = this.inventoryContent[var1];
-    	    this.inventoryContent[var1] = null;
-    	    return var2;
-		}
-		else
-		{
+		if (inventoryContent[var1] != null) {
+			ItemStack var2 = inventoryContent[var1];
+			inventoryContent[var1] = null;
+			return var2;
+		} else {
 			return null;
 		}
 	}
@@ -296,14 +294,16 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 	@Override
 	public boolean isStackValidForSlot(int slot, ItemStack itemStack) {
-		if (itemStack == null) return false;
+		if (itemStack == null) {
+			return false;
+		}
 		if (itemStack.getItem() instanceof ItemRotor) {
 			ItemRotor rotor = (ItemRotor) itemStack.getItem();
 			return rotor.doesRotorFitInWindmill(type);
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void writeToNBT(NBTTagCompound nBTTagCompound) {
 		super.writeToNBT(nBTTagCompound);
@@ -319,32 +319,34 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 
 		nBTTagCompound.setTag("Items", nBTTagList);
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound nBTTagCompound) {
 		super.readFromNBT(nBTTagCompound);
 		NBTTagList nBTTagList = nBTTagCompound.getTagList("Items");
 		inventoryContent = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nBTTagList.tagCount(); i++) {
-			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList.tagAt(i);
+			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList
+					.tagAt(i);
 			int slotNumb = nBTTagCompoundTemp.getByte("Slot") & 0xff;
 			if (slotNumb >= 0 && slotNumb < inventoryContent.length) {
-				inventoryContent[slotNumb] = ItemStack.loadItemStackFromNBT(nBTTagCompoundTemp);
+				inventoryContent[slotNumb] = ItemStack
+						.loadItemStackFromNBT(nBTTagCompoundTemp);
 			}
 		}
 	}
-	
+
 	private float tickRotor() {
 		ItemStack itemStack = inventoryContent[0];
 		if (itemStack != null && itemStack.getItem() instanceof ItemRotor) {
 			ItemRotor rotor = (ItemRotor) itemStack.getItem();
 			if (rotor.takeDamage) {
-				if(itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
+				if (itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack
+						.getMaxDamage()) {
 					itemStack = null;
-				}
-				else
-				{
-					itemStack.setItemDamage(itemStack.getItemDamage() + (CompactWindmills.updateTick));
+				} else {
+					itemStack.setItemDamage(itemStack.getItemDamage()
+							+ CompactWindmills.updateTick);
 				}
 				inventoryContent[0] = itemStack;
 				onInventoryChanged();
@@ -353,8 +355,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		}
 		return 0.0F;
 	}
-	
+
 	public int getOutputUntilNexttTick() {
-		return this.output;
+		return output;
 	}
 }

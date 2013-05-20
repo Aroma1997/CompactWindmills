@@ -5,11 +5,10 @@ package ic2.api.energy.tile;
  */
 public interface IEnergySource extends IEnergyEmitter {
 	/**
-	 * Maximum energy output provided by the source.
-	 * If unsure, use Integer.MAX_VALUE.
+	 * Maximum energy output provided by the source. If unsure, use
+	 * Integer.MAX_VALUE.
 	 * 
 	 * @return Maximum energy output
 	 */
 	int getMaxEnergyOutput();
 }
-

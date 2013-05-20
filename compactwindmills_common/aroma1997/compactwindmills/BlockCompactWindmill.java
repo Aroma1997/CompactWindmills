@@ -1,10 +1,10 @@
 /*******************************************************************************
-* Copyright (c) 2013 Aroma1997.
-* All rights reserved. This program and other files related to this program are
-* licensed with a extended GNU General Public License v. 3
-* License informations are at:
-* https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
-******************************************************************************/
+ * Copyright (c) 2013 Aroma1997.
+ * All rights reserved. This program and other files related to this program are
+ * licensed with a extended GNU General Public License v. 3
+ * License informations are at:
+ * https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
+ ******************************************************************************/
 
 package aroma1997.compactwindmills;
 
@@ -22,92 +22,95 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * 
  * @author Aroma1997
- *
+ * 
  */
 public class BlockCompactWindmill extends BlockContainer {
-	
+
 	@SideOnly(Side.CLIENT)
 	private Icon[][] textures;
-	
+
 	public BlockCompactWindmill(int id) {
 		super(id, Material.iron);
 		setUnlocalizedName("compactWindmill");
 		setHardness(2.0F);
 		setCreativeTab(CompactWindmills.creativeTabCompactWindmills);
-		
+
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return null;
 	}
-	
+
 	@Override
 	public TileEntity createTileEntity(World world, int metadata) {
 		return WindType.makeTileEntity(metadata);
 	}
-	
+
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer thePlayer, int s, float f1, float f2, float f3) {
-        if (thePlayer.isSneaking())
-        {
-            return false;
-        }
+	public boolean onBlockActivated(World world, int x, int y, int z,
+			EntityPlayer thePlayer, int s, float f1, float f2, float f3) {
+		if (thePlayer.isSneaking()) {
+			return false;
+		}
 
-        if (world.isRemote) {
-         return true;
-        }
+		if (world.isRemote) {
+			return true;
+		}
 
-        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-        if (tileEntity != null && tileEntity instanceof TileEntityWindmill) {
-        	TileEntityWindmill tileEntityCW = (TileEntityWindmill) tileEntity;
-        	thePlayer.openGui(CompactWindmills.instance, tileEntityCW.getType().ordinal(), world, x, y, z);
-        }
-        return true;
+		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		if (tileEntity != null && tileEntity instanceof TileEntityWindmill) {
+			TileEntityWindmill tileEntityCW = (TileEntityWindmill) tileEntity;
+			thePlayer.openGui(CompactWindmills.instance, tileEntityCW.getType()
+					.ordinal(), world, x, y, z);
+		}
+		return true;
 	}
-	
+
 	@Override
 	public int damageDropped(int meta) {
 		return meta;
 	}
-	
+
 	@Override
 	public int idDropped(int meta, Random random, int id) {
 		return id;
 	}
-	
+
 	@Override
-    public int quantityDropped(Random random)
-    {
-        return 1;
-    }
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List itemList) {
-		for (WindType type : WindType.values()) {
-			itemList.add(new ItemStack(this,1,type.ordinal()));
-		}
+	public int quantityDropped(Random random) {
+		return 1;
 	}
-	
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister)
-	{
+	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs,
+			List itemList) {
+		for (WindType type : WindType.values()) {
+			itemList.add(new ItemStack(this, 1, type.ordinal()));
+		}
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister par1IconRegister) {
 		textures = new Icon[WindType.values().length][5];
-		for(WindType type: WindType.values()) {
-			for(int side = 0; side < 4; side++) {
-				String sideName = side == 0 ? "bottom" : side == 1 ? "top" : side == 2 ? "front" : "side";
-				textures[type.ordinal()][side] = par1IconRegister.registerIcon(Reference.ModID + ":" + type.name() + "_" + sideName);
+		for (WindType type : WindType.values()) {
+			for (int side = 0; side < 4; side++) {
+				String sideName = side == 0 ? "bottom" : side == 1 ? "top"
+						: side == 2 ? "front" : "side";
+				textures[type.ordinal()][side] = par1IconRegister
+						.registerIcon(Reference.ModID + ":" + type.name() + "_"
+								+ sideName);
 			}
 		}
-		
+
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int metadata) {
