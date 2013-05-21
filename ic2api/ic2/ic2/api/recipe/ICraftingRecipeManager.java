@@ -11,20 +11,16 @@ public interface ICraftingRecipeManager {
 	/**
 	 * Adds a shaped crafting recipe.
 	 * 
-	 * @param output
-	 *            Recipe output
-	 * @param input
-	 *            Recipe input format
+	 * @param output Recipe output
+	 * @param input Recipe input format
 	 */
 	public void addRecipe(ItemStack output, Object... input);
-
+	
 	/**
 	 * Adds a shapeless crafting recipe.
 	 * 
-	 * @param output
-	 *            Recipe output
-	 * @param input
-	 *            Recipe input
+	 * @param output Recipe output
+	 * @param input Recipe input
 	 */
 	public void addShapelessRecipe(ItemStack output, Object... input);
 }
