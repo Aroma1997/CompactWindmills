@@ -194,7 +194,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 
 	@Override
 	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(blockType, 1, type.ordinal());
+		return new ItemStack(CompactWindmills.windMill, 1, type.ordinal());
 	}
 
 	private static float getWeather(World world) {
