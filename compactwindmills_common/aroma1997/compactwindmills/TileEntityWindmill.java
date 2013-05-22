@@ -46,10 +46,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	private int output;
 	private ItemStack[] inventoryContent;
 
-	public TileEntityWindmill() {
-		this(WindType.ELV);
-	}
-
 	public TileEntityWindmill(WindType type) {
 		super();
 		this.type = type;
