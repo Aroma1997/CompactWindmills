@@ -45,6 +45,10 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	private boolean compatibilityMode;
 	private int output;
 	private ItemStack[] inventoryContent;
+	
+	public TileEntityWindmill() {
+		this(WindType.ELV);
+	}
 
 	public TileEntityWindmill(WindType type) {
 		super();
