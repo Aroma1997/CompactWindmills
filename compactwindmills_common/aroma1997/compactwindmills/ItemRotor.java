@@ -44,6 +44,7 @@ public class ItemRotor extends Item {
 		} else {
 			par3List.add("Infinite");
 		}
+		par3List.add("Efficiency: " + ((int) (((ItemRotor) par1ItemStack.getItem()).efficiency * 100)) + "%");
 	}
 
 	@Override
