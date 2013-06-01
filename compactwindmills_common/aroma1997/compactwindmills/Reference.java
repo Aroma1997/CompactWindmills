@@ -14,7 +14,7 @@ package aroma1997.compactwindmills;
  */
 public class Reference {
 	public static final String ModID = "CompactWindmills";
-	public static final String ModName = "CompactWindmills";
+	public static final String ModName = "Compact Windmills";
 	public static final String Version = "@VERSION@";
 	public static final String MCVersion = "@MCVERSION@";
 
