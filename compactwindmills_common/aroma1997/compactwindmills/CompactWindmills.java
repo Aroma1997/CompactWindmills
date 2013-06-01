@@ -97,19 +97,12 @@ public class CompactWindmills {
 		for (WindType typ : WindType.values()) {
 			GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
 		}
-		if (!vanillaIC2Stuff) {
-			GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ",
+		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ",
 					"WTW", " W ", 'W', Items.getItem("windMill"), 'T',
 					Items.getItem("lvTransformer"));
-		}
 		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 1), " W ",
 				"WTW", " W ", 'W', new ItemStack(windMill, 1, 0), 'T',
 				Items.getItem("transformerUpgrade"));
-		if (vanillaIC2Stuff) {
-			GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ",
-					"WTW", " W ", 'W', Items.getItem("windMill"), 'T',
-					Items.getItem("transformerUpgrade"));
-		}
 		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 2), " W ",
 				"WTW", " W ", 'W', new ItemStack(windMill, 1, 1), 'T',
 				Items.getItem("transformerUpgrade"));
