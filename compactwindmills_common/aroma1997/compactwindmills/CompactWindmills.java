@@ -106,7 +106,7 @@ public class CompactWindmills {
 				"WTW", " W ", 'W', new ItemStack(windMill, 1, 0), 'T',
 				Items.getItem("transformerUpgrade"));
 		if (vanillaIC2Stuff) {
-			GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 1), " W ",
+			GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ",
 					"WTW", " W ", 'W', Items.getItem("windMill"), 'T',
 					Items.getItem("transformerUpgrade"));
 		}
