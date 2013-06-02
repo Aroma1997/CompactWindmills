@@ -34,6 +34,7 @@ public class ItemRotor extends Item {
 		setMaxStackSize(1);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void addInformation(ItemStack par1ItemStack,
 			EntityPlayer par2EntityPlayer, List par3List, boolean par4) {

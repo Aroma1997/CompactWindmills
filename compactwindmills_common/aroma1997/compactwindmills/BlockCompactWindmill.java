@@ -86,6 +86,7 @@ public class BlockCompactWindmill extends BlockContainer {
 		return 1;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs,

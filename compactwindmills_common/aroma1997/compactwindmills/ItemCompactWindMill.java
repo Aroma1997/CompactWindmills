@@ -45,6 +45,7 @@ public class ItemCompactWindMill extends ItemBlock {
 		return WindType.values()[par1ItemStack.getItemDamage()].showedName;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void addInformation(ItemStack par1ItemStack,
 			EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
