@@ -11,19 +11,19 @@ public class LogHelper {
 
 	private static Logger WindmillLog = Logger.getLogger(Reference.ModID);
 
+	public static void debugLog(Level level, String message) {
+		if (!CompactWindmills.debugMode) {
+			return;
+		}
+		log(level, message);
+	}
+
 	public static void init() {
 		WindmillLog.setParent(FMLLog.getLogger());
 	}
 
 	public static void log(Level level, String message) {
 		WindmillLog.log(level, message);
-	}
-
-	public static void debugLog(Level level, String message) {
-		if (!CompactWindmills.debugMode) {
-			return;
-		}
-		log(level, message);
 	}
 
 }

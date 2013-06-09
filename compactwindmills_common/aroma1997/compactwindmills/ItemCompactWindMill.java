@@ -26,6 +26,20 @@ public class ItemCompactWindMill extends ItemBlock {
 		setHasSubtypes(true);
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	public void addInformation(ItemStack par1ItemStack,
+			EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
+		par3List.add("Max. Output: "
+				+ WindType.values()[par1ItemStack.getItemDamage()].output
+				+ "EU/t");
+	}
+
+	@Override
+	public String getItemDisplayName(ItemStack par1ItemStack) {
+		return WindType.values()[par1ItemStack.getItemDamage()].showedName;
+	}
+
 	@Override
 	public int getMetadata(int i) {
 		if (i < WindType.values().length) {
@@ -38,20 +52,6 @@ public class ItemCompactWindMill extends ItemBlock {
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {
 		return WindType.values()[itemstack.getItemDamage()].name();
-	}
-
-	@Override
-	public String getItemDisplayName(ItemStack par1ItemStack) {
-		return WindType.values()[par1ItemStack.getItemDamage()].showedName;
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	public void addInformation(ItemStack par1ItemStack,
-			EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add("Max. Output: "
-				+ WindType.values()[par1ItemStack.getItemDamage()].output
-				+ "EU/t");
 	}
 
 }

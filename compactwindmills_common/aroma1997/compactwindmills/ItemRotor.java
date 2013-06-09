@@ -45,7 +45,25 @@ public class ItemRotor extends Item {
 		} else {
 			par3List.add("Infinite");
 		}
-		par3List.add("Efficiency: " + ((int) (((ItemRotor) par1ItemStack.getItem()).efficiency * 100)) + "%");
+		par3List.add("Efficiency: "
+				+ (int) (((ItemRotor) par1ItemStack.getItem()).efficiency * 100)
+				+ "%");
+	}
+
+	public boolean doesRotorFitInWindmill(WindType type) {
+		return type.ordinal() <= tierMax && type.ordinal() >= tierMin;
+	}
+
+	public float getEfficiency() {
+		return efficiency;
+	}
+
+	public int getMaxTier() {
+		return tierMax;
+	}
+
+	public int getMinTier() {
+		return tierMin;
 	}
 
 	@Override
@@ -56,17 +74,8 @@ public class ItemRotor extends Item {
 				+ this.getUnlocalizedName());
 	}
 
-	public int getMinTier() {
-		return tierMin;
-	}
-
-	public int getMaxTier() {
-		return tierMax;
-	}
-
-	public ItemRotor setMinMaxTier(WindType typeMin, WindType typeMax) {
-		tierMin = typeMin.ordinal();
-		tierMax = typeMax.ordinal();
+	public ItemRotor setEfficiency(float efficiency) {
+		this.efficiency = efficiency;
 		return this;
 	}
 
@@ -76,17 +85,10 @@ public class ItemRotor extends Item {
 		return this;
 	}
 
-	public boolean doesRotorFitInWindmill(WindType type) {
-		return type.ordinal() <= tierMax && type.ordinal() >= tierMin;
-	}
-
-	public ItemRotor setEfficiency(float efficiency) {
-		this.efficiency = efficiency;
+	public ItemRotor setMinMaxTier(WindType typeMin, WindType typeMax) {
+		tierMin = typeMin.ordinal();
+		tierMax = typeMax.ordinal();
 		return this;
-	}
-
-	public float getEfficiency() {
-		return efficiency;
 	}
 
 	public ItemRotor setNotGetDamage() {

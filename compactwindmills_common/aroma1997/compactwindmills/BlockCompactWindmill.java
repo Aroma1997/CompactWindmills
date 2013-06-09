@@ -10,6 +10,7 @@ package aroma1997.compactwindmills;
 
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -19,7 +20,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import aroma1997.compactwindmills.helpers.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -29,6 +32,10 @@ import cpw.mods.fml.relauncher.SideOnly;
  * 
  */
 public class BlockCompactWindmill extends BlockContainer {
+
+	public static final int[][] sideAndMetaToTextureNumber = {
+			{ 0, 0, 0, 0, 0, 0 }, { 1, 1, 1, 1, 1, 1 }, { 3, 3, 2, 3, 3, 3 },
+			{ 3, 3, 3, 2, 3, 3 }, { 3, 3, 3, 3, 2, 3 }, { 3, 3, 3, 3, 3, 2 } };
 
 	@SideOnly(Side.CLIENT)
 	private Icon[][] textures;
@@ -52,6 +59,70 @@ public class BlockCompactWindmill extends BlockContainer {
 	}
 
 	@Override
+	public int damageDropped(int meta) {
+		return meta;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z,
+			int side) {
+		int facing = getFacing(iBlockAccess, x, y, z);
+		int meta = iBlockAccess.getBlockMetadata(x, y, z);
+		int textureIndex = sideAndMetaToTextureNumber[side][facing];
+
+		if (meta >= textures.length) {
+			return null;
+		}
+		try {
+			return textures[meta][textureIndex];
+		} catch (Exception e) {
+			LogHelper.log(Level.WARNING, "Failed to get texture.");
+		}
+
+		return null;
+	}
+
+	public int getFacing(IBlockAccess iBlockAccess, int x, int y, int z) {
+		TileEntity te = iBlockAccess.getBlockTileEntity(x, y, z);
+
+		if (te instanceof TileEntityWindmill) {
+			return ((TileEntityWindmill) te).getFacing();
+		}
+
+		return 4;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIcon(int side, int meta) {
+		int facing = 4;
+		int textureIndex = sideAndMetaToTextureNumber[side][facing];
+		try {
+			return textures[meta][textureIndex];
+		} catch (Exception e) {
+			LogHelper.log(Level.WARNING, "Failed to get texture.");
+		}
+
+		return null;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs,
+			List itemList) {
+		for (WindType type : WindType.values()) {
+			itemList.add(new ItemStack(this, 1, type.ordinal()));
+		}
+	}
+
+	@Override
+	public int idDropped(int meta, Random random, int id) {
+		return blockID;
+	}
+
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z,
 			EntityPlayer thePlayer, int s, float f1, float f2, float f3) {
 		if (thePlayer.isSneaking()) {
@@ -72,28 +143,8 @@ public class BlockCompactWindmill extends BlockContainer {
 	}
 
 	@Override
-	public int damageDropped(int meta) {
-		return meta;
-	}
-
-	@Override
-	public int idDropped(int meta, Random random, int id) {
-		return this.blockID;
-	}
-
-	@Override
 	public int quantityDropped(Random random) {
 		return 1;
-	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs,
-			List itemList) {
-		for (WindType type : WindType.values()) {
-			itemList.add(new ItemStack(this, 1, type.ordinal()));
-		}
 	}
 
 	@Override
@@ -110,11 +161,5 @@ public class BlockCompactWindmill extends BlockContainer {
 			}
 		}
 
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int metadata) {
-		return textures[metadata][side == 2 ? 3 : side > 3 ? 2 : side];
 	}
 }

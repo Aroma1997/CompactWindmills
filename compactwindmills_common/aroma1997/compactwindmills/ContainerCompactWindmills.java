@@ -28,6 +28,11 @@ public class ContainerCompactWindmills extends Container {
 		layoutContainer(inventory, tileEntityCW, windType);
 	}
 
+	@Override
+	public boolean canInteractWith(EntityPlayer entityplayer) {
+		return true;
+	}
+
 	private void layoutContainer(IInventory playerInventory,
 			IInventory inventory, WindType type) {
 		addSlotToContainer(new SlotWindmill(inventory, 0, 80, 26, type));
@@ -47,11 +52,6 @@ public class ContainerCompactWindmills extends Container {
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		return true;
-	}
-
-	@Override
 	public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2) {
 		ItemStack itemstack = null;
 		Slot slot = (Slot) inventorySlots.get(par2);
@@ -61,7 +61,7 @@ public class ContainerCompactWindmills extends Container {
 			itemstack = itemstack1.copy();
 
 			if (par2 == 0) {
-				if (!this.mergeItemStack(itemstack1, 1, 37, true)) {
+				if (!mergeItemStack(itemstack1, 1, 37, true)) {
 					return null;
 				}
 
@@ -69,18 +69,18 @@ public class ContainerCompactWindmills extends Container {
 			} else if (par2 != 0) {
 				if (((SlotWindmill) inventorySlots.get(0))
 						.isItemValid(itemstack1)) {
-					if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
+					if (!mergeItemStack(itemstack1, 0, 1, false)) {
 						return null;
 					}
 				} else if (par2 >= 1 && par2 < 28) {
-					if (!this.mergeItemStack(itemstack1, 28, 37, false)) {
+					if (!mergeItemStack(itemstack1, 28, 37, false)) {
 						return null;
 					}
 				} else if (par2 >= 28 && par2 < 37
-						&& !this.mergeItemStack(itemstack1, 1, 27, false)) {
+						&& !mergeItemStack(itemstack1, 1, 27, false)) {
 					return null;
 				}
-			} else if (!this.mergeItemStack(itemstack1, 1, 28, false)) {
+			} else if (!mergeItemStack(itemstack1, 1, 28, false)) {
 				return null;
 			}
 

@@ -18,9 +18,9 @@ import ic2.api.network.INetworkUpdateListener;
 import ic2.api.network.NetworkHelper;
 import ic2.api.tile.IWrenchable;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -38,93 +38,6 @@ import net.minecraftforge.common.MinecraftForge;
  */
 public class TileEntityWindmill extends TileEntity implements IEnergySource,
 		INetworkDataProvider, IWrenchable, INetworkUpdateListener, IInventory {
-	private Random random = new Random();
-	private WindType type;
-	private boolean initialized;
-	private int tick;
-	private boolean compatibilityMode;
-	private int output;
-	private ItemStack[] inventoryContent;
-	
-	public TileEntityWindmill() {
-		this(WindType.ELV);
-	}
-
-	public TileEntityWindmill(WindType type) {
-		super();
-		this.type = type;
-		tick = random.nextInt(CompactWindmills.updateTick);
-		inventoryContent = new ItemStack[1];
-	}
-
-	@Override
-	public boolean emitsEnergyTo(TileEntity receiver, Direction direction) {
-		return true;
-	}
-
-	@Override
-	public void updateEntity() {
-		if (compatibilityMode) {
-			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
-					type.ordinal(), 0);
-			compatibilityMode = false;
-		}
-		if (!initialized && worldObj != null) {
-			if (worldObj.isRemote) {
-				NetworkHelper.requestInitialData(this);
-			} else {
-				EnergyTileLoadEvent loadEvent = new EnergyTileLoadEvent(this);
-				MinecraftForge.EVENT_BUS.post(loadEvent);
-			}
-			initialized = true;
-		}
-		if (tick-- == 0) {
-			output = setOutput(worldObj, xCoord, yCoord, zCoord, type);
-			tick = CompactWindmills.updateTick;
-		}
-		if (output > 0) {
-			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this,
-					output);
-			MinecraftForge.EVENT_BUS.post(sourceEvent);
-		}
-	}
-
-	@Override
-	public boolean isAddedToEnergyNet() {
-		return initialized;
-	}
-
-	@Override
-	public void onNetworkUpdate(String field) {
-
-	}
-
-	public ItemStack[] getContents() {
-		return inventoryContent;
-	}
-
-	private static List<String> fields = Arrays.asList(new String[0]);
-
-	@Override
-	public List<String> getNetworkedFields() {
-		return fields;
-	}
-
-	@Override
-	public int getMaxEnergyOutput() {
-		return type.output;
-	}
-
-	public WindType getType() {
-		return type;
-	}
-
-	@Override
-	public void invalidate() {
-		EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
-		MinecraftForge.EVENT_BUS.post(unloadEvent);
-	}
-
 	private static int getNonAirBlocks(World world, int x, int y, int z,
 			WindType type) {
 
@@ -147,56 +60,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 		return nonAirBlocks - type.checkRadius - 1;
 	}
 
-	private int setOutput(World world, int x, int y, int z, WindType type) {
-
-		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
-		float weather = getWeather(world);
-		float totalEfficiency = (y - 64 - nonAirBlocks / type.checkRadius)
-				/ 37.5F * weather;
-		float energy = type.output * totalEfficiency;
-		if (!CompactWindmills.vanillaIC2Stuff) {
-			energy *= tickRotor();
-			energy *= 0.5F + random.nextFloat() / 2;
-		}
-		if ((int) energy > type.output) {
-			return type.output;
-		}
-		if ((int) energy <= 0) {
-			return 0;
-		}
-		return (int) energy;
-	}
-
-	@Override
-	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		return false;
-	}
-
-	@Override
-	public short getFacing() {
-		return 0;
-	}
-
-	@Override
-	public void setFacing(short facing) {
-
-	}
-
-	@Override
-	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
-		return true;
-	}
-
-	@Override
-	public float getWrenchDropRate() {
-		return 1.0F;
-	}
-
-	@Override
-	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
-		return new ItemStack(CompactWindmills.windMill, 1, type.ordinal());
-	}
-
 	private static float getWeather(World world) {
 		if (world.isThundering()) {
 			return 1.5F;
@@ -207,14 +70,34 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 		return 1.0F;
 	}
 
-	@Override
-	public int getSizeInventory() {
-		return 1;
+	private Random random = new Random();
+	private WindType type;
+	private boolean initialized;
+	private int tick;
+	private boolean compatibilityMode;
+
+	private int output;
+
+	private ItemStack[] inventoryContent;
+
+	private short facing = 2;
+
+	private short prevFacing = 2;
+
+	public TileEntityWindmill() {
+		this(WindType.ELV);
+	}
+
+	public TileEntityWindmill(WindType type) {
+		super();
+		this.type = type;
+		tick = random.nextInt(CompactWindmills.updateTick);
+		inventoryContent = new ItemStack[1];
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int slot) {
-		return inventoryContent[slot];
+	public void closeChest() {
+		return;
 	}
 
 	@Override
@@ -243,12 +126,22 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) {
-		inventoryContent[i] = itemstack;
-		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
-			itemstack.stackSize = getInventoryStackLimit();
-		}
-		onInventoryChanged();
+	public boolean emitsEnergyTo(TileEntity receiver, Direction direction) {
+		return true;
+	}
+
+	public ItemStack[] getContents() {
+		return inventoryContent;
+	}
+
+	@Override
+	public short getFacing() {
+		return facing;
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 1;
 	}
 
 	@Override
@@ -257,13 +150,31 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	}
 
 	@Override
-	public boolean isInvNameLocalized() {
-		return false;
+	public int getMaxEnergyOutput() {
+		return type.output;
 	}
 
 	@Override
-	public int getInventoryStackLimit() {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public List getNetworkedFields() {
+		List list = new Vector(2);
+		list.add("facing");
+
+		return list;
+	}
+
+	public int getOutputUntilNexttTick() {
+		return output;
+	}
+
+	@Override
+	public int getSizeInventory() {
 		return 1;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		return inventoryContent[slot];
 	}
 
 	@Override
@@ -277,19 +188,34 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 		}
 	}
 
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
-		return true;
+	public WindType getType() {
+		return type;
 	}
 
 	@Override
-	public void openChest() {
-		return;
+	public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
+		return new ItemStack(CompactWindmills.windMill, 1, type.ordinal());
 	}
 
 	@Override
-	public void closeChest() {
-		return;
+	public float getWrenchDropRate() {
+		return 1.0F;
+	}
+
+	@Override
+	public void invalidate() {
+		EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
+		MinecraftForge.EVENT_BUS.post(unloadEvent);
+	}
+
+	@Override
+	public boolean isAddedToEnergyNet() {
+		return initialized;
+	}
+
+	@Override
+	public boolean isInvNameLocalized() {
+		return false;
 	}
 
 	@Override
@@ -305,19 +231,21 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nBTTagCompound) {
-		super.writeToNBT(nBTTagCompound);
-		NBTTagList nBTTagList = new NBTTagList();
-		for (int i = 0; i < inventoryContent.length; i++) {
-			if (inventoryContent[i] != null) {
-				NBTTagCompound nBTTagCompoundTemp = new NBTTagCompound();
-				nBTTagCompoundTemp.setByte("Slot", (byte) i);
-				inventoryContent[i].writeToNBT(nBTTagCompoundTemp);
-				nBTTagList.appendTag(nBTTagCompoundTemp);
-			}
-		}
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		return true;
+	}
 
-		nBTTagCompound.setTag("Items", nBTTagList);
+	@Override
+	public void onNetworkUpdate(String field) {
+		if (field.equals("facing") && prevFacing != facing) {
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			prevFacing = facing;
+		}
+	}
+
+	@Override
+	public void openChest() {
+		return;
 	}
 
 	@Override
@@ -334,6 +262,51 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 						.loadItemStackFromNBT(nBTTagCompoundTemp);
 			}
 		}
+
+		prevFacing = facing = nBTTagCompound.getShort("facing");
+	}
+
+	@Override
+	public void setFacing(short facing) {
+		if (facing == 0 || facing == 1) {
+			return;
+		}
+		this.facing = facing;
+
+		if (prevFacing != facing) {
+			NetworkHelper.updateTileEntityField(this, "facing");
+		}
+
+		prevFacing = facing;
+	}
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		inventoryContent[i] = itemstack;
+		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
+			itemstack.stackSize = getInventoryStackLimit();
+		}
+		onInventoryChanged();
+	}
+
+	private int setOutput(World world, int x, int y, int z, WindType type) {
+
+		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
+		float weather = getWeather(world);
+		float totalEfficiency = (y - 64 - nonAirBlocks / type.checkRadius)
+				/ 37.5F * weather;
+		float energy = type.output * totalEfficiency;
+		if (!CompactWindmills.vanillaIC2Stuff) {
+			energy *= tickRotor();
+			energy *= 0.5F + random.nextFloat() / 2;
+		}
+		if ((int) energy > type.output) {
+			return type.output;
+		}
+		if ((int) energy <= 0) {
+			return 0;
+		}
+		return (int) energy;
 	}
 
 	private float tickRotor() {
@@ -356,7 +329,59 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 		return 0.0F;
 	}
 
-	public int getOutputUntilNexttTick() {
-		return output;
+	@Override
+	public void updateEntity() {
+		if (compatibilityMode) {
+			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
+					type.ordinal(), 0);
+			compatibilityMode = false;
+		}
+		if (!initialized && worldObj != null) {
+			if (worldObj.isRemote) {
+				NetworkHelper.requestInitialData(this);
+				NetworkHelper.updateTileEntityField(this, "facing");
+			} else {
+				EnergyTileLoadEvent loadEvent = new EnergyTileLoadEvent(this);
+				MinecraftForge.EVENT_BUS.post(loadEvent);
+			}
+			initialized = true;
+		}
+		if (tick-- == 0) {
+			output = setOutput(worldObj, xCoord, yCoord, zCoord, type);
+			tick = CompactWindmills.updateTick;
+		}
+		if (output > 0) {
+			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this,
+					output);
+			MinecraftForge.EVENT_BUS.post(sourceEvent);
+		}
+	}
+
+	@Override
+	public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+		return true;
+	}
+
+	@Override
+	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
+		return facing != side && side != 0 && side != 1;
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nBTTagCompound) {
+		super.writeToNBT(nBTTagCompound);
+		NBTTagList nBTTagList = new NBTTagList();
+		for (int i = 0; i < inventoryContent.length; i++) {
+			if (inventoryContent[i] != null) {
+				NBTTagCompound nBTTagCompoundTemp = new NBTTagCompound();
+				nBTTagCompoundTemp.setByte("Slot", (byte) i);
+				inventoryContent[i].writeToNBT(nBTTagCompoundTemp);
+				nBTTagList.appendTag(nBTTagCompoundTemp);
+			}
+		}
+
+		nBTTagCompound.setTag("Items", nBTTagList);
+
+		nBTTagCompound.setShort("facing", facing);
 	}
 }

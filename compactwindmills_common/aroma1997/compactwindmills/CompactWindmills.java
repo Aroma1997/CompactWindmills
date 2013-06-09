@@ -55,40 +55,6 @@ public class CompactWindmills {
 	public static boolean vanillaIC2Stuff;
 	public static boolean debugMode;
 
-	@PreInit
-	public void preInit(FMLPreInitializationEvent event) {
-		LogHelper.init();
-		if (Reference.Version == "@VERSION" + "@") {
-			debugMode = true;
-			LogHelper.log(Level.INFO, "Turning on debug mode.");
-		}
-		Configuration config = new Configuration(
-				event.getSuggestedConfigurationFile());
-		config.load();
-		Property block = config.getBlock("CompactWindmill", 2790);
-		block.comment = "This is the id of the Compact Windmill Blocks.";
-		blockID = block.getInt(2790);
-		Property ticks = config.get(Configuration.CATEGORY_GENERAL,
-				"WaitTicks", 64);
-		ticks.comment = "This is the amount of ticks, the windmills will wait, until they update their efficiency count."
-				+ "Note: The lower the number is, the more lag it will cause."
-				+ "Also note, that they always produce their EU-Count per tick, not only, when they update their efficiency count.";
-		updateTick = ticks.getInt(64);
-		RotorType.getConfigs(config);
-		Property vanillaIC2 = config.get(Configuration.CATEGORY_GENERAL,
-				"useIC2Stuff", false);
-		vanillaIC2.comment = "This defines if this mod just acts as a compact version of the vanilla IC2 Windmill or not."
-				+ "'true' means IC2 version, 'false' means, the mod will change some stuff in its own windmills (recommended)"
-				+ "This changes for example if the windmills require a rotor or if the wind strength is variable. This will also change the recipe.";
-		vanillaIC2Stuff = vanillaIC2.getBoolean(false);
-
-		config.save();
-
-		RotorType.initRotors();
-
-		windMill = new BlockCompactWindmill(blockID);
-	}
-
 	@Init
 	public void load(FMLInitializationEvent event) {
 
@@ -98,8 +64,8 @@ public class CompactWindmills {
 			GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
 		}
 		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ",
-					"WTW", " W ", 'W', Items.getItem("windMill"), 'T',
-					Items.getItem("lvTransformer"));
+				"WTW", " W ", 'W', Items.getItem("windMill"), 'T',
+				Items.getItem("lvTransformer"));
 		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 1), " W ",
 				"WTW", " W ", 'W', new ItemStack(windMill, 1, 0), 'T',
 				Items.getItem("transformerUpgrade"));
@@ -136,5 +102,39 @@ public class CompactWindmills {
 
 	@PostInit
 	public void postInit(FMLPostInitializationEvent event) {
+	}
+
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) {
+		LogHelper.init();
+		if (Reference.Version == "@VERSION" + "@") {
+			debugMode = true;
+			LogHelper.log(Level.INFO, "Turning on debug mode.");
+		}
+		Configuration config = new Configuration(
+				event.getSuggestedConfigurationFile());
+		config.load();
+		Property block = config.getBlock("CompactWindmill", 2790);
+		block.comment = "This is the id of the Compact Windmill Blocks.";
+		blockID = block.getInt(2790);
+		Property ticks = config.get(Configuration.CATEGORY_GENERAL,
+				"WaitTicks", 64);
+		ticks.comment = "This is the amount of ticks, the windmills will wait, until they update their efficiency count."
+				+ "Note: The lower the number is, the more lag it will cause."
+				+ "Also note, that they always produce their EU-Count per tick, not only, when they update their efficiency count.";
+		updateTick = ticks.getInt(64);
+		RotorType.getConfigs(config);
+		Property vanillaIC2 = config.get(Configuration.CATEGORY_GENERAL,
+				"useIC2Stuff", false);
+		vanillaIC2.comment = "This defines if this mod just acts as a compact version of the vanilla IC2 Windmill or not."
+				+ "'true' means IC2 version, 'false' means, the mod will change some stuff in its own windmills (recommended)"
+				+ "This changes for example if the windmills require a rotor or if the wind strength is variable. This will also change the recipe.";
+		vanillaIC2Stuff = vanillaIC2.getBoolean(false);
+
+		config.save();
+
+		RotorType.initRotors();
+
+		windMill = new BlockCompactWindmill(blockID);
 	}
 }

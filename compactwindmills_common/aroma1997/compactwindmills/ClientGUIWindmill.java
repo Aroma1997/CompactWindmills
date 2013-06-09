@@ -25,6 +25,16 @@ public class ClientGUIWindmill extends GuiContainer {
 		ELV(WindType.ELV), LV(WindType.LV), MV(WindType.MV), HV(WindType.HV), EV(
 				WindType.EV);
 
+		public static ClientGUIWindmill makeGUI(WindType type,
+				IInventory inventory, TileEntityWindmill tileEntityCW) {
+			for (GUI gui : values()) {
+				if (tileEntityCW.getType() == gui.windType) {
+					return new ClientGUIWindmill(gui, inventory, tileEntityCW);
+				}
+			}
+			return null;
+		}
+
 		private WindType windType;
 
 		private GUI(WindType windType) {
@@ -35,16 +45,6 @@ public class ClientGUIWindmill extends GuiContainer {
 				TileEntityWindmill windmill) {
 			return new ContainerCompactWindmills(playerInventory, windmill,
 					windType);
-		}
-
-		public static ClientGUIWindmill makeGUI(WindType type,
-				IInventory inventory, TileEntityWindmill tileEntityCW) {
-			for (GUI gui : values()) {
-				if (tileEntityCW.getType() == gui.windType) {
-					return new ClientGUIWindmill(gui, inventory, tileEntityCW);
-				}
-			}
-			return null;
 		}
 	}
 
@@ -61,6 +61,16 @@ public class ClientGUIWindmill extends GuiContainer {
 	}
 
 	@Override
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		mc.renderEngine.bindTexture("/mods/" + Reference.ModID
+				+ "/textures/gui/GUIWindmill.png");
+		int l = (width - xSize) / 2;
+		int i1 = (height - ySize) / 2;
+		drawTexturedModalRect(l, i1, 0, 0, xSize, ySize);
+	}
+
+	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
 		fontRenderer.drawString(type.windType.showedName, 8, 6, 0x404040);
 		fontRenderer.drawString("Rotor:", 44, 30, 0x404040);
@@ -69,16 +79,6 @@ public class ClientGUIWindmill extends GuiContainer {
 				"Current Output: "
 						+ container.tileEntity.getOutputUntilNexttTick()
 						+ "EU/t", 8, 50, 0x404040);
-	}
-
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/mods/" + Reference.ModID
-				+ "/textures/gui/GUIWindmill.png");
-		int l = (width - xSize) / 2;
-		int i1 = (height - ySize) / 2;
-		drawTexturedModalRect(l, i1, 0, 0, xSize, ySize);
 	}
 
 }

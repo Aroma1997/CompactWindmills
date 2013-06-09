@@ -27,6 +27,11 @@ public class SlotWindmill extends Slot {
 	}
 
 	@Override
+	public int getSlotStackLimit() {
+		return 1;
+	}
+
+	@Override
 	public boolean isItemValid(ItemStack itemStack) {
 		if (itemStack == null) {
 			return false;
@@ -36,11 +41,6 @@ public class SlotWindmill extends Slot {
 			return item.doesRotorFitInWindmill(type);
 		}
 		return false;
-	}
-
-	@Override
-	public int getSlotStackLimit() {
-		return 1;
 	}
 
 }
