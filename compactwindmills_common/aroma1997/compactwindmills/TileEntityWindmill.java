@@ -21,15 +21,20 @@ import ic2.api.tile.IWrenchable;
 import java.util.List;
 import java.util.Random;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import aroma1997.compactwindmills.helpers.LogHelper;
 
 /**
  * 
@@ -84,6 +89,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 
 	private short prevFacing = 2;
 
+	public int displayTick;
+
 	public TileEntityWindmill() {
 		this(WindType.ELV);
 	}
@@ -91,6 +98,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	public TileEntityWindmill(WindType type) {
 		super();
 		this.type = type;
+		displayTick = random.nextInt(360);
 		tick = random.nextInt(CompactWindmills.updateTick);
 		inventoryContent = new ItemStack[1];
 	}
@@ -135,6 +143,13 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	}
 
 	@Override
+	public Packet getDescriptionPacket() {
+		NBTTagCompound nbtTag = new NBTTagCompound();
+		writeToNBT(nbtTag);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, nbtTag);
+	}
+
+	@Override
 	public short getFacing() {
 		return facing;
 	}
@@ -165,6 +180,14 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 
 	public int getOutputUntilNexttTick() {
 		return output;
+	}
+
+	public String getRotorName() {
+		if (inventoryContent[0] != null
+				&& inventoryContent[0].getItem() instanceof ItemRotor) {
+			return inventoryContent[0].getItem().getUnlocalizedName();
+		}
+		return null;
 	}
 
 	@Override
@@ -236,6 +259,11 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 	}
 
 	@Override
+	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
+		readFromNBT(packet.customParam1);
+	}
+
+	@Override
 	public void onNetworkUpdate(String field) {
 		if (field.equals("facing") && prevFacing != facing) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -268,10 +296,11 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 
 	@Override
 	public void setFacing(short facing) {
-		if (facing == 0 || facing == 1) {
+		if (facing == 0) {
 			return;
 		}
 		this.facing = facing;
+		LogHelper.debugLog(Level.INFO, "Setting Windmill to facing:" + facing);
 
 		if (prevFacing != facing) {
 			NetworkHelper.updateTileEntityField(this, "facing");
@@ -331,6 +360,11 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 
 	@Override
 	public void updateEntity() {
+		if (worldObj.isRemote) {
+			if (--displayTick <= 0) {
+				displayTick = 360;
+			}
+		}
 		if (compatibilityMode) {
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
 					type.ordinal(), 0);
@@ -364,7 +398,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource,
 
 	@Override
 	public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-		return facing != side && side != 0 && side != 1;
+		return facing != side && side != 0;
 	}
 
 	@Override

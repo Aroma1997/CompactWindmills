@@ -102,6 +102,7 @@ public class CompactWindmills {
 
 	@PostInit
 	public void postInit(FMLPostInitializationEvent event) {
+		proxy.registerRotorRenderer();
 	}
 
 	@PreInit
