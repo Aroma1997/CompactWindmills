@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2013 Aroma1997.
+ * All rights reserved. This program and other files related to this program are
+ * licensed with a extended GNU General Public License v. 3
+ * License informations are at:
+ * https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
+ ******************************************************************************/
 package aroma1997.compactwindmills.rotors;
 
 import net.minecraft.block.Block;
@@ -13,6 +20,11 @@ import aroma1997.compactwindmills.CompactWindmills;
 import aroma1997.compactwindmills.Reference;
 import aroma1997.compactwindmills.TileEntityWindmill;
 
+/**
+ * 
+ * @author Aroma1997
+ *
+ */
 public class TileEntityRenderer extends TileEntitySpecialRenderer {
 
 	private ModelRotor model = new ModelRotor();
@@ -47,6 +59,7 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 		GL11.glRotatef(360 - tileEntity.displayTick, 1.0F, 0.0F, 0.0F);
 		bindTextureByName("mods/" + Reference.ModID
 				+ "/textures/renderers/" + tileEntity.getRotorName() + ".png");
+		GL11.glTranslatef(-0.25F, 0.0F, 0.0F);
 
 		model.render(null, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
 
