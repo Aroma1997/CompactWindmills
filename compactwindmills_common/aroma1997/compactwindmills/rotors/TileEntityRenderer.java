@@ -27,12 +27,13 @@ import aroma1997.compactwindmills.TileEntityWindmill;
  */
 public class TileEntityRenderer extends TileEntitySpecialRenderer {
 
-	private ModelRotor model = new ModelRotor();
+	private ModelRotor model;
 	
 	
 	public void renderBlockRotor(TileEntityWindmill tileEntity, World world,
 			int posX, int posY, int posZ, Block block) {
 		if (tileEntity.getRotorName() == null) return;
+		model  = new ModelRotor(2 + (tileEntity.getType().checkRadius / 2));
 		Tessellator tessellator = Tessellator.instance;
 		float brightness = block.getBlockBrightness(world, posX, posY, posZ);
 		int skyBrightness = world.getLightBrightnessForSkyBlocks(posX, posY,
