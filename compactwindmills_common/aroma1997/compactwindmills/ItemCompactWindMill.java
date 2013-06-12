@@ -8,6 +8,7 @@
 
 package aroma1997.compactwindmills;
 
+
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,38 +21,39 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class ItemCompactWindMill extends ItemBlock {
+	
 	public ItemCompactWindMill(int id) {
 		super(id);
 		setMaxDamage(0);
 		setHasSubtypes(true);
 	}
-
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
-	public void addInformation(ItemStack par1ItemStack,
-			EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-		par3List.add("Max. Output: "
-				+ WindType.values()[par1ItemStack.getItemDamage()].output
-				+ "EU/t");
+	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer,
+		List par3List, boolean par4) {
+		par3List.add("Max. Output: " + WindType.values()[par1ItemStack.getItemDamage()].output
+			+ "EU/t");
 	}
-
+	
 	@Override
 	public String getItemDisplayName(ItemStack par1ItemStack) {
 		return WindType.values()[par1ItemStack.getItemDamage()].showedName;
 	}
-
+	
 	@Override
 	public int getMetadata(int i) {
 		if (i < WindType.values().length) {
 			return i;
-		} else {
+		}
+		else {
 			return 0;
 		}
 	}
-
+	
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {
 		return WindType.values()[itemstack.getItemDamage()].name();
 	}
-
+	
 }

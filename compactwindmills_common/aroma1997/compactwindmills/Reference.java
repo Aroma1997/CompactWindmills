@@ -5,7 +5,9 @@
  * License informations are at:
  * https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
  ******************************************************************************/
+
 package aroma1997.compactwindmills;
+
 
 /**
  * 
@@ -13,11 +15,15 @@ package aroma1997.compactwindmills;
  * 
  */
 public class Reference {
+	
 	public static final String ModID = "CompactWindmills";
+	
 	public static final String ModName = "Compact Windmills";
+	
 	public static final String Version = "@VERSION@";
+	
 	public static final String MCVersion = "@MCVERSION@";
-
-	public static final int ItemIDDifference = -256;
-
+	
+	public static final int ItemIDDifference = - 256;
+	
 }

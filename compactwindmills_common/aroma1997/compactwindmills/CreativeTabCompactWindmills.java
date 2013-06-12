@@ -5,7 +5,9 @@
  * License informations are at:
  * https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
  ******************************************************************************/
+
 package aroma1997.compactwindmills;
+
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -16,14 +18,14 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class CreativeTabCompactWindmills extends CreativeTabs {
-
+	
 	public CreativeTabCompactWindmills(String name) {
 		super(name);
 	}
-
+	
 	@Override
 	public ItemStack getIconItemStack() {
 		return new ItemStack(CompactWindmills.windMill);
 	}
-
+	
 }

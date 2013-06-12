@@ -5,7 +5,9 @@
  * License informations are at:
  * https://github.com/Aroma1997/CompactWindmills/blob/master/license.txt
  ******************************************************************************/
+
 package aroma1997.compactwindmills;
+
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -17,20 +19,19 @@ import net.minecraft.item.ItemStack;
  * 
  */
 public class SlotWindmill extends Slot {
-
+	
 	private WindType type;
-
-	public SlotWindmill(IInventory par1iInventory, int par2, int par3,
-			int par4, WindType type) {
+	
+	public SlotWindmill(IInventory par1iInventory, int par2, int par3, int par4, WindType type) {
 		super(par1iInventory, par2, par3, par4);
 		this.type = type;
 	}
-
+	
 	@Override
 	public int getSlotStackLimit() {
 		return 1;
 	}
-
+	
 	@Override
 	public boolean isItemValid(ItemStack itemStack) {
 		if (itemStack == null) {
@@ -42,5 +43,5 @@ public class SlotWindmill extends Slot {
 		}
 		return false;
 	}
-
+	
 }

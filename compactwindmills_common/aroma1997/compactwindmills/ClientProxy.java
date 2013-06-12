@@ -8,12 +8,16 @@
 
 package aroma1997.compactwindmills;
 
+
+import aroma1997.compactwindmills.rotors.TileEntityRenderer;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
-import aroma1997.compactwindmills.rotors.TileEntityRenderer;
+
 import cpw.mods.fml.client.registry.ClientRegistry;
 
 /**
@@ -22,20 +26,21 @@ import cpw.mods.fml.client.registry.ClientRegistry;
  * 
  */
 public class ClientProxy extends CommonProxy {
-
+	
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer thePlayer,
-			World world, int X, int Y, int Z) {
+	public Object getClientGuiElement(int ID, EntityPlayer thePlayer, World world, int X, int Y,
+		int Z) {
 		TileEntity tileEntity = world.getBlockTileEntity(X, Y, Z);
 		if (tileEntity != null && tileEntity instanceof TileEntityWindmill) {
 			TileEntityWindmill tileEntityCW = (TileEntityWindmill) tileEntity;
-			return ClientGUIWindmill.GUI.makeGUI(tileEntityCW.getType(),
-					thePlayer.inventory, tileEntityCW);
-		} else {
+			return ClientGUIWindmill.GUI.makeGUI(tileEntityCW.getType(), thePlayer.inventory,
+				tileEntityCW);
+		}
+		else {
 			return null;
 		}
 	}
-
+	
 	@Override
 	public void registerRotorRenderer(Configuration config) {
 		config.load();
@@ -43,10 +48,11 @@ public class ClientProxy extends CommonProxy {
 		specialRenderer.comment = "If rotors will be rendered in-game.";
 		boolean specialRender = specialRenderer.getBoolean(true);
 		config.save();
-		if (!specialRender) return;
+		if (! specialRender) {
+			return;
+		}
 		ClientRegistry.bindTileEntitySpecialRenderer(
-				aroma1997.compactwindmills.TileEntityWindmill.class,
-				new TileEntityRenderer());
+			aroma1997.compactwindmills.TileEntityWindmill.class, new TileEntityRenderer());
 	}
-
+	
 }
