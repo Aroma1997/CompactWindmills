@@ -11,6 +11,8 @@ package aroma1997.compactwindmills;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property;
 import aroma1997.compactwindmills.rotors.TileEntityRenderer;
 import cpw.mods.fml.client.registry.ClientRegistry;
 
@@ -35,8 +37,13 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void registerRotorRenderer() {
-
+	public void registerRotorRenderer(Configuration config) {
+		config.load();
+		Property specialRenderer = config.get(Configuration.CATEGORY_GENERAL, "specialRender", true);
+		specialRenderer.comment = "If rotors will be rendered in-game.";
+		boolean specialRender = specialRenderer.getBoolean(true);
+		config.save();
+		if (!specialRender) return;
 		ClientRegistry.bindTileEntitySpecialRenderer(
 				aroma1997.compactwindmills.TileEntityWindmill.class,
 				new TileEntityRenderer());

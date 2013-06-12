@@ -54,6 +54,7 @@ public class CompactWindmills {
 			"creativeTabCW");
 	public static boolean vanillaIC2Stuff;
 	public static boolean debugMode;
+	private Configuration config;
 
 	@Init
 	public void load(FMLInitializationEvent event) {
@@ -102,7 +103,7 @@ public class CompactWindmills {
 
 	@PostInit
 	public void postInit(FMLPostInitializationEvent event) {
-		proxy.registerRotorRenderer();
+		proxy.registerRotorRenderer(config);
 	}
 
 	@PreInit
@@ -114,6 +115,7 @@ public class CompactWindmills {
 		}
 		Configuration config = new Configuration(
 				event.getSuggestedConfigurationFile());
+		this.config = config;
 		config.load();
 		Property block = config.getBlock("CompactWindmill", 2790);
 		block.comment = "This is the id of the Compact Windmill Blocks.";
