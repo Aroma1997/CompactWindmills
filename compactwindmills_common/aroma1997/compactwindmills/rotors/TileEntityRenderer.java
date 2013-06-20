@@ -38,8 +38,8 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 		}
 		model = new ModelRotor(3 + tileEntity.getType().ordinal());
 		Tessellator tessellator = Tessellator.instance;
-		float brightness = block.getBlockBrightness(world, posX, posY, posZ);
-		int skyBrightness = world.getLightBrightnessForSkyBlocks(posX, posY,
+		float brightness = world.getBlockLightValue(posX, posY, posZ);
+		int skyBrightness = world.getLightBrightnessForSkyBlocks(posX, posY + 1,
 			posZ, 0);
 		int skyBrightness1 = skyBrightness % 65536;
 		int skyBrightness2 = skyBrightness / 65536;
@@ -50,6 +50,7 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 		short facing = tileEntity.getFacing();
 		
 		GL11.glPushMatrix();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 		if (facing == 2 || facing == 3 || facing == 4 || facing == 5) {
 			
@@ -61,12 +62,14 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 			GL11.glRotatef(- 90.0F, 0.0F, 0.0F, 1.0F);
 		}
 		GL11.glRotatef(360 - tileEntity.displayTick, 1.0F, 0.0F, 0.0F);
+		GL11.glTranslatef(- 0.25F, 0.0F, 0.0F);
+
 		bindTextureByName("/mods/" + Reference.ModID + "/textures/renderers/"
 			+ tileEntity.getRotorName() + ".png");
-		GL11.glTranslatef(- 0.25F, 0.0F, 0.0F);
 		
 		model.render(null, 0.0F, 0.0F, - 0.1F, 0.0F, 0.0F, 0.0625F);
 		
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPopMatrix();
 	}
 	
