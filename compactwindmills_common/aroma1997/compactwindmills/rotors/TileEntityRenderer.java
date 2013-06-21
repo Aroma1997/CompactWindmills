@@ -63,7 +63,7 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 		}
 		GL11.glRotatef(360 - tileEntity.displayTick, 1.0F, 0.0F, 0.0F);
 		GL11.glTranslatef(- 0.25F, 0.0F, 0.0F);
-
+		
 		bindTextureByName("/mods/" + Reference.ModID + "/textures/renderers/"
 			+ tileEntity.getRotorName() + ".png");
 		
