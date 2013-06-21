@@ -78,7 +78,8 @@ public class BlockCompactWindmill extends BlockContainer {
 			return textures[meta][textureIndex];
 		}
 		catch (Exception e) {
-			LogHelper.log(Level.WARNING, "Failed to get texture.");
+			LogHelper.log(Level.WARNING, "Failed to get texture at: x=" + x + "; y=" + y + "; z="
+				+ z + "; facing=" + facing + "; side=" + side + "; meta=" + meta + ";");
 		}
 		
 		return null;
@@ -91,7 +92,8 @@ public class BlockCompactWindmill extends BlockContainer {
 			return ((TileEntityWindmill) tileEntity).getFacing();
 		}
 		
-		LogHelper.log(Level.WARNING, "Failed to get Texture");
+		LogHelper.log(Level.WARNING, "Failed to get Facing at: x=" + x + "; y=" + y + "; z=" + z
+			+ ";");
 		
 		return 4;
 	}
@@ -105,7 +107,8 @@ public class BlockCompactWindmill extends BlockContainer {
 			return textures[meta][textureIndex];
 		}
 		catch (Exception e) {
-			LogHelper.log(Level.WARNING, "Failed to get texture.");
+			LogHelper.log(Level.WARNING, "Failed to get texture at: side=" + side + "; meta="
+				+ meta + ";");
 		}
 		
 		return null;
