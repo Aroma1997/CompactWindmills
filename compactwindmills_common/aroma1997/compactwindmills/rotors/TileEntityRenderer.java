@@ -35,7 +35,7 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 		if (tileEntity.getRotor() == null) {
 			return;
 		}
-		model = new ModelRotor(3 + tileEntity.getType().ordinal());
+		model = new ModelRotor(tileEntity.getType().checkRadius);
 		Tessellator tessellator = Tessellator.instance;
 		float brightness = world.getBlockLightValue(posX, posY, posZ);
 		int skyBrightness = world.getLightBrightnessForSkyBlocks(posX, posY + 1,
