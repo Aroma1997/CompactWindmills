@@ -50,7 +50,6 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 		short facing = tileEntity.getFacing();
 		
 		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 		if (facing == 2 || facing == 3 || facing == 4 || facing == 5) {
 			
@@ -69,7 +68,6 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 		
 		model.render(null, 0.0F, 0.0F, - 0.1F, 0.0F, 0.0F, 0.0625F);
 		
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glPopMatrix();
 	}
 	
