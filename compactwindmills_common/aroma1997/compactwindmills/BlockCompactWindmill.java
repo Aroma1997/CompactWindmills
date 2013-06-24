@@ -177,7 +177,7 @@ public class BlockCompactWindmill extends BlockContainer {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving, ItemStack itemStack)
 	{
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		/*TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if (tileEntity != null && tileEntity instanceof TileEntityWindmill) {
 			TileEntityWindmill windmill = (TileEntityWindmill) tileEntity;
 			int dir = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D);
@@ -192,6 +192,6 @@ public class BlockCompactWindmill extends BlockContainer {
 			LogHelper.debugLog(Level.INFO, "Setting default facing of windmill at:  x=" + x + "; y=" + y + "; z=" + z + "; rotation=" + entityLiving.rotationYaw + ";");
 			return;
 		}
-		LogHelper.log(Level.WARNING, "Failed to set the default facing of the windmill at: x=" + x + "; y=" + y + "; z=" + z + "; rotation=" + entityLiving.rotationYaw + ";");
+		LogHelper.log(Level.WARNING, "Failed to set the default facing of the windmill at: x=" + x + "; y=" + y + "; z=" + z + "; rotation=" + entityLiving.rotationYaw + ";");*/
 	}
 }
