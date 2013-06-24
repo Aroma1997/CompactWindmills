@@ -26,6 +26,7 @@ import net.minecraftforge.common.Property;
 public enum RotorType {
 	
 	WOOD(27900, 144000, WindType.ELV, WindType.LV, 0.5F, "Wooden Rotor", "rotorWood", ItemRotor.class),
+	WOOL(27904, 36000, WindType.ELV, WindType.LV, 0.9F, "Cloth Rotor", "rotorCloth", ItemRotor.class),
 	CARBON(27901, 3456000, WindType.LV, WindType.HV, 0.75F, "Carbon Rotor", "rotorCarbon", ItemRotor.class),
 	ALLOY(27903, 432000, WindType.MV, WindType.EV, 0.9F, "Alloy Rotor", "rotorAlloy", ItemRotor.class),
 	IRIDIUM(27902, 0, WindType.HV, WindType.EV, 1.0F, "Iridium Rotor", "rotorIridium", ItemRotor.class);
