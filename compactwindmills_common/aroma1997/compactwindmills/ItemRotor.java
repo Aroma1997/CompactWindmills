@@ -38,6 +38,7 @@ public class ItemRotor extends Item {
 		super(id + Reference.ItemIDDifference);
 		setCreativeTab(CompactWindmills.creativeTabCompactWindmills);
 		setMaxStackSize(1);
+		setNoRepair();
 	}
 	
 	@SuppressWarnings({"rawtypes", "unchecked"})
