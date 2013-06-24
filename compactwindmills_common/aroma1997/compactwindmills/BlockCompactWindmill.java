@@ -157,7 +157,7 @@ public class BlockCompactWindmill extends BlockContainer {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {
-		textures = new Icon[WindType.values().length][5];
+		textures = new Icon[WindType.values().length][4];
 		for (WindType type : WindType.values()) {
 			for (int side = 0; side < 4; side++) {
 				String sideName = side == 0 ? "bottom" : side == 1 ? "top"
