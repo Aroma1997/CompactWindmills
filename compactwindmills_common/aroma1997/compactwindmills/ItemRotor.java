@@ -99,6 +99,14 @@ public class ItemRotor extends Item {
 		takeDamage = false;
 		return this;
 	}
+
+	@Override
+
+	@Override
+	public String getRenderTexture() {
+		return "/mods/" + Reference.ModID + "/textures/renderers/" + this.getUnlocalizedName() + ".png";
+	}
+	
 	@Override
 	public ItemRotor setMaxDamage(int maxDamage) {
 		super.setMaxDamage(maxDamage);
