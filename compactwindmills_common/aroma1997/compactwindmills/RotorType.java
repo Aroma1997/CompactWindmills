@@ -95,9 +95,6 @@ public enum RotorType {
 			rotor = (ItemRotor) claSS.getConstructor(int.class).newInstance(id).setMinMaxTier(
 				typeMin, typeMax).setEfficiency(efficiency).setMaxDamage(maxDamage).setUnlocalizedName(
 					unlocalizedName);
-			if (maxDamage == 0) {
-				rotor.setNotGetDamage();
-			}
 		}
 		catch (Exception e) {
 			e.printStackTrace();

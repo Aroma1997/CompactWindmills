@@ -99,4 +99,11 @@ public class ItemRotor extends Item {
 		takeDamage = false;
 		return this;
 	}
+	@Override
+	public ItemRotor setMaxDamage(int maxDamage) {
+		super.setMaxDamage(maxDamage);
+		if (maxDamage == 0) this.setNotGetDamage();
+		return this;
+	}
+	
 }
