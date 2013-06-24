@@ -103,7 +103,9 @@ public class BlockCompactWindmill extends BlockContainer {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int meta) {
-		if (meta > WindType.values().length) return null;
+		if (meta > WindType.values().length) {
+			return null;
+		}
 		int facing = 4;
 		int textureIndex = sideAndMetaToTextureNumber[side][facing];
 		try {
