@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,7 +25,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author Aroma1997
  * 
  */
-public class ItemRotor extends Item {
+public class ItemRotor extends Item implements IItemRotor {
 	
 	private int tierMin;
 	
@@ -32,7 +33,7 @@ public class ItemRotor extends Item {
 	
 	private float efficiency;
 	
-	public boolean takeDamage = true;
+	private boolean takeDamage = true;
 	
 	public ItemRotor(int id) {
 		super(id + Reference.ItemIDDifference);
@@ -53,7 +54,7 @@ public class ItemRotor extends Item {
 			par3List.add("Infinite");
 		}
 		par3List.add("Efficiency: "
-			+ (int) (((ItemRotor) par1ItemStack.getItem()).efficiency * 100) + "%");
+			+ (int) (((IItemRotor) par1ItemStack.getItem()).getEfficiency() * 100) + "%");
 	}
 	
 	public boolean doesRotorFitInWindmill(WindType type) {
@@ -102,6 +103,14 @@ public class ItemRotor extends Item {
 	}
 
 	@Override
+	public boolean doesGetDamage() {
+		return this.takeDamage;
+	}
+
+	@Override
+	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj, int waitTicks) {
+		return;
+	}
 
 	@Override
 	public String getRenderTexture() {

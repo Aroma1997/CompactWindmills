@@ -10,7 +10,6 @@ package aroma1997.compactwindmills.rotors;
 
 
 import aroma1997.compactwindmills.CompactWindmills;
-import aroma1997.compactwindmills.Reference;
 import aroma1997.compactwindmills.TileEntityWindmill;
 
 import net.minecraft.block.Block;
@@ -33,7 +32,7 @@ public class TileEntityRenderer extends TileEntitySpecialRenderer {
 	
 	public void renderBlockRotor(TileEntityWindmill tileEntity, World world, int posX, int posY,
 		int posZ, Block block) {
-		if (tileEntity.getRotorName() == null) {
+		if (tileEntity.getRotor() == null) {
 			return;
 		}
 		model = new ModelRotor(3 + tileEntity.getType().ordinal());

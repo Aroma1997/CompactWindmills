@@ -190,14 +190,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		return output;
 	}
 	
-	public String getRotorName() {
-		if (inventoryContent[0] != null
-			&& inventoryContent[0].getItem() instanceof ItemRotor) {
-			return inventoryContent[0].getItem().getUnlocalizedName();
-		}
-		return null;
-	}
-	
 	@Override
 	public int getSizeInventory() {
 		return 1;
@@ -255,8 +247,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		if (itemStack == null) {
 			return false;
 		}
-		if (itemStack.getItem() instanceof ItemRotor) {
-			ItemRotor rotor = (ItemRotor) itemStack.getItem();
+		if (itemStack.getItem() instanceof IItemRotor) {
+			IItemRotor rotor = (IItemRotor) itemStack.getItem();
 			return rotor.doesRotorFitInWindmill(type);
 		}
 		return false;
@@ -348,9 +340,10 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	private float tickRotor() {
 		ItemStack itemStack = inventoryContent[0];
-		if (itemStack != null && itemStack.getItem() instanceof ItemRotor) {
-			ItemRotor rotor = (ItemRotor) itemStack.getItem();
-			if (rotor.takeDamage) {
+		if (itemStack != null && itemStack.getItem() instanceof IItemRotor) {
+			IItemRotor rotor = (IItemRotor) itemStack.getItem();
+			rotor.tickRotor(itemStack, this, worldObj, CompactWindmills.updateTick);
+			if (rotor.doesGetDamage()) {
 				if (itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
 					itemStack = null;
 				}
@@ -425,5 +418,12 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		nBTTagCompound.setTag("Items", nBTTagList);
 		
 		nBTTagCompound.setShort("facing", facing);
+	}
+	
+	public IItemRotor getRotor() {
+		if (this.inventoryContent[0] != null && this.inventoryContent[0].getItem() instanceof IItemRotor) {
+			return (IItemRotor) this.inventoryContent[0].getItem();
+		}
+		return null;
 	}
 }

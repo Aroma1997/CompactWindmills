@@ -37,8 +37,8 @@ public class SlotWindmill extends Slot {
 		if (itemStack == null) {
 			return false;
 		}
-		if (itemStack.getItem() instanceof ItemRotor) {
-			ItemRotor item = (ItemRotor) itemStack.getItem();
+		if (itemStack.getItem() instanceof IItemRotor) {
+			IItemRotor item = (IItemRotor) itemStack.getItem();
 			return item.doesRotorFitInWindmill(type);
 		}
 		return false;
