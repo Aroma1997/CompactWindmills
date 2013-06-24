@@ -101,7 +101,7 @@ public enum RotorType {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			LogHelper.log(Level.WARNING, "Failed to Register Rotor: " + showedName);
+			LogHelper.log(Level.SEVERE, "Failed to Register Rotor: " + showedName);
 		}
 	}
 	
