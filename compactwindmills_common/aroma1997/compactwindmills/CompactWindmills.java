@@ -56,10 +56,10 @@ public class CompactWindmills {
 	
 	public static Block windMill;
 	
-	public static int updateTick;
-	
 	public static final CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills(
 		"creativeTabCW");
+
+	public static final int updateTick = 64;
 	
 	public static boolean vanillaIC2Stuff;
 	
@@ -81,11 +81,6 @@ public class CompactWindmills {
 		Property block = config.getBlock("CompactWindmill", 2790);
 		block.comment = "This is the id of the Compact Windmill Blocks.";
 		blockID = block.getInt(2790);
-		Property ticks = config.get(Configuration.CATEGORY_GENERAL, "WaitTicks", 64);
-		ticks.comment = "This is the amount of ticks, the windmills will wait, until they update their efficiency count."
-			+ "Note: The lower the number is, the more lag it will cause."
-			+ "Also note, that they always produce their EU-Count per tick, not only, when they update their efficiency count.";
-		updateTick = ticks.getInt(64);
 		RotorType.getConfigs(config);
 		Property vanillaIC2 = config.get(Configuration.CATEGORY_GENERAL, "useIC2Stuff", false);
 		vanillaIC2.comment = "This defines if this mod just acts as a compact version of the vanilla IC2 Windmill or not."

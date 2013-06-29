@@ -111,6 +111,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	@Override
 	public void closeChest() {
+		NetworkHelper.updateTileEntityField(this, "inventoryContent");
 		return;
 	}
 	
@@ -317,7 +318,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		onInventoryChanged();
 	}
 	
-	private int setOutput(World world, int x, int y, int z, WindType type) {
+	private int setOutput(World world, int x, int y, int z) {
 		
 		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
 		float weather = getWeather(world);
@@ -342,7 +343,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		ItemStack itemStack = inventoryContent[0];
 		if (itemStack != null && itemStack.getItem() instanceof IItemRotor) {
 			IItemRotor rotor = (IItemRotor) itemStack.getItem();
-			rotor.tickRotor(itemStack, this, worldObj, CompactWindmills.updateTick);
+			rotor.tickRotor(itemStack, this, worldObj);
 			if (rotor.doesGetDamage()) {
 				if (itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
 					itemStack = null;
@@ -382,7 +383,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			initialized = true;
 		}
 		if (tick-- == 0) {
-			output = setOutput(worldObj, xCoord, yCoord, zCoord, type);
+			output = setOutput(worldObj, xCoord, yCoord, zCoord);
 			tick = CompactWindmills.updateTick;
 		}
 		if (output > 0) {

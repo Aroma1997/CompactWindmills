@@ -108,11 +108,6 @@ public class ItemRotor extends Item implements IItemRotor {
 	}
 
 	@Override
-	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj, int waitTicks) {
-		return;
-	}
-
-	@Override
 	public String getRenderTexture() {
 		return "/mods/" + Reference.ModID + "/textures/renderers/" + this.getUnlocalizedName() + ".png";
 	}
@@ -122,6 +117,11 @@ public class ItemRotor extends Item implements IItemRotor {
 		super.setMaxDamage(maxDamage);
 		if (maxDamage == 0) this.setNotGetDamage();
 		return this;
+	}
+
+	@Override
+	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj) {
+		return;
 	}
 	
 }

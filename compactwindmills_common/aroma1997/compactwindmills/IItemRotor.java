@@ -40,9 +40,8 @@ public interface IItemRotor {
 	 * @param rotor the rotor itself
 	 * @param tileEntity the Windmill where the rotor is in
 	 * @param worldObj the world, where the Windmill is in
-	 * @param waitTicks the amount of ticks waited, until the rotor gets ticked again
 	 */
-	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj, int waitTicks);
+	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj);
 	
 	/**
 	 * To get the texture that is used to display the Rotor Model Texture.
