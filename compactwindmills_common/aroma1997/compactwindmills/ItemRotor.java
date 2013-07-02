@@ -33,7 +33,7 @@ public class ItemRotor extends Item implements IItemRotor {
 	
 	private float efficiency;
 	
-	private boolean takeDamage = true;
+	private boolean isInfinite;
 	
 	public ItemRotor(int id) {
 		super(id + Reference.ItemIDDifference);
@@ -46,7 +46,7 @@ public class ItemRotor extends Item implements IItemRotor {
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer,
 		List par3List, boolean par4) {
-		if (takeDamage) {
+		if (!isInfinite) {
 			int leftOverTicks = par1ItemStack.getMaxDamage() - par1ItemStack.getItemDamage();
 			par3List.add(leftOverTicks + " ticks left over on this Rotor.");
 		}
@@ -96,15 +96,10 @@ public class ItemRotor extends Item implements IItemRotor {
 		tierMax = typeMax.ordinal();
 		return this;
 	}
-	
-	public ItemRotor setNotGetDamage() {
-		takeDamage = false;
-		return this;
-	}
 
 	@Override
-	public boolean doesGetDamage() {
-		return this.takeDamage;
+	public boolean isInfinite() {
+		return this.isInfinite;
 	}
 
 	@Override
@@ -115,7 +110,7 @@ public class ItemRotor extends Item implements IItemRotor {
 	@Override
 	public ItemRotor setMaxDamage(int maxDamage) {
 		super.setMaxDamage(maxDamage);
-		if (maxDamage == 0) this.setNotGetDamage();
+		if (maxDamage == 0) this.isInfinite = true;
 		return this;
 	}
 

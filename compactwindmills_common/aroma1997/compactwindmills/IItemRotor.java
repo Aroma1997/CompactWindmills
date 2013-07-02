@@ -31,9 +31,9 @@ public interface IItemRotor {
 	public int getMinTier();
 	
 	/**
-	 * If the rotor gets damage
+	 * If the rotor can break or if it's infinite
 	 */
-	public boolean doesGetDamage();
+	public boolean isInfinite();
 	
 	/**
 	 * This is executed, when the windmill gets the efficiency of the Rotor.
