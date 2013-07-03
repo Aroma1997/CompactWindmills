@@ -53,7 +53,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	public TileEntityWindmill(WindType type) {
 		super();
 		this.type = type;
-		displayTick = random.nextInt(360);
 		tick = random.nextInt(CompactWindmills.updateTick);
 		inventoryContent = new ItemStack[1];
 	}
@@ -106,8 +105,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	private short facing = 2;
 	
 	private short prevFacing = 2;
-	
-	public int displayTick;
 	
 	@Override
 	public void closeChest() {
@@ -362,11 +359,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	@Override
 	public void updateEntity() {
-		if (worldObj.isRemote) {
-			if (--displayTick <= 0) {
-				displayTick = 360;
-			}
-		}
 		if (compatibilityMode) {
 			worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord,
 				type.ordinal(), 0);
