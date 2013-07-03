@@ -163,7 +163,7 @@
         
         <property name="mod.jar.release" location="${mod.base}/${modname}-universal-${minecraft.version}-${version}-Forge-${build.forgeversion}.jar" />
         
-        <condition property="forge.downloaded" value="true">
+        <!--<condition property="forge.downloaded" value="true">
             <resourceexists>
                 <file file="${mod.base}/minecraftforge-src-${minecraft.version}-${forge.version}.zip" />
             </resourceexists>
@@ -183,7 +183,7 @@
                     <file file="${forge.jar.built}"/>
                 </resourceexists>
              </and>
-        </condition>
+        </condition>-->
 		
 		
 		<property file="build_number.properties" prefix="build_number"/>
