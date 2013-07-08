@@ -28,7 +28,7 @@ import org.lwjgl.opengl.GL11;
  * @author Aroma1997
  * 
  */
-public class TileEntityRenderer extends TileEntitySpecialRenderer {
+public class WindmillRenderer extends TileEntitySpecialRenderer {
 	
 	private ModelRotor model;
 	private int tick = new Random().nextInt(720);

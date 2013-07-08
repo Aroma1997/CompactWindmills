@@ -9,7 +9,7 @@
 package aroma1997.compactwindmills;
 
 
-import aroma1997.compactwindmills.rotors.TileEntityRenderer;
+import aroma1997.compactwindmills.rotors.WindmillRenderer;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -52,7 +52,7 @@ public class ClientProxy extends CommonProxy {
 			return;
 		}
 		ClientRegistry.bindTileEntitySpecialRenderer(
-			aroma1997.compactwindmills.TileEntityWindmill.class, new TileEntityRenderer());
+			aroma1997.compactwindmills.TileEntityWindmill.class, new WindmillRenderer());
 	}
 	
 }
