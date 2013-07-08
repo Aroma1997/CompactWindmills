@@ -338,19 +338,17 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	}
 	
 	private float tickRotor() {
-		ItemStack itemStack = inventoryContent[0];
-		if (itemStack != null && itemStack.getItem() instanceof IItemRotor) {
-			IItemRotor rotor = (IItemRotor) itemStack.getItem();
-			rotor.tickRotor(itemStack, this, worldObj);
+		if (inventoryContent[0] != null && inventoryContent[0].getItem() instanceof IItemRotor) {
+			IItemRotor rotor = (IItemRotor) inventoryContent[0].getItem();
+			rotor.tickRotor(inventoryContent[0], this, worldObj);
 			if (!rotor.isInfinite()) {
-				if (itemStack.getItemDamage() + CompactWindmills.updateTick > itemStack.getMaxDamage()) {
-					itemStack = null;
+				if (inventoryContent[0].getItemDamage() + CompactWindmills.updateTick > inventoryContent[0].getMaxDamage()) {
+					inventoryContent[0] = null;
 				}
 				else {
-					int damage = itemStack.getItemDamage() + CompactWindmills.updateTick;
-					itemStack.setItemDamage(damage);
+					int damage = inventoryContent[0].getItemDamage() + CompactWindmills.updateTick;
+					inventoryContent[0].setItemDamage(damage);
 				}
-				inventoryContent[0] = itemStack;
 				onInventoryChanged();
 			}
 			return rotor.getEfficiency();
