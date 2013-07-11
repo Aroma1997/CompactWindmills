@@ -13,6 +13,7 @@
         <unzip src="${mod.base}/minecraftforge-src-${minecraft.version}-${forge.version}.zip" dest="${mod.base}" />
         <exec executable="${python.exe}" dir="${forge.base}" failonerror="true">
             <arg value="${forge.base}/install.py" />
+            <arg value="--no-assets" />
         </exec>
     </target>
     <target name="build-forge" depends="setup-forge" unless="forge.built">
@@ -23,15 +24,9 @@
         <javac  encoding="UTF-8" compiler="modern" source="1.6" target="1.6" deprecation="false"
                 destdir="${mcp.bin}" includeantruntime="false" includejavaruntime="true" debug="true">
             <compilerarg value="-Xlint:-options" />
-            <classpath>
-                <pathelement location="${mcp.lib}\argo-3.2-src.jar" />
-                <pathelement location="${mcp.lib}\asm-debug-all-4.1.jar" />
-                <pathelement location="${mcp.lib}\bcprov-debug-jdk15on-148.jar" />
-                <pathelement location="${mcp.lib}\guava-14.0-rc3.jar" />
-                <pathelement location="${mcp.jars}\bin\minecraft.jar" />
-                <pathelement location="${mcp.jars}\bin\jinput.jar" />
-                <pathelement location="${mcp.jars}\bin\lwjgl.jar" />
-                <pathelement location="${mcp.jars}\bin\lwjgl_util.jar" />
+			<classpath>
+                <fileset dir="${mcp.lib}" includes="**/*.jar" />
+                <pathelement location="${mcp.jars}\versions\${minecraft.version}\${minecraft.version}.jar" />
             </classpath>
             <src path="${mcp.src}" />
         </javac>
@@ -51,17 +46,9 @@
             <compilerarg value="-Xlint:-options" />
             <compilerarg value="-Xlint:deprecation" />
             <compilerarg value="-Xlint:unchecked" />
-            <classpath>
-                <pathelement location="${mod.base}\minecraftforge-built.jar" />
-                <pathelement location="${mcp.lib}\argo-3.2-src.jar" />
-                <pathelement location="${mcp.lib}\asm-debug-all-4.1.jar" />
-                <pathelement location="${mcp.lib}\bcprov-debug-jdk15on-148.jar" />
-                <pathelement location="${mcp.lib}\guava-14.0-rc3.jar" />
-                <pathelement location="${mcp.jars}\bin\minecraft.jar" />
-                <pathelement location="${mcp.jars}\bin\jinput.jar" />
-                <pathelement location="${mcp.jars}\bin\lwjgl.jar" />
-                <pathelement location="${mcp.jars}\bin\lwjgl_util.jar" />
-                <pathelement location="${mcp.jars}\bin\minecraft.jar" />
+			<classpath>
+                <fileset dir="${mcp.lib}" includes="**/*.jar" />
+                <pathelement location="${mcp.jars}\versions\${minecraft.version}\${minecraft.version}.jar" />
             </classpath>
             <src path="${temp.src}" />
         </javac>
