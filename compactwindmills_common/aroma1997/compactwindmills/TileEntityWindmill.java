@@ -242,7 +242,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	}
 	
 	@Override
-	public boolean isStackValidForSlot(int slot, ItemStack itemStack) {
+	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
 		if (itemStack == null) {
 			return false;
 		}
@@ -365,7 +365,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		}
 		if (! initialized && worldObj != null) {
 			if (worldObj.isRemote) {
-				NetworkHelper.requestInitialData(this);
 				NetworkHelper.updateTileEntityField(this, "facing");
 			}
 			else {

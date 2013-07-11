@@ -1,6 +1,7 @@
 package aroma1997.compactwindmills;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 
@@ -47,5 +48,5 @@ public interface IItemRotor {
 	 * To get the texture that is used to display the Rotor Model Texture.
 	 * @return The path to the Texture
 	 */
-	public String getRenderTexture();
+	public ResourceLocation getRenderTexture();
 }

@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -68,7 +69,7 @@ public class WindmillRenderer extends TileEntitySpecialRenderer {
 		GL11.glRotatef(360 - this.tick / 2, 1.0F, 0.0F, 0.0F);
 		GL11.glTranslatef(- 0.25F, 0.0F, 0.0F);
 		
-		bindTextureByName(tileEntity.getRotor().getRenderTexture());
+		this.func_110628_a(tileEntity.getRotor().getRenderTexture());
 		
 		model.render(null, 0.0F, 0.0F, - 0.1F, 0.0F, 0.0F, 0.0625F);
 		

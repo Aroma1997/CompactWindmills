@@ -12,6 +12,7 @@ package aroma1997.compactwindmills;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -66,8 +67,8 @@ public class ClientGUIWindmill extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.bindTexture("/mods/" + Reference.ModID
-			+ "/textures/gui/GUIWindmill.png");
+		mc.renderEngine.func_110577_a(new ResourceLocation(Reference.ModID
+			+ ":textures/gui/GUIWindmill.png"));
 		int l = (width - xSize) / 2;
 		int i1 = (height - ySize) / 2;
 		drawTexturedModalRect(l, i1, 0, 0, xSize, ySize);

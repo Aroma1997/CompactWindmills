@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
@@ -103,8 +104,8 @@ public class ItemRotor extends Item implements IItemRotor {
 	}
 
 	@Override
-	public String getRenderTexture() {
-		return "/mods/" + Reference.ModID + "/textures/renderers/" + this.getUnlocalizedName() + ".png";
+	public ResourceLocation getRenderTexture() {
+		return new ResourceLocation(Reference.ModID + ":textures/renderers/" + this.getUnlocalizedName() + ".png");
 	}
 	
 	@Override

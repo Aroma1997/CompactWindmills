@@ -19,7 +19,6 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -174,23 +173,8 @@ public class BlockCompactWindmill extends BlockContainer {
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityLiving, ItemStack itemStack)
-	{
-		/*TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if (tileEntity != null && tileEntity instanceof TileEntityWindmill) {
-			TileEntityWindmill windmill = (TileEntityWindmill) tileEntity;
-			int dir = MathHelper.floor_double(entityLiving.rotationYaw * 4.0F / 360.0F + 0.5D);
-			short facing = 2;
-			switch (dir) {
-				case 0: facing = 2;
-				case 1: facing = 5;
-				case 2: facing = 3;
-				case 3: facing = 4;
-			}
-			windmill.setFacing(facing);
-			LogHelper.debugLog(Level.INFO, "Setting default facing of windmill at:  x=" + x + "; y=" + y + "; z=" + z + "; rotation=" + entityLiving.rotationYaw + ";");
-			return;
-		}
-		LogHelper.log(Level.WARNING, "Failed to set the default facing of the windmill at: x=" + x + "; y=" + y + "; z=" + z + "; rotation=" + entityLiving.rotationYaw + ";");*/
-	}
+    public void breakBlock(World world, int par2, int par3, int par4, int par5, int par6)
+    {
+		super.breakBlock(world, par2, par3, par4, par5, par6);
+    }
 }

@@ -24,10 +24,8 @@ import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -67,7 +65,7 @@ public class CompactWindmills {
 	
 	private Configuration config;
 	
-	@PreInit
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		LogHelper.init();
 		if (Reference.Version == "@VERSION" + "@") {
@@ -95,7 +93,7 @@ public class CompactWindmills {
 		windMill = new BlockCompactWindmill(blockID);
 	}
 	
-	@Init
+	@EventHandler
 	public void load(FMLInitializationEvent event) {
 		
 		GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "blockCompactWindmill");
@@ -133,7 +131,7 @@ public class CompactWindmills {
 		
 	}
 	
-	@PostInit
+	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.registerRotorRenderer(config);
 	}
