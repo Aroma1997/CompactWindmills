@@ -56,7 +56,7 @@ public class CompactWindmills {
 	
 	public static final CreativeTabs creativeTabCompactWindmills = new CreativeTabCompactWindmills(
 		"creativeTabCW");
-
+	
 	public static final int updateTick = 64;
 	
 	public static boolean vanillaIC2Stuff;

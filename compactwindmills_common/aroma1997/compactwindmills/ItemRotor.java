@@ -47,7 +47,7 @@ public class ItemRotor extends Item implements IItemRotor {
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer,
 		List par3List, boolean par4) {
-		if (!isInfinite) {
+		if (! isInfinite) {
 			int leftOverTicks = par1ItemStack.getMaxDamage() - par1ItemStack.getItemDamage();
 			par3List.add(leftOverTicks + " ticks left over on this Rotor.");
 		}
@@ -58,18 +58,22 @@ public class ItemRotor extends Item implements IItemRotor {
 			+ (int) (((IItemRotor) par1ItemStack.getItem()).getEfficiency() * 100) + "%");
 	}
 	
+	@Override
 	public boolean doesRotorFitInWindmill(WindType type) {
 		return type.ordinal() <= tierMax && type.ordinal() >= tierMin;
 	}
 	
+	@Override
 	public float getEfficiency() {
 		return efficiency;
 	}
 	
+	@Override
 	public int getMaxTier() {
 		return tierMax;
 	}
 	
+	@Override
 	public int getMinTier() {
 		return tierMin;
 	}
@@ -97,24 +101,27 @@ public class ItemRotor extends Item implements IItemRotor {
 		tierMax = typeMax.ordinal();
 		return this;
 	}
-
+	
 	@Override
 	public boolean isInfinite() {
-		return this.isInfinite;
+		return isInfinite;
 	}
-
+	
 	@Override
 	public ResourceLocation getRenderTexture() {
-		return new ResourceLocation(Reference.ModID + ":textures/renderers/" + this.getUnlocalizedName() + ".png");
+		return new ResourceLocation(Reference.ModID + ":textures/renderers/"
+			+ this.getUnlocalizedName() + ".png");
 	}
 	
 	@Override
 	public ItemRotor setMaxDamage(int maxDamage) {
 		super.setMaxDamage(maxDamage);
-		if (maxDamage == 0) this.isInfinite = true;
+		if (maxDamage == 0) {
+			isInfinite = true;
+		}
 		return this;
 	}
-
+	
 	@Override
 	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj) {
 		return;

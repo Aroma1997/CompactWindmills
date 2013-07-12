@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
@@ -32,6 +31,7 @@ import org.lwjgl.opengl.GL11;
 public class WindmillRenderer extends TileEntitySpecialRenderer {
 	
 	private ModelRotor model;
+	
 	private int tick = new Random().nextInt(720);
 	
 	public void renderBlockRotor(TileEntityWindmill tileEntity, World world, int posX, int posY,
@@ -66,10 +66,10 @@ public class WindmillRenderer extends TileEntitySpecialRenderer {
 		else if (facing == 1) {
 			GL11.glRotatef(- 90.0F, 0.0F, 0.0F, 1.0F);
 		}
-		GL11.glRotatef(360 - this.tick / 2, 1.0F, 0.0F, 0.0F);
+		GL11.glRotatef(360 - tick / 2, 1.0F, 0.0F, 0.0F);
 		GL11.glTranslatef(- 0.25F, 0.0F, 0.0F);
 		
-		this.func_110628_a(tileEntity.getRotor().getRenderTexture());
+		func_110628_a(tileEntity.getRotor().getRenderTexture());
 		
 		model.render(null, 0.0F, 0.0F, - 0.1F, 0.0F, 0.0F, 0.0625F);
 		
