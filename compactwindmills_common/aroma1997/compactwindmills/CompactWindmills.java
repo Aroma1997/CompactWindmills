@@ -119,10 +119,14 @@ public class CompactWindmills {
 				'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));
 			GameRegistry.addRecipe(new ItemStack(RotorType.ALLOY.getItem()), "AAA", "AMA", "AAA",
 				'A', Items.getItem("advancedAlloy"), 'M', Items.getItem("machine"));
-			GameRegistry.addRecipe(new ItemStack(RotorType.WOOD.getItem()), " S ", "SIS", " S ",
-				'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"));
+			GameRegistry.addRecipe(new ItemStack(RotorType.WOOD.getItem()), "PSP", "SIS", "PSP",
+				'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"), 'p',
+				new ItemStack(Block.planks));
 			GameRegistry.addRecipe(new ItemStack(RotorType.IRIDIUM.getItem()), " I ", "IRI", " I ",
 				'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(RotorType.CARBON.getItem()));
+			GameRegistry.addRecipe(new ItemStack(RotorType.WOOL.getItem()), "SWS", "WRW", "SWS",
+				'S', new ItemStack(Item.silk), 'W', new ItemStack(Block.cloth), 'R', new ItemStack(
+					RotorType.WOOD.getItem()));
 		}
 		
 		NetworkRegistry.instance().registerGuiHandler(this, proxy);
