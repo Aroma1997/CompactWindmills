@@ -16,11 +16,15 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 /**
  * 
  * @author Aroma1997
  * 
  */
+@SideOnly(Side.CLIENT)
 public class ClientGUIWindmill extends GuiContainer {
 	
 	public enum GUI {

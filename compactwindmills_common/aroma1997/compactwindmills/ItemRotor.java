@@ -107,6 +107,7 @@ public class ItemRotor extends Item implements IItemRotor {
 		return isInfinite;
 	}
 	
+	@SideOnly(Side.CLIENT)
 	@Override
 	public ResourceLocation getRenderTexture() {
 		return new ResourceLocation(Reference.ModID + ":textures/renderers/"
