@@ -138,5 +138,6 @@ public class CompactWindmills {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.registerRotorRenderer(config);
+		CoreReminder.init(Reference.ModName);
 	}
 }
