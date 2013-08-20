@@ -19,6 +19,7 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.src.ModLoader;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -138,6 +139,6 @@ public class CompactWindmills {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.registerRotorRenderer(config);
-		CoreReminder.init(Reference.ModName);
+		if (!ModLoader.isModLoaded("Aroma1997Core")) CoreReminder.init(Reference.ModName);
 	}
 }
