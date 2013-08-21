@@ -316,6 +316,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		onInventoryChanged();
 	}
 	
+	private boolean damageRotor = true;
+	
 	private int setOutput(World world, int x, int y, int z) {
 		
 		int nonAirBlocks = getNonAirBlocks(world, x, y, z, type);
@@ -340,8 +342,11 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	private float tickRotor() {
 		if (inventoryContent[0] != null && inventoryContent[0].getItem() instanceof IItemRotor) {
 			IItemRotor rotor = (IItemRotor) inventoryContent[0].getItem();
+			if (worldObj.isRemote) {
+				return rotor.getEfficiency();
+			}
 			rotor.tickRotor(inventoryContent[0], this, worldObj);
-			if (! rotor.isInfinite()) {
+			if (!rotor.isInfinite() && damageRotor) {
 				if (inventoryContent[0].getItemDamage() + CompactWindmills.updateTick > inventoryContent[0].getMaxDamage()) {
 					inventoryContent[0] = null;
 				}
@@ -351,6 +356,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 				}
 				onInventoryChanged();
 			}
+
+			damageRotor = true;
 			return rotor.getEfficiency();
 		}
 		return 0.0F;
@@ -377,10 +384,14 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			output = setOutput(worldObj, xCoord, yCoord, zCoord);
 			tick = CompactWindmills.updateTick;
 		}
+		if (worldObj.isRemote) return;
 		if (output > 0) {
 			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this,
 				output);
 			MinecraftForge.EVENT_BUS.post(sourceEvent);
+			if (sourceEvent.amount == output) {
+				damageRotor = false;
+			}
 		}
 	}
 	
