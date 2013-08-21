@@ -43,7 +43,9 @@ public interface IItemRotor {
 	public boolean isInfinite();
 	
 	/**
-	 * This is executed, when the windmill gets the efficiency of the Rotor.
+	 * This is executed, after the windmill gets the efficiency of the Rotor.
+	 * If you want the rotor to do something special, do that here.
+	 * It gets executed every 64 Ticks.
 	 * 
 	 * @param rotor the rotor itself
 	 * @param tileEntity the Windmill where the rotor is in
