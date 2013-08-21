@@ -50,6 +50,13 @@ public class ItemRotor extends Item implements IItemRotor {
 		if (! isInfinite) {
 			int leftOverTicks = par1ItemStack.getMaxDamage() - par1ItemStack.getItemDamage();
 			par3List.add(leftOverTicks + " ticks left over on this Rotor.");
+			
+			String str = "(";
+			str = str + (leftOverTicks / 72000) + " hours, ";
+			str = str + ((leftOverTicks % 72000) / 1200) + " minutes, ";
+			str = str + ((leftOverTicks % 1200) / 20) + " seconds";
+			str = str + ")";
+			par3List.add(str);
 		}
 		else {
 			par3List.add("Infinite");
