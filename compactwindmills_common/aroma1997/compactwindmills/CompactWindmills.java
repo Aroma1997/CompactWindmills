@@ -36,7 +36,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
-@Mod(modid = Reference.ModID, name = Reference.ModName, version = Reference.Version)
+@Mod(modid = Reference.ModID, name = Reference.ModName, version = Reference.Version, dependencies = "required-after:IC2")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * 

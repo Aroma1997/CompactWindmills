@@ -11,7 +11,6 @@ package aroma1997.compactwindmills;
 
 import ic2.api.Direction;
 import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileSourceEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.network.INetworkDataProvider;
@@ -37,6 +36,7 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
 
 /**
@@ -139,11 +139,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		}
 	}
 	
-	@Override
-	public boolean emitsEnergyTo(TileEntity receiver, Direction direction) {
-		return true;
-	}
-	
 	public ItemStack[] getContents() {
 		return inventoryContent;
 	}
@@ -168,11 +163,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	@Override
 	public String getInvName() {
 		return type.showedName;
-	}
-	
-	@Override
-	public int getMaxEnergyOutput() {
-		return type.output;
 	}
 	
 	@Override
@@ -229,11 +219,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
 		MinecraftForge.EVENT_BUS.post(unloadEvent);
 		super.invalidate();
-	}
-	
-	@Override
-	public boolean isAddedToEnergyNet() {
-		return initialized;
 	}
 	
 	@Override
@@ -357,7 +342,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 				onInventoryChanged();
 			}
 
-			damageRotor = true;
+			damageRotor = false;
 			return rotor.getEfficiency();
 		}
 		return 0.0F;
@@ -386,12 +371,12 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		}
 		if (worldObj.isRemote) return;
 		if (output > 0) {
-			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this,
-				output);
-			MinecraftForge.EVENT_BUS.post(sourceEvent);
-			if (sourceEvent.amount == output) {
-				damageRotor = false;
-			}
+//			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this,
+//				output);
+//			MinecraftForge.EVENT_BUS.post(sourceEvent);
+//			if (sourceEvent.amount == output) {
+//				damageRotor = false;
+//			}
 		}
 	}
 	
@@ -429,5 +414,22 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			return (IItemRotor) inventoryContent[0].getItem();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
+		return true;
+	}
+
+	@Override
+	public double getOfferedEnergy() {
+		return this.getOutputUntilNexttTick();
+	}
+
+	@Override
+	public void drawEnergy(double amount) {
+		if (amount != 0) {
+			damageRotor = true;
+		}
 	}
 }
