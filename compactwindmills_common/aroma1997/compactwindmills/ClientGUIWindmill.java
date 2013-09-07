@@ -71,7 +71,7 @@ public class ClientGUIWindmill extends GuiContainer {
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_110577_a(new ResourceLocation(Reference.ModID
+		mc.renderEngine.bindTexture(new ResourceLocation(Reference.ModID
 			+ ":textures/gui/GUIWindmill.png"));
 		int l = (width - xSize) / 2;
 		int i1 = (height - ySize) / 2;

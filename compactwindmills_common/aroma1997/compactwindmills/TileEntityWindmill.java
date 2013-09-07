@@ -9,7 +9,6 @@
 package aroma1997.compactwindmills;
 
 
-import ic2.api.Direction;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySource;
@@ -245,7 +244,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
-		readFromNBT(packet.customParam1);
+		readFromNBT(packet.data);
 	}
 	
 	@Override
