@@ -215,8 +215,10 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	@Override
 	public void invalidate() {
-		EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
-		MinecraftForge.EVENT_BUS.post(unloadEvent);
+		if (!worldObj.isRemote) {
+			EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
+			MinecraftForge.EVENT_BUS.post(unloadEvent);
+		}
 		super.invalidate();
 	}
 	
