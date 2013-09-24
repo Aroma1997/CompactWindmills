@@ -20,7 +20,7 @@ public class CoreReminder implements IPlayerTracker {
 			if (!player.username.equals(net.minecraft.client.Minecraft.getMinecraft().thePlayer.username)) return;
 		}
 		if (!ModLoader.isModLoaded("Aroma1997Core")) {
-			player.addChatMessage("You are running " + modName + "without Aroma1997Core!");
+			player.addChatMessage("You are running " + modName + " without Aroma1997Core!");
 			player.addChatMessage("Aroma1997Core is not required, but recommended.");
 			player.addChatMessage("Get Aroma1997Core from here: " + updateURL);
 		}
