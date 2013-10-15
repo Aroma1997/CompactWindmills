@@ -93,8 +93,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	private boolean initialized;
 	
-	private int tick;
-	
 	private boolean compatibilityMode;
 	
 	private int output;
@@ -104,6 +102,8 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	private short facing = 2;
 	
 	private short prevFacing = 2;
+	
+	private long lastUpdate = System.currentTimeMillis();
 	
 	@Override
 	public void closeChest() {
@@ -366,9 +366,9 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			}
 			initialized = true;
 		}
-		if (tick-- == 0) {
+		if (System.currentTimeMillis() >= CompactWindmills.updateTick / 20 + lastUpdate) {
 			output = setOutput(worldObj, xCoord, yCoord, zCoord);
-			tick = CompactWindmills.updateTick;
+			lastUpdate += CompactWindmills.updateTick / 20;
 		}
 		if (worldObj.isRemote) return;
 		if (output > 0) {
