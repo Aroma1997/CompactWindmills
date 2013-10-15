@@ -52,7 +52,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	public TileEntityWindmill(WindType type) {
 		super();
 		this.type = type;
-		tick = random.nextInt(CompactWindmills.updateTick);
 		inventoryContent = new ItemStack[1];
 	}
 	
