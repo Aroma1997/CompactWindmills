@@ -1,0 +1,23 @@
+creativetab.compactwindmills:creativetab.name=CompactWindmills
+
+
+tile.compactwindmills:windmill.name.ELV=Extremniederspannungswindm\u00fchle
+tile.compactwindmills:windmill.name.LV=Niederspannungswindm\u00fchle
+tile.compactwindmills:windmill.name.MV=Mittelspannungswindm\u00fchle
+tile.compactwindmills:windmill.name.HV=Hochspannungswindm\u00fchle
+tile.compactwindmills:windmill.name.EV=Extremspannungswindm\u00fchle
+
+
+info.compactwindmills:tooltip.ticksleft=%s Ticks \u00fcbrig auf diesem Rotor.
+info.compactwindmills:tooltip.timeleft=%s Stunden, %s Minuten und %s Sekunden
+info.compactwindmills:tooltip.infinite=Unendlich
+info.compactwindmills:tooltip.efficiency=Effizienz: %s
+
+info.compactwindmills:gui.rotor=Rotor:
+info.compactwindmills:gui.output=Aktueller Output: %s EU/t
+
+item.compactwindmills:rotor.WOOD=H\u00f6lzerner Rotor
+item.compactwindmills:rotor.WOOL=Stoffrotor
+item.compactwindmills:rotor.CARBON=Karbonrotor
+item.compactwindmills:rotor.ALLOY=Legierungsrotor
+item.compactwindmills:rotor.IRIDIUM=Iridiumrotor
