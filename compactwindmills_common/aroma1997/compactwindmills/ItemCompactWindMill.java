@@ -38,7 +38,7 @@ public class ItemCompactWindMill extends ItemBlock {
 	
 	@Override
 	public String getItemDisplayName(ItemStack par1ItemStack) {
-		return WindType.values()[par1ItemStack.getItemDamage()].showedName;
+		return WindType.values()[par1ItemStack.getItemDamage()].getShowedName();
 	}
 	
 	@Override

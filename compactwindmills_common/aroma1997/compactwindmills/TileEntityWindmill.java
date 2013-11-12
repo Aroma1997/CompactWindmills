@@ -17,9 +17,9 @@ import ic2.api.network.INetworkUpdateListener;
 import ic2.api.network.NetworkHelper;
 import ic2.api.tile.IWrenchable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 import java.util.logging.Level;
 
 import aroma1997.compactwindmills.helpers.LogHelper;
@@ -161,13 +161,13 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	@Override
 	public String getInvName() {
-		return type.showedName;
+		return type.getShowedName();
 	}
 	
 	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public List getNetworkedFields() {
-		List list = new Vector(2);
+		List list = new ArrayList();
 		list.add("facing");
 		
 		return list;

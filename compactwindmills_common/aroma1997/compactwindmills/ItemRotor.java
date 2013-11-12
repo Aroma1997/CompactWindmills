@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import cpw.mods.fml.relauncher.Side;
@@ -36,11 +37,14 @@ public class ItemRotor extends Item implements IItemRotor {
 	
 	private boolean isInfinite;
 	
-	public ItemRotor(int id) {
+	private RotorType type;
+	
+	public ItemRotor(int id, RotorType type) {
 		super(id + Reference.ItemIDDifference);
 		setCreativeTab(CompactWindmills.creativeTabCompactWindmills);
 		setMaxStackSize(1);
 		setNoRepair();
+		this.type = type;
 	}
 	
 	@SuppressWarnings({"rawtypes", "unchecked"})
@@ -49,20 +53,18 @@ public class ItemRotor extends Item implements IItemRotor {
 		List par3List, boolean par4) {
 		if (! isInfinite) {
 			int leftOverTicks = par1ItemStack.getMaxDamage() - par1ItemStack.getItemDamage();
-			par3List.add(leftOverTicks + " ticks left over on this Rotor.");
+			par3List.add(StatCollector.translateToLocalFormatted("info.compactwindmills:tooltip.ticksleft", "" + leftOverTicks));
 			
-			String str = "(";
-			str = str + (leftOverTicks / 72000) + " hours, ";
-			str = str + ((leftOverTicks % 72000) / 1200) + " minutes, ";
-			str = str + ((leftOverTicks % 1200) / 20) + " seconds";
-			str = str + ")";
-			par3List.add(str);
+			
+			int hours = leftOverTicks / 72000;
+			int minutes = leftOverTicks % 72000;
+			int seconds = leftOverTicks % 20;
+			par3List.add("(" + StatCollector.translateToLocalFormatted("info.compactwindmills:tooltip.timeleft", "" + hours, "" + minutes, "" + seconds) + ")");
 		}
 		else {
-			par3List.add("Infinite");
+			par3List.add(StatCollector.translateToLocal("info.compactwindmills:tooltip.infinite"));
 		}
-		par3List.add("Efficiency: "
-			+ (int) (((IItemRotor) par1ItemStack.getItem()).getEfficiency() * 100) + "%");
+		par3List.add(StatCollector.translateToLocalFormatted("info.compactwindmills:tooltip.efficiency", (int) (((IItemRotor) par1ItemStack.getItem()).getEfficiency() * 100) + " %"));
 	}
 	
 	@Override
@@ -133,6 +135,11 @@ public class ItemRotor extends Item implements IItemRotor {
 	@Override
 	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj) {
 		return;
+	}
+	
+	@Override
+	public String getItemDisplayName(ItemStack par1ItemStack) {
+		return type.getShowedName();
 	}
 	
 }

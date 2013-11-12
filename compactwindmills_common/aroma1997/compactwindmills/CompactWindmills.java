@@ -111,10 +111,6 @@ public class CompactWindmills {
 			new ItemStack(windMill, 1, 2), 'T', Items.getItem("transformerUpgrade"));
 		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 4), " W ", "WTW", " W ", 'W',
 			new ItemStack(windMill, 1, 3), 'T', Items.getItem("transformerUpgrade"));
-		
-		for (RotorType rotor : RotorType.values()) {
-			LanguageRegistry.addName(rotor.getItem(), rotor.showedName);
-		}
 		if (! vanillaIC2Stuff) {
 			GameRegistry.addRecipe(new ItemStack(RotorType.CARBON.getItem()), "CCC", "CMC", "CCC",
 				'C', Items.getItem("carbonPlate"), 'M', Items.getItem("machine"));

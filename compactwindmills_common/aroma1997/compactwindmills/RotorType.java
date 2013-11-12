@@ -13,7 +13,7 @@ import java.util.logging.Level;
 
 import aroma1997.compactwindmills.helpers.LogHelper;
 
-import net.minecraft.item.Item;
+import net.minecraft.util.StatCollector;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -53,8 +53,6 @@ public enum RotorType {
 	
 	private float efficiency;
 	
-	public String showedName;
-	
 	private String unlocalizedName;
 	
 	private Class<? extends ItemRotor> claSS;
@@ -71,35 +69,34 @@ public enum RotorType {
 		this.typeMin = typeMin;
 		this.typeMax = typeMax;
 		this.efficiency = efficiency;
-		this.showedName = showedName;
 		this.unlocalizedName = unlocalizedName;
 		this.claSS = claSS;
 	}
 	
 	private void getConfig(Configuration config) {
 		Property rotorId = config.getItem(unlocalizedName, defaultId);
-		rotorId.comment = "This is the id, of the " + showedName + " Item.";
+		rotorId.comment = "This is the id, of the " + name()  + " Rotor.";
 		id = rotorId.getInt(defaultId);
 	}
 	
-	public Item getItem() {
-		return rotor;
-	}
-	
-	public ItemRotor getItemRotor() {
+	public ItemRotor getItem() {
 		return rotor;
 	}
 	
 	private void initRotor() {
 		try {
-			rotor = (ItemRotor) claSS.getConstructor(int.class).newInstance(id).setMinMaxTier(
+			rotor = (ItemRotor) claSS.getConstructor(int.class, RotorType.class).newInstance(id, this).setMinMaxTier(
 				typeMin, typeMax).setEfficiency(efficiency).setMaxDamage(maxDamage).setUnlocalizedName(
 					unlocalizedName);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			LogHelper.log(Level.SEVERE, "Failed to Register Rotor: " + showedName);
+			LogHelper.log(Level.SEVERE, "Failed to Register Rotor: " + name());
 		}
+	}
+	
+	public String getShowedName() {
+		return StatCollector.translateToLocal("item.compactwindmills:rotor." + name());
 	}
 	
 }

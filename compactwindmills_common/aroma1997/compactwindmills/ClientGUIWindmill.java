@@ -13,6 +13,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
@@ -80,13 +81,11 @@ public class ClientGUIWindmill extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
-		fontRenderer.drawString(type.windType.showedName, 8, 6, 0x404040);
+		fontRenderer.drawString(type.windType.getShowedName(), 8, 6, 0x404040);
 		fontRenderer.drawString("Rotor:", 44, 30, 0x404040);
-		fontRenderer.drawString("Inventory", 8, ySize - 96 + 2, 0x404040);
-		fontRenderer.drawString(
-			"Current Output: "
-				+ container.tileEntity.getOutputUntilNexttTick()
-				+ "EU/t", 8, 50, 0x404040);
+		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 0x404040);
+		fontRenderer.drawString(StatCollector.translateToLocalFormatted("info.compactwindmills:gui.output", 
+				"" + container.tileEntity.getOutputUntilNexttTick()), 8, 50, 0x404040);
 	}
 	
 }
