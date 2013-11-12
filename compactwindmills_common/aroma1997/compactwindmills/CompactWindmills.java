@@ -11,6 +11,7 @@ package aroma1997.compactwindmills;
 
 import ic2.api.item.Items;
 
+import java.io.File;
 import java.util.logging.Level;
 
 import aroma1997.compactwindmills.helpers.LogHelper;
@@ -73,8 +74,14 @@ public class CompactWindmills {
 			debugMode = true;
 			LogHelper.log(Level.INFO, "Turning on debug mode.");
 		}
+		File tmpFile = new File(event.getModConfigurationDirectory(), "CompactWindmills.cfg");
+		File configFile = new File(new File(event.getModConfigurationDirectory(), "aroma1997"), "CompactWindmills.cfg");
+		if (tmpFile.exists()) {
+			LogHelper.log(Level.INFO, "Moving old config file to aroma1997 folder.");
+			tmpFile.renameTo(configFile);
+		}
 		Configuration config = new Configuration(
-			event.getSuggestedConfigurationFile());
+			configFile);
 		this.config = config;
 		config.load();
 		Property block = config.getBlock("CompactWindmill", 2790);
