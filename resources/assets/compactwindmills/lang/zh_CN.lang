@@ -1,0 +1,25 @@
+#zh_CN
+
+creativetab.compactwindmills:creativetab.name=风力发电阵列
+
+
+tile.compactwindmills:windmill.name.ELV=超低压风力发电阵列
+tile.compactwindmills:windmill.name.LV=低压风力发电阵列
+tile.compactwindmills:windmill.name.MV=中压风力发电阵列
+tile.compactwindmills:windmill.name.HV=高压风力发电阵列
+tile.compactwindmills:windmill.name.EV=超高压风力发电阵列
+
+
+info.compactwindmills:tooltip.ticksleft=该转子还可继续使用%s ticks.
+info.compactwindmills:tooltip.timeleft=%s 时, %s 分, %s 秒
+info.compactwindmills:tooltip.infinite=无限
+info.compactwindmills:tooltip.efficiency=效率: %s
+
+info.compactwindmills:gui.rotor=转子:
+info.compactwindmills:gui.output=当前输出: %s EU/t
+
+item.compactwindmills:rotor.WOOD=木头转子
+item.compactwindmills:rotor.WOOL=羊毛转子
+item.compactwindmills:rotor.CARBON=碳转子
+item.compactwindmills:rotor.ALLOY=合金转子
+item.compactwindmills:rotor.IRIDIUM=铱转子
