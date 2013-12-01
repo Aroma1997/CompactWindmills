@@ -433,4 +433,13 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			damageRotor = true;
 		}
 	}
+	
+	@Override
+	public void onChunkUnload() {
+		if (!worldObj.isRemote) {
+			EnergyTileUnloadEvent unloadEvent = new EnergyTileUnloadEvent(this);
+			MinecraftForge.EVENT_BUS.post(unloadEvent);
+		}
+		super.onChunkUnload();
+	}
 }
