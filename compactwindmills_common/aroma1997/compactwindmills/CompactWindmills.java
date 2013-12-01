@@ -108,15 +108,15 @@ public class CompactWindmills {
 		for (WindType typ : WindType.values()) {
 			GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
 		}
-		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 0), " W ", "WTW", " W ", 'W',
+		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, WindType.ELV.ordinal()), " W ", "WTW", " W ", 'W',
 			Items.getItem("windMill"), 'T', Items.getItem("lvTransformer"));
-		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 1), " W ", "WTW", " W ", 'W',
+		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, WindType.LV.ordinal()), " W ", "WTW", " W ", 'W',
 			new ItemStack(windMill, 1, 0), 'T', Items.getItem("transformerUpgrade"));
-		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 2), " W ", "WTW", " W ", 'W',
+		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, WindType.MV.ordinal()), " W ", "WTW", " W ", 'W',
 			new ItemStack(windMill, 1, 1), 'T', Items.getItem("transformerUpgrade"));
-		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 3), " W ", "WTW", " W ", 'W',
+		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, WindType.HV.ordinal()), " W ", "WTW", " W ", 'W',
 			new ItemStack(windMill, 1, 2), 'T', Items.getItem("transformerUpgrade"));
-		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, 4), " W ", "WTW", " W ", 'W',
+		GameRegistry.addShapedRecipe(new ItemStack(windMill, 1, WindType.EV.ordinal()), " W ", "WTW", " W ", 'W',
 			new ItemStack(windMill, 1, 3), 'T', Items.getItem("transformerUpgrade"));
 		if (! vanillaIC2Stuff) {
 			GameRegistry.addRecipe(new ItemStack(RotorType.CARBON.getItem()), "CCC", "CMC", "CCC",
@@ -124,7 +124,7 @@ public class CompactWindmills {
 			GameRegistry.addRecipe(new ItemStack(RotorType.ALLOY.getItem()), "AAA", "AMA", "AAA",
 				'A', Items.getItem("advancedAlloy"), 'M', Items.getItem("machine"));
 			GameRegistry.addRecipe(new ItemStack(RotorType.WOOD.getItem()), "PSP", "SIS", "PSP",
-				'S', new ItemStack(Item.stick), 'I', Items.getItem("refinedIronIngot"), 'p',
+				'S', new ItemStack(Item.stick), 'I', Items.getItem("plateiron"), 'p',
 				new ItemStack(Block.planks));
 			GameRegistry.addRecipe(new ItemStack(RotorType.IRIDIUM.getItem()), " I ", "IRI", " I ",
 				'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(RotorType.CARBON.getItem()));
