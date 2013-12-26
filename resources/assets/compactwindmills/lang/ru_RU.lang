@@ -1,4 +1,3 @@
-
 creativetab.compactwindmills:creativetab.name=CompactWindmills
 
 
@@ -9,7 +8,7 @@ tile.compactwindmills:windmill.name.HV=Ветрогенератор высоко
 tile.compactwindmills:windmill.name.EV=Ветрогенератор экстремального напряжения
 
 
-info.compactwindmills:tooltip.ticksleft=%s тактов осталось этому винту.
+info.compactwindmills:tooltip.ticksleft=%s тактов осталось этому ротору.
 info.compactwindmills:tooltip.timeleft=%s часов, %s минут и %s секунд
 info.compactwindmills:tooltip.infinite=Бесконечно
 info.compactwindmills:tooltip.efficiency=Эффективность: %s
