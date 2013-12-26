@@ -1,23 +1,24 @@
-creativetab.compactwindmills:creativetab.name=Компактные ветряные генераторы
+
+creativetab.compactwindmills:creativetab.name=CompactWindmills
 
 
-tile.compactwindmills:windmill.name.ELV=Ветряк сверхнизкого напряжения
-tile.compactwindmills:windmill.name.LV=Ветряк низкого напряжения
-tile.compactwindmills:windmill.name.MV=Ветряк среднего напряжения
-tile.compactwindmills:windmill.name.HV=Ветряк высокого напряжения
-tile.compactwindmills:windmill.name.EV=Ветряк сверхвысокого напряжения
+tile.compactwindmills:windmill.name.ELV=Ветрогенератор сверхнизкого напряжения
+tile.compactwindmills:windmill.name.LV=Ветрогенератор низкого напряжения
+tile.compactwindmills:windmill.name.MV=Ветрогенератор среднего напряжения
+tile.compactwindmills:windmill.name.HV=Ветрогенератор высокого напряжения
+tile.compactwindmills:windmill.name.EV=Ветрогенератор экстремального напряжения
 
 
-info.compactwindmills:tooltip.ticksleft=%s тиков осталось этому винту.
+info.compactwindmills:tooltip.ticksleft=%s тактов осталось этому винту.
 info.compactwindmills:tooltip.timeleft=%s часов, %s минут и %s секунд
 info.compactwindmills:tooltip.infinite=Бесконечно
 info.compactwindmills:tooltip.efficiency=Эффективность: %s
 
-info.compactwindmills:gui.rotor=Винт:
-info.compactwindmills:gui.output=Текущий выход: %s EU/t
+info.compactwindmills:gui.rotor=Ротор:
+info.compactwindmills:gui.output=Текущий выход: %s еЭ/т
 
-item.compactwindmills:rotor.WOOD=Деревянный винт
-item.compactwindmills:rotor.WOOL=Матерчатый винт
-item.compactwindmills:rotor.CARBON=Винт из углепластика
-item.compactwindmills:rotor.ALLOY=Твердосплавный винт
-item.compactwindmills:rotor.IRIDIUM=Иридиевый винт
+item.compactwindmills:rotor.WOOD=Деревянный ротор
+item.compactwindmills:rotor.WOOL=Тканевый ротор
+item.compactwindmills:rotor.CARBON=Углепластиковый ротор
+item.compactwindmills:rotor.ALLOY=Сверхпрочный ротор
+item.compactwindmills:rotor.IRIDIUM=Иридиевый ротор
