@@ -1,0 +1,23 @@
+creativetab.compactwindmills:creativetab.name=CompactWindmills
+
+
+tile.compactwindmills:windmill.name.ELV=Extreem laag voltage windmolen
+tile.compactwindmills:windmill.name.LV=Laag voltage windmolen
+tile.compactwindmills:windmill.name.MV=Gemiddeld voltage windmolen
+tile.compactwindmills:windmill.name.HV=Hoog voltage windmolen
+tile.compactwindmills:windmill.name.EV=Extreem Voltage Windmolen
+
+
+info.compactwindmills:tooltip.ticksleft=%s ticks over op deze rotor
+info.compactwindmills:tooltip.timeleft=%s uur, %s minuten en %s seconden
+info.compactwindmills:tooltip.infinite=Oneindig
+info.compactwindmills:tooltip.efficiency=Effficientie: %s
+
+info.compactwindmills:gui.rotor=Rotor:
+info.compactwindmills:gui.output=Huidige Uitvoer: %s EU/t
+
+item.compactwindmills:rotor.WOOD=Houten Rotor
+item.compactwindmills:rotor.WOOL=Wollen Rotor
+item.compactwindmills:rotor.CARBON=Koolstof Rotor
+item.compactwindmills:rotor.ALLOY=Legering Rotor
+item.compactwindmills:rotor.IRIDIUM=Iridium Rotor
