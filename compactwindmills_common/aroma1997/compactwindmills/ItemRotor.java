@@ -57,8 +57,8 @@ public class ItemRotor extends Item implements IItemRotor {
 			
 			
 			int hours = leftOverTicks / 72000;
-			int minutes = leftOverTicks % 72000;
-			int seconds = leftOverTicks % 20;
+			int minutes = leftOverTicks % 72000 / 1200;
+			int seconds = leftOverTicks % 1200 / 20;
 			par3List.add("(" + StatCollector.translateToLocalFormatted("info.compactwindmills:tooltip.timeleft", "" + hours, "" + minutes, "" + seconds) + ")");
 		}
 		else {
