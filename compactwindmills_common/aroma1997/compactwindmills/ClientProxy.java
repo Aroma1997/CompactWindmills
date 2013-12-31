@@ -11,10 +11,6 @@ package aroma1997.compactwindmills;
 
 import aroma1997.compactwindmills.rotors.WindmillRenderer;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
-
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -31,20 +27,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class ClientProxy extends CommonProxy {
 	
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer thePlayer, World world, int X, int Y,
-		int Z) {
-		TileEntity tileEntity = world.getBlockTileEntity(X, Y, Z);
-		if (tileEntity != null && tileEntity instanceof TileEntityWindmill) {
-			TileEntityWindmill tileEntityCW = (TileEntityWindmill) tileEntity;
-			return ClientGUIWindmill.GUI.makeGUI(tileEntityCW.getType(), thePlayer.inventory,
-				tileEntityCW);
-		}
-		else {
-			return null;
-		}
-	}
-	
-	@Override
 	public void registerRotorRenderer(Configuration config) {
 		config.load();
 		Property specialRenderer = config.get(Configuration.CATEGORY_GENERAL, "specialRender", true);
@@ -54,8 +36,7 @@ public class ClientProxy extends CommonProxy {
 		if (! specialRender) {
 			return;
 		}
-		ClientRegistry.bindTileEntitySpecialRenderer(
-			aroma1997.compactwindmills.TileEntityWindmill.class, new WindmillRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWindmill.class, new WindmillRenderer());
 	}
 	
 }

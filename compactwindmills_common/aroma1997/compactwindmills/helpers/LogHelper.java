@@ -3,16 +3,13 @@ package aroma1997.compactwindmills.helpers;
 
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import aroma1997.compactwindmills.CompactWindmills;
-import aroma1997.compactwindmills.Reference;
-
-import cpw.mods.fml.common.FMLLog;
+import aroma1997.core.log.AromaLog;
 
 public class LogHelper {
 	
-	private static Logger WindmillLog = Logger.getLogger(Reference.ModID);
+	private static AromaLog WindmillLog = aroma1997.core.log.LogHelper.genNewLogger("CompactWindmills");
 	
 	public static void debugLog(Level level, String message) {
 		if (! CompactWindmills.debugMode) {
@@ -21,12 +18,12 @@ public class LogHelper {
 		log(level, message);
 	}
 	
-	public static void init() {
-		WindmillLog.setParent(FMLLog.getLogger());
-	}
-	
 	public static void log(Level level, String message) {
 		WindmillLog.log(level, message);
+	}
+	
+	public static AromaLog getLogger() {
+		return WindmillLog;
 	}
 	
 }

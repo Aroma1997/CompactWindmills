@@ -14,6 +14,7 @@ import java.util.Random;
 import java.util.logging.Level;
 
 import aroma1997.compactwindmills.helpers.LogHelper;
+import aroma1997.core.inventories.Inventories;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -137,17 +138,10 @@ public class BlockCompactWindmill extends BlockContainer {
 		if (thePlayer.isSneaking()) {
 			return false;
 		}
-		
-		if (world.isRemote) {
-			return true;
-		}
-		
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if (tileEntity != null && tileEntity instanceof TileEntityWindmill) {
-			TileEntityWindmill tileEntityCW = (TileEntityWindmill) tileEntity;
-			thePlayer.openGui(CompactWindmills.instance, tileEntityCW.getType()
-				.ordinal(), world, x, y, z);
-		}
+		if (tileEntity == null) return false;
+		if (world.isRemote) return true;
+		Inventories.openContainerTileEntity(thePlayer, tileEntity, true);
 		return true;
 	}
 	

@@ -12,20 +12,19 @@ package aroma1997.compactwindmills;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySource;
-import ic2.api.network.INetworkDataProvider;
-import ic2.api.network.INetworkUpdateListener;
-import ic2.api.network.NetworkHelper;
 import ic2.api.tile.IWrenchable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 
 import aroma1997.compactwindmills.helpers.LogHelper;
+import aroma1997.core.client.inventories.GUIContainer;
+import aroma1997.core.inventories.AromaContainer;
+import aroma1997.core.inventories.ContainerBasic;
+import aroma1997.core.inventories.ISpecialInventory;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -33,17 +32,21 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * 
  * @author Aroma1997
  * 
  */
-public class TileEntityWindmill extends TileEntity implements IEnergySource, INetworkDataProvider, IWrenchable, INetworkUpdateListener, IInventory {
+public class TileEntityWindmill extends TileEntity implements IEnergySource, IWrenchable, ISpecialInventory {
 	
 	public TileEntityWindmill() {
 		this(WindType.ELV);
@@ -107,7 +110,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	
 	@Override
 	public void closeChest() {
-		NetworkHelper.updateTileEntityField(this, "inventoryContent");
 		return;
 	}
 	
@@ -162,15 +164,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	@Override
 	public String getInvName() {
 		return type.getShowedName();
-	}
-	
-	@Override
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	public List getNetworkedFields() {
-		List list = new ArrayList();
-		list.add("facing");
-		
-		return list;
 	}
 	
 	public int getOutputUntilNexttTick() {
@@ -250,14 +243,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 	}
 	
 	@Override
-	public void onNetworkUpdate(String field) {
-		if (field.equals("facing") && prevFacing != facing) {
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			prevFacing = facing;
-		}
-	}
-	
-	@Override
 	public void openChest() {
 		return;
 	}
@@ -287,7 +272,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		LogHelper.debugLog(Level.INFO, "Setting Windmill to facing:" + facing);
 		
 		if (prevFacing != facing) {
-			NetworkHelper.updateTileEntityField(this, "facing");
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 		
 		prevFacing = facing;
@@ -302,7 +287,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		onInventoryChanged();
 	}
 	
-	private boolean damageRotor = true;
+	private boolean damageRotor = false;
 	
 	private int setOutput(World world, int x, int y, int z) {
 		
@@ -358,7 +343,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 		}
 		if (! initialized && worldObj != null) {
 			if (worldObj.isRemote) {
-				NetworkHelper.updateTileEntityField(this, "facing");
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			}
 			else {
 				EnergyTileLoadEvent loadEvent = new EnergyTileLoadEvent(this);
@@ -441,5 +426,32 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, INe
 			MinecraftForge.EVENT_BUS.post(unloadEvent);
 		}
 		super.onChunkUnload();
+	}
+
+	@Override
+	public Slot getSlot(int slot, int index, int x, int y) {
+		return new SlotWindmill(this, index, x, y, type);
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void drawGuiContainerForegroundLayer(GUIContainer gui, ContainerBasic container,
+		int par1, int par2) {
+		gui.getFontRender().drawString("Rotor:", 40, 14, 0x404040);
+		gui.getFontRender().drawSplitString(StatCollector.translateToLocalFormatted("info.compactwindmills:gui.output", 
+				"" + getOutputUntilNexttTick()), 95, 15, 70, 0x404040);
+		
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void drawGuiContainerBackgroundLayer(GUIContainer gui, ContainerBasic container,
+		float f, int i, int j) {
+		
+	}
+
+	@Override
+	public AromaContainer getContainer(EntityPlayer player, int i) {
+		return new ContainerBasic(player.inventory, this);
 	}
 }

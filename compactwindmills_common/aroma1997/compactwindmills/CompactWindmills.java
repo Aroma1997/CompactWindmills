@@ -20,7 +20,6 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.src.ModLoader;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
@@ -33,10 +32,9 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Reference.ModID, name = Reference.ModName, version = Reference.Version, dependencies = "required-after:IC2")
+@Mod(modid = Reference.ModID, name = Reference.ModName, version = Reference.Version, dependencies = "required-after:IC2;required-after:Aroma1997Core")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * 
@@ -68,7 +66,6 @@ public class CompactWindmills {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		LogHelper.init();
 		if (Reference.Version == "@VERSION" + "@") {
 			debugMode = true;
 			LogHelper.log(Level.INFO, "Turning on debug mode.");
@@ -132,13 +129,10 @@ public class CompactWindmills {
 					RotorType.WOOD.getItem()));
 		}
 		
-		NetworkRegistry.instance().registerGuiHandler(this, proxy);
-		
 	}
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.registerRotorRenderer(config);
-		if (!ModLoader.isModLoaded("Aroma1997Core")) CoreReminder.init(Reference.ModName);
 	}
 }
