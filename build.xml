@@ -45,10 +45,12 @@
 	</target>
 	
 	<target name="reobfuscate">
+		<unzip src="${dir.mcp}\jars\libraries\aroma1997\Aroma1997CoreAPI.jar" dest="${dir.mcp}\bin\minecraft" />
 		<unzip src="${dir.mcp}\jars\libraries\minecraft.jar" dest="${dir.mcp}\bin\minecraft" />
 		<exec dir="${dir.mcp}" executable="cmd" os="Windows 7">
 			<arg line="/c reobfuscate_srg.bat" />
 		</exec>
+		<delete dir="${dir.mcp}\reobf\minecraft\aroma1997\core" />
 	</target>
 	
 	<target name="build">
