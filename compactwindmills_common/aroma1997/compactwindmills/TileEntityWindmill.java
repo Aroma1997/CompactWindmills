@@ -355,15 +355,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 			output = setOutput(worldObj, xCoord, yCoord, zCoord);
 			tick = CompactWindmills.updateTick;
 		}
-		if (worldObj.isRemote) return;
-		if (output > 0) {
-//			EnergyTileSourceEvent sourceEvent = new EnergyTileSourceEvent(this,
-//				output);
-//			MinecraftForge.EVENT_BUS.post(sourceEvent);
-//			if (sourceEvent.amount == output) {
-//				damageRotor = false;
-//			}
-		}
 	}
 	
 	@Override
