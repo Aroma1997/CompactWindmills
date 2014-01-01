@@ -9,8 +9,6 @@
 package aroma1997.compactwindmills.rotors;
 
 
-import java.util.Random;
-
 import aroma1997.compactwindmills.CompactWindmills;
 import aroma1997.compactwindmills.TileEntityWindmill;
 
@@ -36,15 +34,10 @@ public class WindmillRenderer extends TileEntitySpecialRenderer {
 	
 	private ModelRotor model;
 	
-	private int tick = new Random().nextInt(720);
-	
 	public void renderBlockRotor(TileEntityWindmill tileEntity, World world, int posX, int posY,
 		int posZ, Block block) {
 		if (tileEntity.getRotor() == null) {
 			return;
-		}
-		if (--tick == 0) {
-			tick = 720;
 		}
 		model = new ModelRotor(tileEntity.getType().checkRadius);
 		Tessellator tessellator = Tessellator.instance;
@@ -70,7 +63,7 @@ public class WindmillRenderer extends TileEntitySpecialRenderer {
 		else if (facing == 1) {
 			GL11.glRotatef(- 90.0F, 0.0F, 0.0F, 1.0F);
 		}
-		GL11.glRotatef(360 - tick / 2, 1.0F, 0.0F, 0.0F);
+		GL11.glRotatef(360 - System.currentTimeMillis() / 30 % 360, 1.0F, 0.0F, 0.0F);
 		GL11.glTranslatef(- 0.25F, 0.0F, 0.0F);
 		
 		bindTexture(tileEntity.getRotor().getRenderTexture());
