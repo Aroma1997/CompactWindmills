@@ -1,14 +1,14 @@
 creativetab.compactwindmills:creativetab.name=CompactWindmills
 
 
-tile.compactwindmills:windmill.name.ELV=Extremniederspannungswindmühle
-tile.compactwindmills:windmill.name.LV=Niederspannungswindmühle
-tile.compactwindmills:windmill.name.MV=Mittelspannungswindmühle
-tile.compactwindmills:windmill.name.HV=Hochspannungswindmühle
-tile.compactwindmills:windmill.name.EV=Extremspannungswindmühle
+tile.compactwindmills:windmill.name.ELV=ExtremniederspannungswindmÃ¼hle
+tile.compactwindmills:windmill.name.LV=NiederspannungswindmÃ¼hle
+tile.compactwindmills:windmill.name.MV=MittelspannungswindmÃ¼hle
+tile.compactwindmills:windmill.name.HV=HochspannungswindmÃ¼hle
+tile.compactwindmills:windmill.name.EV=ExtremspannungswindmÃ¼hle
 
 
-info.compactwindmills:tooltip.ticksleft=%s Ticks übrig auf diesem Rotor.
+info.compactwindmills:tooltip.ticksleft=%s Ticks Ã¼brig auf diesem Rotor.
 info.compactwindmills:tooltip.timeleft=%s Stunden, %s Minuten und %s Sekunden
 info.compactwindmills:tooltip.infinite=Unendlich
 info.compactwindmills:tooltip.efficiency=Effizienz: %s
@@ -16,7 +16,7 @@ info.compactwindmills:tooltip.efficiency=Effizienz: %s
 info.compactwindmills:gui.rotor=Rotor:
 info.compactwindmills:gui.output=Aktueller Output: %s EU/t
 
-item.compactwindmills:rotor.WOOD=Hölzerner Rotor
+item.compactwindmills:rotor.WOOD=HÃ¶lzerner Rotor
 item.compactwindmills:rotor.WOOL=Stoffrotor
 item.compactwindmills:rotor.CARBON=Karbonrotor
 item.compactwindmills:rotor.ALLOY=Legierungsrotor
