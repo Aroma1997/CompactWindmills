@@ -1,0 +1,23 @@
+creativetab.compactwindmills:creativetab.name=CompactWindmills
+
+
+tile.compactwindmills:windmill.name.ELV=Aşırı Düşük Voltajlı Rüzgar Gülü
+tile.compactwindmills:windmill.name.LV=Düşük Voltajlı Rüzgar Gülü
+tile.compactwindmills:windmill.name.MV=Orta Voltajlı Rüzgar Gülü
+tile.compactwindmills:windmill.name.HV=Yüksek Voltajlı Rüzgar Gülü
+tile.compactwindmills:windmill.name.EV=Aşırı Yüksek Voltajlı Rüzgar Gülü
+
+
+info.compactwindmills:tooltip.ticksleft=%s dönüşten sonra kırılacaktır.
+info.compactwindmills:tooltip.timeleft=%s saat, %s dakika ve %s saniye
+info.compactwindmills:tooltip.infinite=Sonsuz
+info.compactwindmills:tooltip.efficiency=Verimlilik: %s
+
+info.compactwindmills:gui.rotor=Pervane:
+info.compactwindmills:gui.output=Güç Çıkışı: %s EU/t
+
+item.compactwindmills:rotor.WOOD=Tahta Pervane
+item.compactwindmills:rotor.WOOL=Yün Pervane
+item.compactwindmills:rotor.CARBON=Karbon Pervane
+item.compactwindmills:rotor.ALLOY=Alaşımlı Pervane
+item.compactwindmills:rotor.IRIDIUM=İridyum Pervane
