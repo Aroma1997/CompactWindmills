@@ -9,17 +9,20 @@
 package aroma1997.compactwindmills;
 
 
-import net.minecraft.entity.player.EntityPlayer;
+import aroma1997.core.inventories.AromaSlot;
+
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * 
  * @author Aroma1997
  * 
  */
-public class SlotWindmill extends Slot {
+public class SlotWindmill extends AromaSlot {
 	
 	private WindType type;
 	
@@ -34,11 +37,6 @@ public class SlotWindmill extends Slot {
 	}
 	
 	@Override
-	public boolean canTakeStack(EntityPlayer player) {
-		return !CompactWindmills.vanillaIC2Stuff;
-	}
-	
-	@Override
 	public boolean isItemValid(ItemStack itemStack) {
 		if (itemStack == null) {
 			return false;
@@ -48,6 +46,12 @@ public class SlotWindmill extends Slot {
 			return item.doesRotorFitInWindmill(type);
 		}
 		return false;
+	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean isModifyable() {
+		return !CompactWindmills.vanillaIC2Stuff;
 	}
 	
 }
