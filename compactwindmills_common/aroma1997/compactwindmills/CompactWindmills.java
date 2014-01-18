@@ -24,6 +24,7 @@ import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import net.minecraftforge.oredict.OreDictionary;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -121,12 +122,12 @@ public class CompactWindmills {
 			AromaRegistry.registerShapedAromicRecipe(new ItemStack(RotorType.ALLOY.getItem()), false, "AAA", "AMA", "AAA",
 				'A', Items.getItem("advancedAlloy"), 'M', Items.getItem("machine"));
 			AromaRegistry.registerShapedAromicRecipe(new ItemStack(RotorType.WOOD.getItem()), false, "PSP", "SIS", "PSP",
-				'S', new ItemStack(Item.stick), 'I', Items.getItem("plateiron"), 'p',
-				new ItemStack(Block.planks));
+				'S', "stickWood", 'I', "plateIron", 'p',
+				"plankWood");
 			AromaRegistry.registerShapedAromicRecipe(new ItemStack(RotorType.IRIDIUM.getItem()), false, " I ", "IRI", " I ",
 				'I', Items.getItem("iridiumPlate"), 'R', new ItemStack(RotorType.CARBON.getItem()));
 			AromaRegistry.registerShapedAromicRecipe(new ItemStack(RotorType.WOOL.getItem()), false, "SWS", "WRW", "SWS",
-				'S', new ItemStack(Item.silk), 'W', new ItemStack(Block.cloth), 'R', new ItemStack(
+				'S', new ItemStack(Item.silk), 'W', new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE), 'R', new ItemStack(
 					RotorType.WOOD.getItem()));
 		}
 		
