@@ -1,0 +1,23 @@
+creativetab.compactwindmills:creativetab.name=CompactWindmills
+
+
+tile.compactwindmills:windmill.name.ELV=Pala eolica a voltaggio estremamente basso
+tile.compactwindmills:windmill.name.LV=Pala eolica a voltaggio basso
+tile.compactwindmills:windmill.name.MV=Pala eolica a voltaggio medio
+tile.compactwindmills:windmill.name.HV=Pala eolica a voltaggio alto
+tile.compactwindmills:windmill.name.EV=Pala eolica a voltaggio estremo
+
+
+info.compactwindmills:tooltip.ticksleft=%s tick rimanenti per questo rotore.
+info.compactwindmills:tooltip.timeleft=%s ore, %s minuti e %s secondi
+info.compactwindmills:tooltip.infinite=Infinito
+info.compactwindmills:tooltip.efficiency=Efficenza: %s
+
+info.compactwindmills:gui.rotor=Rotore:
+info.compactwindmills:gui.output=Uscita di corrente: %s EU/t
+
+item.compactwindmills:rotor.WOOD=Rotore di legno
+item.compactwindmills:rotor.WOOL=Rotore di lana
+item.compactwindmills:rotor.CARBON=Rotore di carbone
+item.compactwindmills:rotor.ALLOY=Rotore in lega
+item.compactwindmills:rotor.IRIDIUM=Rotore di iridio
