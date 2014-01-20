@@ -16,6 +16,7 @@ import java.util.logging.Level;
 
 import aroma1997.compactwindmills.helpers.LogHelper;
 import aroma1997.core.util.AromaRegistry;
+import aroma1997.core.version.VersionCheck;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -100,7 +101,7 @@ public class CompactWindmills {
 	}
 	
 	@EventHandler
-	public void load(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {
 		
 		GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "blockCompactWindmill");
 		for (WindType typ : WindType.values()) {
@@ -130,6 +131,7 @@ public class CompactWindmills {
 				'S', new ItemStack(Item.silk), 'W', new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE), 'R', new ItemStack(
 					RotorType.WOOD.getItem()));
 		}
+		VersionCheck.registerVersionChecker(Reference.ModID, Reference.Version);
 		
 	}
 	
