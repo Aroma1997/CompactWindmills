@@ -1,11 +1,11 @@
 creativetab.compactwindmills:creativetab.name=CompactWindmills
 
 
-tile.compactwindmills:windmill.name.ELV=Ветрогенератор сверхнизкого напряжения
-tile.compactwindmills:windmill.name.LV=Ветрогенератор низкого напряжения
-tile.compactwindmills:windmill.name.MV=Ветрогенератор среднего напряжения
-tile.compactwindmills:windmill.name.HV=Ветрогенератор высокого напряжения
-tile.compactwindmills:windmill.name.EV=Ветрогенератор экстремального напряжения
+tile.compactwindmills:windmill.name.ELV=Ветряная мельница сверхнизкого напряжения
+tile.compactwindmills:windmill.name.LV=Ветряная мельница низкого напряжения
+tile.compactwindmills:windmill.name.MV=Ветряная мельница среднего напряжения
+tile.compactwindmills:windmill.name.HV=Ветряная мельница высокого напряжения
+tile.compactwindmills:windmill.name.EV=Ветряная мельница экстремального напряжения
 
 
 info.compactwindmills:tooltip.ticksleft=%s тактов осталось этому ротору.
