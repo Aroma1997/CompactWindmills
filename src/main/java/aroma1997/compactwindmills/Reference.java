@@ -8,6 +8,11 @@
 
 package aroma1997.compactwindmills;
 
+import java.io.InputStream;
+import java.util.Properties;
+
+import com.google.common.base.Throwables;
+
 
 /**
  * 
@@ -16,13 +21,27 @@ package aroma1997.compactwindmills;
  */
 public class Reference {
 	
+	static {
+		Properties prop = new Properties();
+
+        try
+        {
+            InputStream stream = Reference.class.getResourceAsStream("reference.properties");
+            prop.load(stream);
+            stream.close();
+        }
+        catch (Exception e)
+        {
+            Throwables.propagate(e);
+        }
+
+        VERSION = prop.getProperty("version");
+	}
 	public static final String ModID = "CompactWindmills";
 	
 	public static final String ModName = "Compact Windmills";
 	
-	public static final String Version = "@VERSION@";
-	
-	public static final String MCVersion = "@MCVERSION@";
+	public static final String VERSION;
 	
 	public static final int ItemIDDifference = - 256;
 	

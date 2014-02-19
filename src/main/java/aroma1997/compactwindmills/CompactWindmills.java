@@ -16,6 +16,7 @@ import java.util.logging.Level;
 
 import aroma1997.compactwindmills.helpers.LogHelper;
 import aroma1997.core.util.AromaRegistry;
+import aroma1997.core.util.Util;
 import aroma1997.core.version.VersionCheck;
 
 import net.minecraft.block.Block;
@@ -37,7 +38,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-@Mod(modid = Reference.ModID, name = Reference.ModName, version = Reference.Version, dependencies = "required-after:IC2;required-after:Aroma1997Core")
+@Mod(modid = Reference.ModID, name = Reference.ModName, dependencies = "required-after:IC2;required-after:Aroma1997Core")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 /**
  * 
@@ -69,7 +70,7 @@ public class CompactWindmills {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		if (Reference.Version == "@VERSION" + "@") {
+		if (Util.isDev()) {
 			debugMode = true;
 			LogHelper.log(Level.INFO, "Turning on debug mode.");
 		}
@@ -131,7 +132,7 @@ public class CompactWindmills {
 				'S', new ItemStack(Item.silk), 'W', new ItemStack(Block.cloth, 1, OreDictionary.WILDCARD_VALUE), 'R', new ItemStack(
 					RotorType.WOOD.getItem()));
 		}
-		VersionCheck.registerVersionChecker(Reference.ModID, Reference.Version);
+		VersionCheck.registerVersionChecker(Reference.ModID, Reference.VERSION);
 		
 	}
 	
