@@ -42,7 +42,7 @@ public interface IWrenchable {
 
 	/**
 	 * Determine the probability to drop the block as it is.
-	 * The first entry in getBlockDropped will be replaced by blockid:meta if the drop is successful.
+	 * The first entry in getDrops will be replaced by blockid:meta if the drop is successful.
 	 * 
 	 * @return Probability from 0 to 1
 	 */
@@ -51,8 +51,10 @@ public interface IWrenchable {
 	/**
 	 * Determine the item the block will drop when the wrenching is successful.
 	 * 
+	 * The ItemStack will be copied before creating the EntityItem.
+	 * 
 	 * @param entityPlayer player using the wrench, may be null
-	 * @return Item to drop, may be null
+	 * @return ItemStack to drop, may be null
 	 */
 	ItemStack getWrenchDrop(EntityPlayer entityPlayer);
 }

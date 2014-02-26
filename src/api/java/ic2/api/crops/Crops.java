@@ -1,6 +1,6 @@
 package ic2.api.crops;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.biome.BiomeGenBase;
 
@@ -92,7 +92,7 @@ public abstract class Crops {
 	 * This method will get called by IC2, don't call it yourself.
 	 */
 	@SideOnly(Side.CLIENT)
-	public abstract void startSpriteRegistration(IconRegister iconRegister);
+	public abstract void startSpriteRegistration(IIconRegister iconRegister);
 
 	/**
 	 * Returns the ID for the given crop.

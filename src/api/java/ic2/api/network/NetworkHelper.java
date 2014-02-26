@@ -137,25 +137,6 @@ public final class NetworkHelper {
 
 	// client -> server
 
-
-	/**
-	 * Ask the server to send the values of the fields specified.
-	 *
-	 * See updateTileEntityField for the supported field types.
-	 *
-	 * The implementation is currently limited to TileEntitys as data providers. The tile entity
-	 * has to be fully initialized when executing this method (i.e. valid worldObj+coords).
-	 *
-	 * This method doesn't do anything if executed on the server.
-	 *
-	 * @param dataProvider Object implementing the INetworkDataProvider interface
-	 * 
-	 * @deprecated no need to call this anymore, IC2 initiates it automatically
-	 */
-	@Deprecated
-	public static void requestInitialData(INetworkDataProvider dataProvider) {
-	}
-
 	/**
 	 * Immediately send an event for the specified TileEntity to the server.
 	 *

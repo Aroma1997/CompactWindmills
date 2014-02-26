@@ -1,11 +1,11 @@
 package ic2.api.crops;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -52,13 +52,10 @@ public abstract class CropCard
 			}
 			return s;
 		}
-		else
-		{
-			if (att.length < 3) return "";
-			String s = att[2];
-			if (att.length >= 4) s+=", "+att[3];
-			return s;
-		}
+		if (att.length < 3) return "";
+		String s = att[2];
+		if (att.length >= 4) s+=", "+att[3];
+		return s;
 	}
 
 	/**
@@ -106,8 +103,8 @@ public abstract class CropCard
 	 * This method will get called by IC2, don't call it yourself.
 	 */
 	@SideOnly(Side.CLIENT)
-	public void registerSprites(IconRegister iconRegister) {
-		textures = new Icon[maxSize()];
+	public void registerSprites(IIconRegister iconRegister) {
+		textures = new IIcon[maxSize()];
 
 		for (int i = 1; i <= textures.length; i++) {
 			textures[i-1] = iconRegister.registerIcon("ic2:crop/blockCrop."+name()+"."+i);
@@ -121,7 +118,7 @@ public abstract class CropCard
 	 * @return 0-255, representing the sprite index on the crop's spritesheet.
 	 */
 	@SideOnly(Side.CLIENT)
-	public Icon getSprite(ICropTile crop) {
+	public IIcon getSprite(ICropTile crop) {
 		if (crop.getSize() <= 0 || crop.getSize() > textures.length) return null;
 
 		return textures[crop.getSize() - 1];
@@ -195,6 +192,8 @@ public abstract class CropCard
 	 * Called when the plant is rightclicked by a player.
 	 * Default action is harvesting.
 	 * 
+	 * Only called Serverside.
+	 * 
 	 * @param crop reference to ICropTile
 	 * @param player player rightclicking the crop
 	 * @return Whether the plant has changed
@@ -247,6 +246,8 @@ public abstract class CropCard
 	 * Called when the plant is leftclicked by a player.
 	 * Default action is picking the plant.
 	 * 
+	 * Only called Serverside.
+	 * 
 	 * @param crop reference to ICropTile
 	 * @param player player leftclicked the crop
 	 * @return Whether the plant has changed
@@ -290,7 +291,9 @@ public abstract class CropCard
 	 * 
 	 * @param crop reference to ICropTile
 	 */
-	public void onNeighbourChange(ICropTile crop){}
+	public void onNeighbourChange(ICropTile crop){
+		//
+	}
 
 	/**
 	 * Check if the crop should emit redstone.
@@ -304,7 +307,9 @@ public abstract class CropCard
 	 * 
 	 * @param crop reference to ICropTile
 	 */
-	public void onBlockDestroyed(ICropTile crop){}
+	public void onBlockDestroyed(ICropTile crop){
+		//
+	}
 
 	/**
 	 * Get the light value emitted by the plant.
@@ -337,7 +342,9 @@ public abstract class CropCard
 	 * 
 	 * @param crop reference to ICropTile
 	 */
-	public void tick(ICropTile crop) {}
+	public void tick(ICropTile crop) {
+		//
+	}
 
 	/**
 	 * Check whether this plant spreads weed to surrounding tiles.
@@ -363,5 +370,5 @@ public abstract class CropCard
 	}
 
 	@SideOnly(Side.CLIENT)
-	protected Icon textures[];
+	protected IIcon textures[];
 }

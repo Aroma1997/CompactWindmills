@@ -1,8 +1,9 @@
 package ic2.api;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * Represents the 6 possible directions along the axis of a block.
@@ -35,8 +36,8 @@ public enum Direction {
 	 */
 	ZP(5);
 
-	Direction(int dir) {
-		this.dir = dir;
+	Direction(int dir1) {
+		this.dir = dir1;
 	}
 
 	/*public CoordinateTuple ApplyToCoordinates(CoordinateTuple coordinates) {
@@ -57,12 +58,16 @@ public enum Direction {
 		int coords[] = { tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord };
 
 		coords[dir/2] += getSign();
+		World world = tileEntity.getWorldObj();
 
-		if (tileEntity.worldObj != null && tileEntity.worldObj.blockExists(coords[0], coords[1], coords[2])) {
-			return tileEntity.worldObj.getBlockTileEntity(coords[0], coords[1], coords[2]);
-		} else {
-			return null;
+		if (world != null && world.blockExists(coords[0], coords[1], coords[2])) {
+			try {
+				return world.getTileEntity(coords[0], coords[1], coords[2]);
+			} catch (Exception e) {
+				throw new RuntimeException("error getting TileEntity at dim "+world.provider.dimensionId+" "+coords[0]+"/"+coords[1]+"/"+coords[2]);
+			}
 		}
+		return null;
 	}
 
 	/**
