@@ -2,11 +2,11 @@
 creativetab.compactwindmills:creativetab.name=CompactWindmills
 
 
-tile.compactwindmills:windmill.name.ELV=Extreme Low Voltage Windmill
-tile.compactwindmills:windmill.name.LV=Low Voltage Windmill
-tile.compactwindmills:windmill.name.MV=Medium Voltage Windmill
-tile.compactwindmills:windmill.name.HV=High Voltage Windmill
-tile.compactwindmills:windmill.name.EV=Extreme Voltage Windmill
+tile.compactwindmills:windmill.name.ELV.name=Extreme Low Voltage Windmill
+tile.compactwindmills:windmill.name.LV.name=Low Voltage Windmill
+tile.compactwindmills:windmill.name.MV.name=Medium Voltage Windmill
+tile.compactwindmills:windmill.name.HV.name=High Voltage Windmill
+tile.compactwindmills:windmill.name.EV.name=Extreme Voltage Windmill
 
 
 info.compactwindmills:tooltip.ticksleft=%s ticks left over on this rotor.
@@ -17,8 +17,8 @@ info.compactwindmills:tooltip.efficiency=Efficiency: %s
 info.compactwindmills:gui.rotor=Rotor:
 info.compactwindmills:gui.output=Current Output: %s EU/t
 
-item.compactwindmills:rotor.WOOD=Wooden Rotor
-item.compactwindmills:rotor.WOOL=Cloth Rotor
-item.compactwindmills:rotor.CARBON=Carbon Rotor
-item.compactwindmills:rotor.ALLOY=Alloy Rotor
-item.compactwindmills:rotor.IRIDIUM=Iridium Rotor
+item.compactwindmills:rotor.WOOD.name=Wooden Rotor
+item.compactwindmills:rotor.WOOL.name=Cloth Rotor
+item.compactwindmills:rotor.CARBON.name=Carbon Rotor
+item.compactwindmills:rotor.ALLOY.name=Alloy Rotor
+item.compactwindmills:rotor.IRIDIUM.name=Iridium Rotor

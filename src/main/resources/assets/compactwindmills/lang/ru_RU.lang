@@ -1,23 +1,23 @@
 creativetab.compactwindmills:creativetab.name=CompactWindmills
 
 
-tile.compactwindmills:windmill.name.ELV=Ветряная мельница сверхнизкого напряжения
-tile.compactwindmills:windmill.name.LV=Ветряная мельница низкого напряжения
-tile.compactwindmills:windmill.name.MV=Ветряная мельница среднего напряжения
-tile.compactwindmills:windmill.name.HV=Ветряная мельница высокого напряжения
-tile.compactwindmills:windmill.name.EV=Ветряная мельница экстремального напряжения
+tile.compactwindmills:windmill.name.ELV.name=Ð’ÐµÑ‚Ñ€Ñ�Ð½Ð°Ñ� Ð¼ÐµÐ»ÑŒÐ½Ð¸Ñ†Ð° Ñ�Ð²ÐµÑ€Ñ…Ð½Ð¸Ð·ÐºÐ¾Ð³Ð¾ Ð½Ð°Ð¿Ñ€Ñ�Ð¶ÐµÐ½Ð¸Ñ�
+tile.compactwindmills:windmill.name.LV.name=Ð’ÐµÑ‚Ñ€Ñ�Ð½Ð°Ñ� Ð¼ÐµÐ»ÑŒÐ½Ð¸Ñ†Ð° Ð½Ð¸Ð·ÐºÐ¾Ð³Ð¾ Ð½Ð°Ð¿Ñ€Ñ�Ð¶ÐµÐ½Ð¸Ñ�
+tile.compactwindmills:windmill.name.MV.name=Ð’ÐµÑ‚Ñ€Ñ�Ð½Ð°Ñ� Ð¼ÐµÐ»ÑŒÐ½Ð¸Ñ†Ð° Ñ�Ñ€ÐµÐ´Ð½ÐµÐ³Ð¾ Ð½Ð°Ð¿Ñ€Ñ�Ð¶ÐµÐ½Ð¸Ñ�
+tile.compactwindmills:windmill.name.HV.name=Ð’ÐµÑ‚Ñ€Ñ�Ð½Ð°Ñ� Ð¼ÐµÐ»ÑŒÐ½Ð¸Ñ†Ð° Ð²Ñ‹Ñ�Ð¾ÐºÐ¾Ð³Ð¾ Ð½Ð°Ð¿Ñ€Ñ�Ð¶ÐµÐ½Ð¸Ñ�
+tile.compactwindmills:windmill.name.EV.name=Ð’ÐµÑ‚Ñ€Ñ�Ð½Ð°Ñ� Ð¼ÐµÐ»ÑŒÐ½Ð¸Ñ†Ð° Ñ�ÐºÑ�Ñ‚Ñ€ÐµÐ¼Ð°Ð»ÑŒÐ½Ð¾Ð³Ð¾ Ð½Ð°Ð¿Ñ€Ñ�Ð¶ÐµÐ½Ð¸Ñ�
 
 
-info.compactwindmills:tooltip.ticksleft=%s тактов осталось этому ротору.
-info.compactwindmills:tooltip.timeleft=%s часов, %s минут и %s секунд
-info.compactwindmills:tooltip.infinite=Бесконечно
-info.compactwindmills:tooltip.efficiency=Эффективность: %s
+info.compactwindmills:tooltip.ticksleft=%s Ñ‚Ð°ÐºÑ‚Ð¾Ð² Ð¾Ñ�Ñ‚Ð°Ð»Ð¾Ñ�ÑŒ Ñ�Ñ‚Ð¾Ð¼Ñƒ Ñ€Ð¾Ñ‚Ð¾Ñ€Ñƒ.
+info.compactwindmills:tooltip.timeleft=%s Ñ‡Ð°Ñ�Ð¾Ð², %s Ð¼Ð¸Ð½ÑƒÑ‚ Ð¸ %s Ñ�ÐµÐºÑƒÐ½Ð´
+info.compactwindmills:tooltip.infinite=Ð‘ÐµÑ�ÐºÐ¾Ð½ÐµÑ‡Ð½Ð¾
+info.compactwindmills:tooltip.efficiency=Ð­Ñ„Ñ„ÐµÐºÑ‚Ð¸Ð²Ð½Ð¾Ñ�Ñ‚ÑŒ: %s
 
-info.compactwindmills:gui.rotor=Ротор:
-info.compactwindmills:gui.output=Текущий выход: %s еЭ/т
+info.compactwindmills:gui.rotor=Ð Ð¾Ñ‚Ð¾Ñ€:
+info.compactwindmills:gui.output=Ð¢ÐµÐºÑƒÑ‰Ð¸Ð¹ Ð²Ñ‹Ñ…Ð¾Ð´: %s ÐµÐ­/Ñ‚
 
-item.compactwindmills:rotor.WOOD=Деревянный ротор
-item.compactwindmills:rotor.WOOL=Тканевый ротор
-item.compactwindmills:rotor.CARBON=Углепластиковый ротор
-item.compactwindmills:rotor.ALLOY=Сверхпрочный ротор
-item.compactwindmills:rotor.IRIDIUM=Иридиевый ротор
+item.compactwindmills:rotor.WOOD.name=Ð”ÐµÑ€ÐµÐ²Ñ�Ð½Ð½Ñ‹Ð¹ Ñ€Ð¾Ñ‚Ð¾Ñ€
+item.compactwindmills:rotor.WOOL.name=Ð¢ÐºÐ°Ð½ÐµÐ²Ñ‹Ð¹ Ñ€Ð¾Ñ‚Ð¾Ñ€
+item.compactwindmills:rotor.CARBON.name=Ð£Ð³Ð»ÐµÐ¿Ð»Ð°Ñ�Ñ‚Ð¸ÐºÐ¾Ð²Ñ‹Ð¹ Ñ€Ð¾Ñ‚Ð¾Ñ€
+item.compactwindmills:rotor.ALLOY.name=Ð¡Ð²ÐµÑ€Ñ…Ð¿Ñ€Ð¾Ñ‡Ð½Ñ‹Ð¹ Ñ€Ð¾Ñ‚Ð¾Ñ€
+item.compactwindmills:rotor.IRIDIUM.name=Ð˜Ñ€Ð¸Ð´Ð¸ÐµÐ²Ñ‹Ð¹ Ñ€Ð¾Ñ‚Ð¾Ñ€

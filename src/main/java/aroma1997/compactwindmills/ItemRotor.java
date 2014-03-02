@@ -38,6 +38,8 @@ public class ItemRotor extends Item implements IItemRotor {
 	
 	private boolean isInfinite;
 	
+	private RotorType type;
+	
 	public ItemRotor(RotorType type) {
 		super();
 		setMinMaxTier(type.typeMin, type.typeMax);
@@ -49,6 +51,7 @@ public class ItemRotor extends Item implements IItemRotor {
 		
 		setMaxStackSize(1);
 		setNoRepair();
+		this.type = type;
 	}
 	
 	@SuppressWarnings({"rawtypes", "unchecked"})
@@ -123,8 +126,7 @@ public class ItemRotor extends Item implements IItemRotor {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public ResourceLocation getRenderTexture() {
-		return new ResourceLocation(Reference.ModID + ":textures/renderers/"
-			+ this.getUnlocalizedName() + ".png");
+		return new ResourceLocation(type.getRenderTexture());
 	}
 	
 	@Override

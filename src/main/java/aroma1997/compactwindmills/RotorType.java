@@ -81,4 +81,9 @@ public enum RotorType {
 		return "compactwindmills:item." + unlocalizedName;
 	}
 	
+	public String getRenderTexture() {
+		return "compactwindmills:textures/renderers/item."
+				+ this.unlocalizedName + ".png";
+	}
+	
 }

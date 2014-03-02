@@ -401,7 +401,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 		int par1, int par2) {
 		gui.getFontRender().drawString("Rotor:", 40, 14, 0x404040);
 		gui.getFontRender().drawSplitString(StatCollector.translateToLocalFormatted("info.compactwindmills:gui.output", 
-				"" + getOutputUntilNexttTick()), 95, 15, 70, 0x404040);
+				"" + getOutputUntilNexttTick()), 95, 10, 70, 0x404040);
 		
 	}
 
@@ -424,7 +424,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 
 	@Override
 	public String getInventoryName() {
-		return type.getUnlocalizedName();
+		return type.getUnlocalizedName() + ".name";
 	}
 
 	@Override

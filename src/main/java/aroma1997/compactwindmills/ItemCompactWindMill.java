@@ -49,7 +49,7 @@ public class ItemCompactWindMill extends ItemBlock {
 	
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {
-		return WindType.values()[itemstack.getItemDamage()].name();
+		return WindType.values()[itemstack.getItemDamage()].getUnlocalizedName();
 	}
 	
 }

@@ -1,25 +1,25 @@
 #zh_CN
 
-creativetab.compactwindmills:creativetab.name=风力发电阵列
+creativetab.compactwindmills:creativetab.name=é£ŽåŠ›å�‘ç”µé˜µåˆ—
 
 
-tile.compactwindmills:windmill.name.ELV=超低压风力发电阵列
-tile.compactwindmills:windmill.name.LV=低压风力发电阵列
-tile.compactwindmills:windmill.name.MV=中压风力发电阵列
-tile.compactwindmills:windmill.name.HV=高压风力发电阵列
-tile.compactwindmills:windmill.name.EV=超高压风力发电阵列
+tile.compactwindmills:windmill.name.ELV.name=è¶…ä½ŽåŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
+tile.compactwindmills:windmill.name.LV.name=ä½ŽåŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
+tile.compactwindmills:windmill.name.MV.name=ä¸­åŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
+tile.compactwindmills:windmill.name.HV.name=é«˜åŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
+tile.compactwindmills:windmill.name.EV.name=è¶…é«˜åŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
 
 
-info.compactwindmills:tooltip.ticksleft=该转子还可继续使用%s ticks.
-info.compactwindmills:tooltip.timeleft=%s 时, %s 分, %s 秒
-info.compactwindmills:tooltip.infinite=无限
-info.compactwindmills:tooltip.efficiency=效率: %s
+info.compactwindmills:tooltip.ticksleft=è¯¥è½¬å­�è¿˜å�¯ç»§ç»­ä½¿ç”¨%s ticks.
+info.compactwindmills:tooltip.timeleft=%s æ—¶, %s åˆ†, %s ç§’
+info.compactwindmills:tooltip.infinite=æ— é™�
+info.compactwindmills:tooltip.efficiency=æ•ˆçŽ‡: %s
 
-info.compactwindmills:gui.rotor=转子:
-info.compactwindmills:gui.output=当前输出: %s EU/t
+info.compactwindmills:gui.rotor=è½¬å­�:
+info.compactwindmills:gui.output=å½“å‰�è¾“å‡º: %s EU/t
 
-item.compactwindmills:rotor.WOOD=木头转子
-item.compactwindmills:rotor.WOOL=羊毛转子
-item.compactwindmills:rotor.CARBON=碳转子
-item.compactwindmills:rotor.ALLOY=合金转子
-item.compactwindmills:rotor.IRIDIUM=铱转子
+item.compactwindmills:rotor.WOOD.name=æœ¨å¤´è½¬å­�
+item.compactwindmills:rotor.WOOL.name=ç¾Šæ¯›è½¬å­�
+item.compactwindmills:rotor.CARBON.name=ç¢³è½¬å­�
+item.compactwindmills:rotor.ALLOY.name=å�ˆé‡‘è½¬å­�
+item.compactwindmills:rotor.IRIDIUM.name=é“±è½¬å­�
