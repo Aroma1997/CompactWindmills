@@ -294,7 +294,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 			}
 			rotor.tickRotor(inventoryContent[0], this, worldObj);
 			if (!rotor.isInfinite() && damageRotor) {
-				if (inventoryContent[0].getItemDamage() + CompactWindmills.updateTick > inventoryContent[0].getMaxDamage()) {
+				if ((inventoryContent[0].getItemDamage() + CompactWindmills.updateTick) > inventoryContent[0].getMaxDamage()) {
 					inventoryContent[0] = null;
 				}
 				else {
@@ -440,5 +440,11 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	@Override
 	public void closeInventory() {
 		
+	}
+	
+	@Override
+	public void markDirty() {
+		super.markDirty();
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 }
