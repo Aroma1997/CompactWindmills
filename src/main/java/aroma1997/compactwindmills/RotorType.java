@@ -74,7 +74,11 @@ public enum RotorType {
 	}
 	
 	public String getUnlocalizedName() {
-		return "item.compactwindmills:rotor." + unlocalizedName;
+		return "compactwindmills:rotor." + name();
+	}
+	
+	public String getTextureName() {
+		return "compactwindmills:item." + unlocalizedName;
 	}
 	
 }

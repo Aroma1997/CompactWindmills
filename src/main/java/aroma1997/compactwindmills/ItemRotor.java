@@ -38,19 +38,17 @@ public class ItemRotor extends Item implements IItemRotor {
 	
 	private boolean isInfinite;
 	
-	private RotorType type;
-	
 	public ItemRotor(RotorType type) {
 		super();
 		setMinMaxTier(type.typeMin, type.typeMax);
 		setEfficiency(efficiency);
 		setMaxDamage(type.maxDamage);
 		setUnlocalizedName(type.getUnlocalizedName());
+		setTextureName(type.getTextureName());
 		setCreativeTab(CompactWindmills.creativeTabCompactWindmills);
 		
 		setMaxStackSize(1);
 		setNoRepair();
-		this.type = type;
 	}
 	
 	@SuppressWarnings({"rawtypes", "unchecked"})

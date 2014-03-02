@@ -91,10 +91,6 @@ public class CompactWindmills {
 		windMill = new BlockCompactWindmill();
 		
 		RotorType.initRotors();
-	}
-	
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
 		GameRegistry.registerBlock(windMill, ItemCompactWindMill.class, "blockCompactWindmill");
 		
 		for (RotorType rotor : RotorType.values()) {
@@ -103,6 +99,11 @@ public class CompactWindmills {
 		for (WindType typ : WindType.values()) {
 			GameRegistry.registerTileEntity(typ.claSS, typ.tileEntityName());
 		}
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event) {
+		
 		AromaRegistry.registerShapedAromicRecipe(new ItemStack(windMill, 1, WindType.ELV.ordinal()), false, " W ", "WTW", " W ", 'W',
 			IC2Items.getItem("windMill"), 'T', IC2Items.getItem("lvTransformer"));
 		AromaRegistry.registerShapedAromicRecipe(new ItemStack(windMill, 1, WindType.LV.ordinal()), false, " W ", "WTW", " W ", 'W',
