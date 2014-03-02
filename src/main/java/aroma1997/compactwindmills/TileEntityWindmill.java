@@ -15,29 +15,25 @@ import ic2.api.energy.tile.IEnergySource;
 import ic2.api.tile.IWrenchable;
 
 import java.util.Random;
-import java.util.logging.Level;
-
-import aroma1997.compactwindmills.helpers.LogHelper;
-import aroma1997.core.client.inventories.GUIContainer;
-import aroma1997.core.inventories.AromaContainer;
-import aroma1997.core.inventories.ContainerBasic;
-import aroma1997.core.inventories.ISpecialInventory;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
-import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.MinecraftForge;
-
+import net.minecraftforge.common.util.ForgeDirection;
+import aroma1997.core.client.inventories.GUIContainer;
+import aroma1997.core.inventories.AromaContainer;
+import aroma1997.core.inventories.ContainerBasic;
+import aroma1997.core.inventories.ISpecialInventory;
+import aroma1997.core.log.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -109,11 +105,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	private short prevFacing = 2;
 	
 	@Override
-	public void closeChest() {
-		return;
-	}
-	
-	@Override
 	public ItemStack decrStackSize(int par1, int par2) {
 		if (inventoryContent[par1] != null) {
 			ItemStack itemstack;
@@ -121,7 +112,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 			if (inventoryContent[par1].stackSize <= par2) {
 				itemstack = inventoryContent[par1];
 				inventoryContent[par1] = null;
-				onInventoryChanged();
+				markDirty();
 				return itemstack;
 			}
 			else {
@@ -131,7 +122,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 					inventoryContent[par1] = null;
 				}
 				
-				onInventoryChanged();
+				markDirty();
 				return itemstack;
 			}
 		}
@@ -148,7 +139,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	public Packet getDescriptionPacket() {
 		NBTTagCompound nbtTag = new NBTTagCompound();
 		writeToNBT(nbtTag);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, nbtTag);
+		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbtTag);
 	}
 	
 	@Override
@@ -159,11 +150,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	@Override
 	public int getInventoryStackLimit() {
 		return 1;
-	}
-	
-	@Override
-	public String getInvName() {
-		return type.getShowedName();
 	}
 	
 	public int getOutputUntilNexttTick() {
@@ -216,11 +202,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	}
 	
 	@Override
-	public boolean isInvNameLocalized() {
-		return false;
-	}
-	
-	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
 		if (itemStack == null) {
 			return false;
@@ -238,22 +219,17 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	}
 	
 	@Override
-	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
-		readFromNBT(packet.data);
-	}
-	
-	@Override
-	public void openChest() {
-		return;
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+		readFromNBT(packet.func_148857_g());
 	}
 	
 	@Override
 	public void readFromNBT(NBTTagCompound nBTTagCompound) {
 		super.readFromNBT(nBTTagCompound);
-		NBTTagList nBTTagList = nBTTagCompound.getTagList("Items");
+		NBTTagList nBTTagList = nBTTagCompound.getTagList("Items", new NBTTagCompound().getId());
 		inventoryContent = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nBTTagList.tagCount(); i++) {
-			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList.tagAt(i);
+			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList.getCompoundTagAt(i);
 			int slotNumb = nBTTagCompoundTemp.getByte("Slot") & 0xff;
 			if (slotNumb >= 0 && slotNumb < inventoryContent.length) {
 				inventoryContent[slotNumb] = ItemStack.loadItemStackFromNBT(nBTTagCompoundTemp);
@@ -269,7 +245,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 			return;
 		}
 		this.facing = facing;
-		LogHelper.debugLog(Level.INFO, "Setting Windmill to facing:" + facing);
+		LogHelper.debugLog("Setting Windmill to facing:" + facing);
 		
 		if (prevFacing != facing) {
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -284,7 +260,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit()) {
 			itemstack.stackSize = getInventoryStackLimit();
 		}
-		onInventoryChanged();
+		markDirty();
 	}
 	
 	private boolean damageRotor = false;
@@ -325,7 +301,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 					int damage = inventoryContent[0].getItemDamage() + CompactWindmills.updateTick;
 					inventoryContent[0].setItemDamage(damage);
 				}
-				onInventoryChanged();
+				markDirty();
 			}
 
 			damageRotor = false;
@@ -394,11 +370,6 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	}
 
 	@Override
-	public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
-		return true;
-	}
-
-	@Override
 	public double getOfferedEnergy() {
 		return this.getOutputUntilNexttTick();
 	}
@@ -444,5 +415,30 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	@Override
 	public AromaContainer getContainer(EntityPlayer player, int i) {
 		return new ContainerBasic(player.inventory, this);
+	}
+
+	@Override
+	public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
+		return true;
+	}
+
+	@Override
+	public String getInventoryName() {
+		return type.getUnlocalizedName();
+	}
+
+	@Override
+	public boolean hasCustomInventoryName() {
+		return false;
+	}
+
+	@Override
+	public void openInventory() {
+		
+	}
+
+	@Override
+	public void closeInventory() {
+		
 	}
 }

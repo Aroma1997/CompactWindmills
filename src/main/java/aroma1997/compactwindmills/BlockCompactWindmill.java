@@ -11,22 +11,23 @@ package aroma1997.compactwindmills;
 
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 
-import aroma1997.compactwindmills.helpers.LogHelper;
-import aroma1997.core.inventories.Inventories;
-
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import org.apache.logging.log4j.Level;
+
+import aroma1997.core.inventories.Inventories;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -40,23 +41,19 @@ public class BlockCompactWindmill extends BlockContainer {
 	public static final int[][] sideAndMetaToTextureNumber = { {0, 0, 0, 0, 0, 0}, {1, 2, 1, 1, 1, 1}, {3, 3, 2, 3, 3, 3}, {3, 3, 3, 2, 3, 3}, {3, 3, 3, 3, 2, 3}, {3, 3, 3, 3, 3, 2}};
 	
 	@SideOnly(Side.CLIENT)
-	private Icon[][] textures;
+	private IIcon[][] textures;
 	
-	public BlockCompactWindmill(int id) {
-		super(id, Material.iron);
-		setUnlocalizedName("compactWindmill");
+	public BlockCompactWindmill() {
+		super(Material.iron);
+		setBlockName("compactwindmills:compactWindmill");
 		setHardness(2.0F);
+		setBlockTextureName("compactwindmills:compactWindmill");
 		setCreativeTab(CompactWindmills.creativeTabCompactWindmills);
 		
 	}
-	
+
 	@Override
-	public TileEntity createNewTileEntity(World world) {
-		return null;
-	}
-	
-	@Override
-	public TileEntity createTileEntity(World world, int metadata) {
+	public TileEntity createNewTileEntity(World var1, int metadata) {
 		return WindType.makeTileEntity(metadata);
 	}
 	
@@ -67,19 +64,17 @@ public class BlockCompactWindmill extends BlockContainer {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTexture(IBlockAccess iBlockAccess, int x, int y, int z, int side) {
+	public IIcon getIcon(IBlockAccess iBlockAccess, int x, int y, int z, int side)
+    {
 		int facing = getFacing(iBlockAccess, x, y, z);
 		int meta = iBlockAccess.getBlockMetadata(x, y, z);
 		int textureIndex = sideAndMetaToTextureNumber[side][facing];
 		
-		if (meta >= textures.length) {
-			return null;
-		}
 		try {
 			return textures[meta][textureIndex];
 		}
 		catch (Exception e) {
-			LogHelper.log(Level.WARNING, "Failed to get texture at: x=" + x + "; y=" + y + "; z="
+			CompactWindmills.instance.windMillLog.log(Level.WARN, "Failed to get texture at: x=" + x + "; y=" + y + "; z="
 				+ z + "; facing=" + facing + "; side=" + side + "; meta=" + meta + ";");
 		}
 		
@@ -87,13 +82,13 @@ public class BlockCompactWindmill extends BlockContainer {
 	}
 	
 	public int getFacing(IBlockAccess iBlockAccess, int x, int y, int z) {
-		TileEntity tileEntity = iBlockAccess.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = iBlockAccess.getTileEntity(x, y, z);
 		
 		if (tileEntity instanceof TileEntityWindmill) {
 			return ((TileEntityWindmill) tileEntity).getFacing();
 		}
 		
-		LogHelper.log(Level.WARNING, "Failed to get Facing at: x=" + x + "; y=" + y + "; z=" + z
+		CompactWindmills.instance.windMillLog.log(Level.WARN, "Failed to get Facing at: x=" + x + "; y=" + y + "; z=" + z
 			+ ";");
 		
 		return 4;
@@ -101,7 +96,7 @@ public class BlockCompactWindmill extends BlockContainer {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int meta) {
+	public IIcon getIcon(int side, int meta) {
 		if (meta > WindType.values().length) {
 			return null;
 		}
@@ -111,7 +106,7 @@ public class BlockCompactWindmill extends BlockContainer {
 			return textures[meta][textureIndex];
 		}
 		catch (Exception e) {
-			LogHelper.log(Level.WARNING, "Failed to get texture at: side=" + side + "; meta="
+			CompactWindmills.instance.windMillLog.log(Level.WARN, "Failed to get texture at: side=" + side + "; meta="
 				+ meta + ";");
 		}
 		
@@ -121,15 +116,11 @@ public class BlockCompactWindmill extends BlockContainer {
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List itemList) {
+	public void getSubBlocks(Item item, CreativeTabs creativetab, List itemList)
+    {
 		for (WindType type : WindType.values()) {
 			itemList.add(new ItemStack(this, 1, type.ordinal()));
 		}
-	}
-	
-	@Override
-	public int idDropped(int meta, Random random, int id) {
-		return blockID;
 	}
 	
 	@Override
@@ -138,7 +129,7 @@ public class BlockCompactWindmill extends BlockContainer {
 		if (thePlayer.isSneaking()) {
 			return false;
 		}
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = world.getTileEntity(x, y, z);
 		if (tileEntity == null) return false;
 		if (world.isRemote) return true;
 		Inventories.openContainerTileEntity(thePlayer, tileEntity, true);
@@ -152,8 +143,9 @@ public class BlockCompactWindmill extends BlockContainer {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister par1IconRegister) {
-		textures = new Icon[WindType.values().length][4];
+	public void registerBlockIcons(IIconRegister par1IconRegister)
+    {
+		textures = new IIcon[WindType.values().length][4];
 		for (WindType type : WindType.values()) {
 			for (int side = 0; side < 4; side++) {
 				String sideName = side == 0 ? "bottom" : side == 1 ? "top"
@@ -167,7 +159,7 @@ public class BlockCompactWindmill extends BlockContainer {
 	}
 	
 	@Override
-	public void breakBlock(World world, int par2, int par3, int par4, int par5, int par6)
+	public void breakBlock(World world, int par2, int par3, int par4, Block par5, int par6)
 	{
 		super.breakBlock(world, par2, par3, par4, par5, par6);
 	}

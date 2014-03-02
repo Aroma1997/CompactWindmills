@@ -9,11 +9,13 @@
 package aroma1997.compactwindmills;
 
 
-import java.util.logging.Level;
-
-import aroma1997.compactwindmills.helpers.LogHelper;
+import net.minecraft.util.StatCollector;
 
 import net.minecraft.util.StatCollector;
+
+import org.apache.logging.log4j.Level;
+
+import aroma1997.core.log.LogHelper;
 
 import com.google.common.base.Throwables;
 
@@ -35,7 +37,7 @@ public enum WindType {
 			return tileEntity;
 		}
 		catch (Exception e) {
-			LogHelper.log(Level.WARNING, "Failed to Register Windmill: "
+			CompactWindmills.instance.windMillLog.log(Level.WARN, "Failed to Register Windmill: "
 				+ WindType.values()[metadata].name());
 			throw Throwables.propagate(e);
 		}
@@ -50,7 +52,6 @@ public enum WindType {
 	private WindType(int output,
 		Class<? extends TileEntityWindmill> claSS, int checkRadius) {
 		this.output = output;
-//		this.showedName = showedName;
 		this.claSS = claSS;
 		this.checkRadius = checkRadius;
 	}
@@ -59,8 +60,8 @@ public enum WindType {
 		return "WindType." + name();
 	}
 	
-	public String getShowedName() {
-		return StatCollector.translateToLocal("tile.compactwindmills:windmill.name." + name());
+	public String getUnlocalizedName() {
+		return "tile.compactwindmills:windmill.name." + name();
 	}
 	
 }

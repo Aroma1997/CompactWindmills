@@ -10,6 +10,7 @@ package aroma1997.compactwindmills;
 
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.relauncher.Side;
@@ -22,13 +23,8 @@ import cpw.mods.fml.relauncher.SideOnly;
  */
 public class CreativeTabCompactWindmills extends CreativeTabs {
 	
-	public CreativeTabCompactWindmills(String name) {
-		super(name);
-	}
-	
-	@Override
-	public ItemStack getIconItemStack() {
-		return new ItemStack(CompactWindmills.windMill);
+	public CreativeTabCompactWindmills() {
+		super("compactWindmills");
 	}
 	
 	@SideOnly(Side.CLIENT)
@@ -37,5 +33,11 @@ public class CreativeTabCompactWindmills extends CreativeTabs {
     {
         return "creativetab.compactwindmills:creativetab.name";
     }
+
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Item getTabIconItem() {
+		return RotorType.WOOL.getItem();
+	}
 	
 }

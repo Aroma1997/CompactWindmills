@@ -79,7 +79,7 @@ public class WindmillRenderer extends TileEntitySpecialRenderer {
 		GL11.glPushMatrix();
 		GL11.glTranslatef((float) posX, (float) posY, (float) posZ);
 		TileEntityWindmill tileEntityWindmill = (TileEntityWindmill) tileEntity;
-		renderBlockRotor(tileEntityWindmill, tileEntity.worldObj, tileEntity.xCoord,
+		renderBlockRotor(tileEntityWindmill, tileEntity.getWorldObj(), tileEntity.xCoord,
 			tileEntity.yCoord, tileEntity.zCoord, CompactWindmills.windMill);
 		GL11.glPopMatrix();
 	}

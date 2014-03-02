@@ -11,14 +11,15 @@ package aroma1997.compactwindmills;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import aroma1997.core.items.CreativeTabAroma;
+
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -39,9 +40,14 @@ public class ItemRotor extends Item implements IItemRotor {
 	
 	private RotorType type;
 	
-	public ItemRotor(int id, RotorType type) {
-		super(id + Reference.ItemIDDifference);
+	public ItemRotor(RotorType type) {
+		super();
+		setMinMaxTier(type.typeMin, type.typeMax);
+		setEfficiency(efficiency);
+		setMaxDamage(type.maxDamage);
+		setUnlocalizedName(type.getUnlocalizedName());
 		setCreativeTab(CompactWindmills.creativeTabCompactWindmills);
+		
 		setMaxStackSize(1);
 		setNoRepair();
 		this.type = type;
@@ -89,9 +95,9 @@ public class ItemRotor extends Item implements IItemRotor {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister) {
+	public void registerIcons(IIconRegister iconRegister) {
 		
-		itemIcon = iconRegister.registerIcon(Reference.ModID + ":" + this.getUnlocalizedName());
+		super.registerIcons(iconRegister);
 	}
 	
 	public ItemRotor setEfficiency(float efficiency) {
@@ -135,11 +141,6 @@ public class ItemRotor extends Item implements IItemRotor {
 	@Override
 	public void tickRotor(ItemStack rotor, TileEntityWindmill tileEntity, World worldObj) {
 		return;
-	}
-	
-	@Override
-	public String getItemDisplayName(ItemStack par1ItemStack) {
-		return type.getShowedName();
 	}
 	
 }

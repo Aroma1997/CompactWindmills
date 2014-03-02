@@ -9,11 +9,9 @@
 package aroma1997.compactwindmills;
 
 
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 import aroma1997.compactwindmills.rotors.WindmillRenderer;
-
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
-
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

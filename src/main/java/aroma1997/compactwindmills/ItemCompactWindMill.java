@@ -11,6 +11,7 @@ package aroma1997.compactwindmills;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -22,8 +23,8 @@ import net.minecraft.item.ItemStack;
  */
 public class ItemCompactWindMill extends ItemBlock {
 	
-	public ItemCompactWindMill(int id) {
-		super(id);
+	public ItemCompactWindMill(Block block) {
+		super(block);
 		setMaxDamage(0);
 		setHasSubtypes(true);
 	}
@@ -34,11 +35,6 @@ public class ItemCompactWindMill extends ItemBlock {
 		List par3List, boolean par4) {
 		par3List.add("Max. Output: " + WindType.values()[par1ItemStack.getItemDamage()].output
 			+ "EU/t");
-	}
-	
-	@Override
-	public String getItemDisplayName(ItemStack par1ItemStack) {
-		return WindType.values()[par1ItemStack.getItemDamage()].getShowedName();
 	}
 	
 	@Override
