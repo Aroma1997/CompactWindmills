@@ -1,0 +1,15 @@
+LICENSE
+
+
+This program is published under the open source license GPL v3.0. (See: http://www.gnu.org/licenses/ ) except for the points stated in this file.
+You are allowed to modify this code and make the changes you want. You are allowed to give the changes you made back to the author, so he can include them in this program. You are allowed to make the modified versions public and redistribute them, if you give credit to the author of this program and your modified program is also open source.
+You are only allowed to distribute this program or parts of it, if you have the permission of the author.
+
+In this case:
+You are allowed to distribute this program in a modpack, if you have permission of the author.
+You are allowed to make videos including this program as long as you provide a link back to the page of this program (in this case the IC2 forums thread).
+You are allowed to include this program on a server, if this program is only distributed to the users on this server.
+
+
+"the program" in this case the CompactWindmills addon for IndustrialCraft2 for Minecraft.
+"the author" in this case Aroma1997 and others (See: https://minecraft.net/terms )
