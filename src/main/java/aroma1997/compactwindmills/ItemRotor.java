@@ -43,7 +43,7 @@ public class ItemRotor extends Item implements IItemRotor {
 	public ItemRotor(RotorType type) {
 		super();
 		setMinMaxTier(type.typeMin, type.typeMax);
-		setEfficiency(efficiency);
+		setEfficiency(type.efficiency);
 		setMaxDamage(type.maxDamage);
 		setUnlocalizedName(type.getUnlocalizedName());
 		setTextureName(type.getTextureName());
