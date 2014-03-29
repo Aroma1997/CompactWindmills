@@ -1,0 +1,23 @@
+creativetab.compactwindmills:creativetab.name=Kompaktsed Tuuleveskid
+
+
+tile.compactwindmills:windmill.name.ELV.name=Äärmiselt Madala Pingega Tuuleveski
+tile.compactwindmills:windmill.name.LV.name=Madala Pingega Tuuleveski
+tile.compactwindmills:windmill.name.MV.name=Keskmise Pingega Tuuleveski
+tile.compactwindmills:windmill.name.HV.name=Kõrge Pingega Tuuleveski
+tile.compactwindmills:windmill.name.EV.name=Ekstreemse Pingega Tuuleveski
+
+
+info.compactwindmills:tooltip.ticksleft=%s tikki jäänud üle sellel rootoril.
+info.compactwindmills:tooltip.timeleft=%s tundi, %s minutit ja %s sekundit
+info.compactwindmills:tooltip.infinite=Lõpmatu
+info.compactwindmills:tooltip.efficiency=Tõhusus: %s
+
+info.compactwindmills:gui.rotor=Rootor:
+info.compactwindmills:gui.output=Hetke Toodang: %s EU/t
+
+item.compactwindmills:rotor.WOOD.name=Puust Rootor
+item.compactwindmills:rotor.WOOL.name=Riidest Rootor
+item.compactwindmills:rotor.CARBON.name=Süsinikust Rootor
+item.compactwindmills:rotor.ALLOY.name=Sulamist Rootor
+item.compactwindmills:rotor.IRIDIUM.name=Iriidiumist Rootor
