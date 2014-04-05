@@ -13,6 +13,8 @@ public class RecipeInputItemStack implements IRecipeInput {
 	}
 
 	public RecipeInputItemStack(ItemStack aInput, int aAmount) {
+		if (aInput.getItem() == null) throw new IllegalArgumentException("Invalid item stack specfied");
+
 		input = aInput.copy(); // Never forget to copy.
 		amount = aAmount;
 	}
