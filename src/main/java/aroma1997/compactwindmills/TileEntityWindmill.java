@@ -442,6 +442,13 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 		
 	}
 	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public double getMaxRenderDistanceSquared()
+	{
+		return super.getMaxRenderDistanceSquared() * 16;
+	}
+	
 	@Override
 	public void markDirty() {
 		super.markDirty();
