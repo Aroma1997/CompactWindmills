@@ -1,25 +1,24 @@
-#zh_CN
 
-creativetab.compactwindmills:creativetab.name=é£ŽåŠ›å�‘ç”µé˜µåˆ—
-
-
-tile.compactwindmills:windmill.name.ELV.name=è¶…ä½ŽåŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
-tile.compactwindmills:windmill.name.LV.name=ä½ŽåŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
-tile.compactwindmills:windmill.name.MV.name=ä¸­åŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
-tile.compactwindmills:windmill.name.HV.name=é«˜åŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
-tile.compactwindmills:windmill.name.EV.name=è¶…é«˜åŽ‹é£ŽåŠ›å�‘ç”µé˜µåˆ—
+creativetab.compactwindmills:creativetab.name=高级风电阵列
 
 
-info.compactwindmills:tooltip.ticksleft=è¯¥è½¬å­�è¿˜å�¯ç»§ç»­ä½¿ç”¨%s ticks.
-info.compactwindmills:tooltip.timeleft=%s æ—¶, %s åˆ†, %s ç§’
-info.compactwindmills:tooltip.infinite=æ— é™�
-info.compactwindmills:tooltip.efficiency=æ•ˆçŽ‡: %s
+tile.compactwindmills:windmill.name.ELV.name=超低压风电阵列
+tile.compactwindmills:windmill.name.LV.name=低压风电阵列
+tile.compactwindmills:windmill.name.MV.name=中压风电阵列
+tile.compactwindmills:windmill.name.HV.name=高压风电阵列
+tile.compactwindmills:windmill.name.EV.name=超高压风电阵列
 
-info.compactwindmills:gui.rotor=è½¬å­�:
-info.compactwindmills:gui.output=å½“å‰�è¾“å‡º: %s EU/t
 
-item.compactwindmills:rotor.WOOD.name=æœ¨å¤´è½¬å­�
-item.compactwindmills:rotor.WOOL.name=ç¾Šæ¯›è½¬å­�
-item.compactwindmills:rotor.CARBON.name=ç¢³è½¬å­�
-item.compactwindmills:rotor.ALLOY.name=å�ˆé‡‘è½¬å­�
-item.compactwindmills:rotor.IRIDIUM.name=é“±è½¬å­�
+info.compactwindmills:tooltip.ticksleft=%s ticks 此转子剩余.
+info.compactwindmills:tooltip.timeleft=%s 小时, %s 分钟 and %s 秒
+info.compactwindmills:tooltip.infinite=无限
+info.compactwindmills:tooltip.efficiency=效率: %s
+
+info.compactwindmills:gui.rotor=转子:
+info.compactwindmills:gui.output=当前输出: %s EU/t
+
+item.compactwindmills:rotor.WOOD.name=木制转子
+item.compactwindmills:rotor.WOOL.name=布制转子
+item.compactwindmills:rotor.CARBON.name=碳转子
+item.compactwindmills:rotor.ALLOY.name=合金转子
+item.compactwindmills:rotor.IRIDIUM.name=铱转子
