@@ -33,6 +33,7 @@ import aroma1997.core.client.inventories.GUIContainer;
 import aroma1997.core.inventories.AromaContainer;
 import aroma1997.core.inventories.ContainerBasic;
 import aroma1997.core.inventories.ISpecialInventory;
+import aroma1997.core.items.wrench.IAromaWrenchable;
 import aroma1997.core.log.LogHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -42,7 +43,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @author Aroma1997
  * 
  */
-public class TileEntityWindmill extends TileEntity implements IEnergySource, IWrenchable, ISpecialInventory {
+public class TileEntityWindmill extends TileEntity implements IEnergySource, IWrenchable, ISpecialInventory, IAromaWrenchable {
 	
 	public TileEntityWindmill() {
 		this(WindType.ELV);
@@ -252,6 +253,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 		}
 		
 		prevFacing = facing;
+		worldObj.addBlockEvent(xCoord, yCoord, zCoord, getBlockType(), 0, this.facing);
 	}
 	
 	@Override
@@ -453,5 +455,35 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 	public void markDirty() {
 		super.markDirty();
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	}
+
+	@Override
+	public boolean onWrenchUsed(ItemStack wrench, EntityPlayer player,
+			ForgeDirection side) {
+		if (wrenchCanSetFacing(player, (side.ordinal() + 2) % 6)) {
+			setFacing((short) ((side.ordinal() + 2) % 6));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean canPickup(ItemStack wrench, EntityPlayer player,
+			ForgeDirection side) {
+		return true;
+	}
+
+	@Override
+	public ItemStack shouldBeExact() {
+		return getWrenchDrop(null);
+	}
+	
+	@Override
+	public boolean receiveClientEvent(int arg, int value) {
+		if (arg == 0) {
+			facing = (short) value;
+			return true;
+		}
+		return false;
 	}
 }
