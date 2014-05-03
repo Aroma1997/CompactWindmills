@@ -1,0 +1,23 @@
+creativetab.compactwindmills:creativetab.name=KompakteVindMøller
+
+
+tile.compactwindmills:windmill.name.ELV.name=Ekstrem Lavspennings Vindmølle
+tile.compactwindmills:windmill.name.LV.name=Lavspennings Vindmølle
+tile.compactwindmills:windmill.name.MV.name=Medium Spent Vindmølle
+tile.compactwindmills:windmill.name.HV.name=Høyspent Vindmølle
+tile.compactwindmills:windmill.name.EV.name=Ekstremt Høyspent Vindmølle
+
+
+info.compactwindmills:tooltip.ticksleft=Det er %s ticks igjen på denne rotoren.
+info.compactwindmills:tooltip.timeleft=%s timer, %s minutter and %s sekunder
+info.compactwindmills:tooltip.infinite=Uendelig
+info.compactwindmills:tooltip.efficiency=Effektivitet: %s
+
+info.compactwindmills:gui.rotor=Rotor:
+info.compactwindmills:gui.output=Nåverende energistrøm: %s EU/t
+
+item.compactwindmills:rotor.WOOD.name=Tre Rotor
+item.compactwindmills:rotor.WOOL.name=Tøy Rotor
+item.compactwindmills:rotor.CARBON.name=Karbon Rotor
+item.compactwindmills:rotor.ALLOY.name=Legerings Rotor
+item.compactwindmills:rotor.IRIDIUM.name=Iridium Rotor
