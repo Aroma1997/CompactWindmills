@@ -157,11 +157,4 @@ public class BlockCompactWindmill extends BlockContainer {
 		}
 		
 	}
-	
-	@Override
-	public void breakBlock(World world, int par2, int par3, int par4, Block par5, int par6)
-	{
-		super.breakBlock(world, par2, par3, par4, par5, par6);
-		world.removeTileEntity(par2, par3, par4);
-	}
 }
