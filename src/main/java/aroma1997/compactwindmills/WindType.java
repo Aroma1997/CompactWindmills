@@ -9,13 +9,7 @@
 package aroma1997.compactwindmills;
 
 
-import net.minecraft.util.StatCollector;
-
-import net.minecraft.util.StatCollector;
-
 import org.apache.logging.log4j.Level;
-
-import aroma1997.core.log.LogHelper;
 
 import com.google.common.base.Throwables;
 

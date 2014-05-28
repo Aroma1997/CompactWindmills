@@ -11,8 +11,6 @@ package aroma1997.compactwindmills;
 
 import java.util.List;
 
-import aroma1997.core.items.CreativeTabAroma;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

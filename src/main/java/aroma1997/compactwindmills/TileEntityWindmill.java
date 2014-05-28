@@ -230,7 +230,7 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 		NBTTagList nBTTagList = nBTTagCompound.getTagList("Items", new NBTTagCompound().getId());
 		inventoryContent = new ItemStack[getSizeInventory()];
 		for (int i = 0; i < nBTTagList.tagCount(); i++) {
-			NBTTagCompound nBTTagCompoundTemp = (NBTTagCompound) nBTTagList.getCompoundTagAt(i);
+			NBTTagCompound nBTTagCompoundTemp = nBTTagList.getCompoundTagAt(i);
 			int slotNumb = nBTTagCompoundTemp.getByte("Slot") & 0xff;
 			if (slotNumb >= 0 && slotNumb < inventoryContent.length) {
 				inventoryContent[slotNumb] = ItemStack.loadItemStackFromNBT(nBTTagCompoundTemp);
