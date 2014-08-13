@@ -15,7 +15,7 @@ info.compactwindmills:tooltip.infinite=Бесконечно
 info.compactwindmills:tooltip.efficiency=Эффективность: %s
 
 info.compactwindmills:gui.rotor=Ротор:
-info.compactwindmills:gui.output=Текущий выход: %s еЭ/т
+info.compactwindmills:gui.output=Текущий выход: %s EU/т
 
 item.compactwindmills:rotor.WOOD=Деревянный ротор
 item.compactwindmills:rotor.WOOL=Тканевый ротор
