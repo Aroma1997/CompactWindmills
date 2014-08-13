@@ -34,6 +34,13 @@ public class RecipeInputItemStack implements IRecipeInput {
 		return Arrays.asList(input);
 	}
 
+	@Override
+	public String toString() {
+		ItemStack stack = input.copy();
+		input.stackSize = amount;
+		return "RInputItemStack<"+stack+">";
+	}
+
 	public final ItemStack input;
 	public final int amount;
 }
