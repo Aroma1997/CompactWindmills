@@ -486,4 +486,9 @@ public class TileEntityWindmill extends TileEntity implements IEnergySource, IWr
 		}
 		return false;
 	}
+
+	@Override
+	public int getSourceTier() {
+		return type.ordinal();
+	}
 }
