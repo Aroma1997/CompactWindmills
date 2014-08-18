@@ -39,7 +39,12 @@ public class WindmillRenderer extends TileEntitySpecialRenderer {
 		if (tileEntity.getRotor() == null) {
 			return;
 		}
-		model = new ModelRotor(tileEntity.getType().checkRadius);
+		
+		//Reason new Models get createt every Tick and that useing up Infinite Amount of Resources which will end up in Crash (Out of ram)
+		if(model == null || model.getCurrentSize() != tileEntity.getType().checkRadius)
+		{
+			model = new ModelRotor(tileEntity.getType().checkRadius);
+		}
 		Tessellator tessellator = Tessellator.instance;
 		float brightness = world.getBlockLightValue(posX, posY, posZ);
 		int skyBrightness = world.getLightBrightnessForSkyBlocks(posX, posY + 1,
