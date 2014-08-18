@@ -35,8 +35,11 @@ public class ModelRotor extends ModelBase
 	
 	ModelRenderer arm8;
 	
+	int currentSize;
+	
 	public ModelRotor(int radius)
 	{
+		currentSize = radius;
 		textureWidth = 32;
 		textureHeight = 256;
 		
@@ -103,6 +106,11 @@ public class ModelRotor extends ModelBase
 		arm6.render(f5);
 		arm7.render(f5);
 		arm8.render(f5);
+	}
+	
+	public int getCurrentSize()
+	{
+		return currentSize;
 	}
 	
 	private void setRotation(ModelRenderer model, float x, float y, float z)
