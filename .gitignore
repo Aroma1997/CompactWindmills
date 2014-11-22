@@ -6,3 +6,6 @@ eclipse
 lib
 .classpath
 .project
+
+#mac
+.DS_Store
