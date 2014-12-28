@@ -2,11 +2,11 @@
 creativetab.compactwindmills:creativetab.name=CompactWindmills
 
 
-tile.compactwindmills:windmill.name.ELV=Ветрогенератор сверхнизкого напряжения
-tile.compactwindmills:windmill.name.LV=Ветрогенератор низкого напряжения
-tile.compactwindmills:windmill.name.MV=Ветрогенератор среднего напряжения
-tile.compactwindmills:windmill.name.HV=Ветрогенератор высокого напряжения
-tile.compactwindmills:windmill.name.EV=Ветрогенератор экстремального напряжения
+tile.compactwindmills:windmill.name.ELV.name=Ветрогенератор сверхнизкого напряжения
+tile.compactwindmills:windmill.name.LV.name=Ветрогенератор низкого напряжения
+tile.compactwindmills:windmill.name.MV.name=Ветрогенератор среднего напряжения
+tile.compactwindmills:windmill.name.HV.name=Ветрогенератор высокого напряжения
+tile.compactwindmills:windmill.name.EV.name=Ветрогенератор экстремального напряжения
 
 
 info.compactwindmills:tooltip.ticksleft=%s тактов осталось этому ротору.
@@ -17,8 +17,8 @@ info.compactwindmills:tooltip.efficiency=Эффективность: %s
 info.compactwindmills:gui.rotor=Ротор:
 info.compactwindmills:gui.output=Текущий выход: %s EU/т
 
-item.compactwindmills:rotor.WOOD=Деревянный ротор
-item.compactwindmills:rotor.WOOL=Тканевый ротор
-item.compactwindmills:rotor.CARBON=Углепластиковый ротор
-item.compactwindmills:rotor.ALLOY=Сверхпрочный ротор
-item.compactwindmills:rotor.IRIDIUM=Иридиевый ротор
+item.compactwindmills:rotor.WOOD.name=Деревянный ротор
+item.compactwindmills:rotor.WOOL.name=Тканевый ротор
+item.compactwindmills:rotor.CARBON.name=Углепластиковый ротор
+item.compactwindmills:rotor.ALLOY.name=Сверхпрочный ротор
+item.compactwindmills:rotor.IRIDIUM.name=Иридиевый ротор
