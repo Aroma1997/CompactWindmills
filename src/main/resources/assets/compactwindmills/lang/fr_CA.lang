@@ -1,0 +1,24 @@
+
+creativetab.compactwindmills:creativetab.name=Compact Windmills
+
+
+tile.compactwindmills:windmill.name.ELV=Moulin à vent à extrême basse tension
+tile.compactwindmills:windmill.name.LV=Moulin à vent à basse tension
+tile.compactwindmills:windmill.name.MV=Moulin à vent à moyenne tension
+tile.compactwindmills:windmill.name.HV=Moulin à vent à haute tension
+tile.compactwindmills:windmill.name.EV=Moulin à vent à extrême haute tension
+
+
+info.compactwindmills:tooltip.ticksleft=%s tick(s) restants sur ce rotor.
+info.compactwindmills:tooltip.timeleft=%s heure(s), %s minute(s) et %s seconde(s).
+info.compactwindmills:tooltip.infinite=Infini
+info.compactwindmills:tooltip.efficiency=Efficacité : %s
+
+info.compactwindmills:gui.rotor=Rotor :
+info.compactwindmills:gui.output=Sortie actuelle : %s EU/t
+
+item.compactwindmills:rotor.WOOD=Rotor de bois
+item.compactwindmills:rotor.WOOL=Rotor de laine
+item.compactwindmills:rotor.CARBON=Rotor de carbone
+item.compactwindmills:rotor.ALLOY=Rotor d'alliage
+item.compactwindmills:rotor.IRIDIUM=Rotor d'iridium
